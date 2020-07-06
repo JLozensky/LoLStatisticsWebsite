@@ -18,13 +18,6 @@ public class SummonerStats {
 	private int kills;
 	private int deaths;
 	private int assists;
-	private int largestKillingSpree;
-	private int longestTimeSpentLiving;
-	private int doubleKills;
-	private int tripleKills;
-	private int quadraKills;
-	private int pentaKills;
-	private int unrealKills;
 	private int totalDamageDealt;
 	private int magicDamageDealt;
 	private int physicalDamageDealt;
@@ -96,9 +89,6 @@ public class SummonerStats {
 	private int perk5Var3;
 	private int perkPrimaryStyle;
 	private int perkSubStyle;
-	private int statPerk0;
-	private int statPerk1;
-	private int statPerk2;
 	private int accountId;
 	
 	
@@ -145,13 +135,6 @@ public class SummonerStats {
 		this.kills = kills;
 		this.deaths = deaths;
 		this.assists = assists;
-		this.largestKillingSpree = largestKillingSpree;
-		this.longestTimeSpentLiving = longestTimeSpentLiving;
-		this.doubleKills = doubleKills;
-		this.tripleKills = tripleKills;
-		this.quadraKills = quadraKills;
-		this.pentaKills = pentaKills;
-		this.unrealKills = unrealKills;
 		this.totalDamageDealt = totalDamageDealt;
 		this.magicDamageDealt = magicDamageDealt;
 		this.physicalDamageDealt = physicalDamageDealt;
@@ -223,9 +206,6 @@ public class SummonerStats {
 		this.perk5Var3 = perk5Var3;
 		this.perkPrimaryStyle = perkPrimaryStyle;
 		this.perkSubStyle = perkSubStyle;
-		this.statPerk0 = statPerk0;
-		this.statPerk1 = statPerk1;
-		this.statPerk2 = statPerk2;
 		this.accountId = accountId;
 	}
 
@@ -357,61 +337,6 @@ public class SummonerStats {
 		this.assists = assists;
 	}
 
-	public int getLargestKillingSpree() {
-		return largestKillingSpree;
-	}
-
-	public void setLargestKillingSpree(int largestKillingSpree) {
-		this.largestKillingSpree = largestKillingSpree;
-	}
-
-	public int getLongestTimeSpentLiving() {
-		return longestTimeSpentLiving;
-	}
-
-	public void setLongestTimeSpentLiving(int longestTimeSpentLiving) {
-		this.longestTimeSpentLiving = longestTimeSpentLiving;
-	}
-
-	public int getDoubleKills() {
-		return doubleKills;
-	}
-
-	public void setDoubleKills(int doubleKills) {
-		this.doubleKills = doubleKills;
-	}
-
-	public int getTripleKills() {
-		return tripleKills;
-	}
-
-	public void setTripleKills(int tripleKills) {
-		this.tripleKills = tripleKills;
-	}
-
-	public int getQuadraKills() {
-		return quadraKills;
-	}
-
-	public void setQuadraKills(int quadraKills) {
-		this.quadraKills = quadraKills;
-	}
-
-	public int getPentaKills() {
-		return pentaKills;
-	}
-
-	public void setPentaKills(int pentaKills) {
-		this.pentaKills = pentaKills;
-	}
-
-	public int getUnrealKills() {
-		return unrealKills;
-	}
-
-	public void setUnrealKills(int unrealKills) {
-		this.unrealKills = unrealKills;
-	}
 
 	public int getTotalDamageDealt() {
 		return totalDamageDealt;
@@ -981,29 +906,6 @@ public class SummonerStats {
 		this.perkSubStyle = perkSubStyle;
 	}
 
-	public int getStatPerk0() {
-		return statPerk0;
-	}
-
-	public void setStatPerk0(int statPerk0) {
-		this.statPerk0 = statPerk0;
-	}
-
-	public int getStatPerk1() {
-		return statPerk1;
-	}
-
-	public void setStatPerk1(int statPerk1) {
-		this.statPerk1 = statPerk1;
-	}
-
-	public int getStatPerk2() {
-		return statPerk2;
-	}
-
-	public void setStatPerk2(int statPerk2) {
-		this.statPerk2 = statPerk2;
-	}
 
 	public int getAccountId() {
 		return accountId;
