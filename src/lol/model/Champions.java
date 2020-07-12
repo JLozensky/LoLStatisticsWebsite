@@ -14,7 +14,7 @@ public class Champions {
 	private int difficulty;
 	private double hp;
 	private double hpPerLevel;
-	private int mp;
+	private double mp;
 	private double mpPerLevel;
 	private int moveSpeed;
 	private double armor;
@@ -33,13 +33,13 @@ public class Champions {
 	private String passiveName;
 	private String passiveDescription;
 	
-	private enum championRole {
+	public enum championRole {
 		FIGHTER, MARKSMAN, SUPPORT, MAGE,ASSASSIN, TANK
 	}
 
 	public Champions(int championId, String name, String title, String lore, championRole championRole1,
 			championRole championRole2, int attack, int defense, int magic, int difficulty, double hp,
-			double hpPerLevel, int mp, double mpPerLevel, int moveSpeed, double armor, double armorPerLevel,
+			double hpPerLevel, double mp, double mpPerLevel, int moveSpeed, double armor, double armorPerLevel,
 			double spellBlock, double spellBlockPerLevel, int attackRange, double hpRegen, double hpRegenPerLevel,
 			double mpRegen, double mpRegenLevel, double attackDamage, double attackDamagePerLevel,
 			double attackSpeedPerLevel, double attackSpeed, String passiveName, String passiveDescription) {
@@ -171,7 +171,7 @@ public class Champions {
 		this.hpPerLevel = hpPerLevel;
 	}
 
-	public int getMp() {
+	public double getMp() {
 		return mp;
 	}
 
