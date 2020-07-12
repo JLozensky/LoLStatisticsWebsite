@@ -1,0 +1,329 @@
+CREATE SCHEMA IF NOT EXISTS LOL;
+USE LOL;
+
+DROP TABLE IF EXISTS SummonerStats;
+DROP TABLE IF EXISTS ParticipantIdentity;
+DROP TABLE IF EXISTS ChampionAdvice;
+DROP TABLE IF EXISTS Champions;
+DROP TABLE IF EXISTS Game;
+DROP TABLE IF EXISTS TeamStats;
+DROP TABLE IF EXISTS RuneData;
+DROP TABLE IF EXISTS Item;
+DROP TABLE IF EXISTS SummonerSpells;
+DROP TABLE IF EXISTS ItemStats;
+
+
+
+
+CREATE TABLE ItemStats (
+ itemStatsId INT AUTO_INCREMENT,
+ itemId INT,
+ statName VARCHAR(225),
+ value DECIMAL,
+ CONSTRAINT pk_ItemStats_itemStatsId PRIMARY KEY (itemStatsId)
+);
+
+CREATE TABLE SummonerSpells (
+ summonerSpellId INT AUTO_INCREMENT,
+ name VARCHAR(225),
+ description VARCHAR(225),
+ spellRange INT,
+ cooldown INT,
+ summonerLevel INT,
+ modesAvailable VARCHAR(225),
+ CONSTRAINT pk_SummonerSpells_summonerSpellId PRIMARY KEY (summonerSpellId)
+);
+
+CREATE TABLE Item (
+ itemId INT AUTO_INCREMENT,
+ name VARCHAR(225),
+ description VARCHAR(225),
+ plaintextDesc VARCHAR(225),
+ baseCost INT,
+ turchasable BOOLEAN,
+ totalCost INT,
+ sellPrice INT,
+ tags VARCHAR(225),
+ map11 BOOLEAN,
+ map12 BOOLEAN,
+ map22 BOOLEAN,
+ depth INT,
+ maxStack INT,
+ consumed BOOLEAN,
+ inStore BOOLEAN,
+ requiredChampion VARCHAR(225),
+ requiredAlly VARCHAR(225),
+ CONSTRAINT pk_Item_itemId PRIMARY KEY (itemId)
+);
+ 
+CREATE TABLE RuneData (
+ runeId INT AUTO_INCREMENT,
+ name VARCHAR(225),
+ pathName VARCHAR(225),
+ longDesc VARCHAR(225),
+ CONSTRAINT pk_RuneData_runeId PRIMARY KEY (runeId)
+);
+
+
+CREATE TABLE TeamStats (
+ statsId INT,
+ win BOOLEAN,
+ firstBlood BOOLEAN,
+ firstTower BOOLEAN,
+ firstInhibitor BOOLEAN,
+ firstBaron BOOLEAN,
+ firstDragon BOOLEAN,
+ firstRiftHerald BOOLEAN,
+ towerKills INT,
+ inhibitorKills INT,
+ baronKills INT,
+ dragonKills INT,
+ vilemawKills INT,
+ riftHeraldKills INT,
+ dominionVictoryScore  INT,
+ banOne INT,
+ banTwo INT,
+ banThree INT,
+ banFour INT,
+ banFive INT,
+ CONSTRAINT pk_TeamStats PRIMARY KEY (statsId)
+);
+
+CREATE TABLE Game (
+ gameId INT,
+ date VARCHAR(225),
+ gameDuration INT,
+ queueId INT,
+ mapId INT,
+ seasonId INT,
+ gameVersion INT,
+ gameMode INT,
+ team1 INT,
+ team2 INT,
+ CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId),
+ CONSTRAINT fk_Game_team1 FOREIGN KEY (team1)
+  REFERENCES TeamStats(statsId)
+  ON UPDATE CASCADE ON DELETE CASCADE,
+ CONSTRAINT fk_Game_team2 FOREIGN KEY (team2)
+  REFERENCES TeamStats(statsId)
+  ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE Champions (
+ championId INT AUTO_INCREMENT,
+ name VARCHAR(225),
+ title VARCHAR(225),
+ lore VARCHAR(225),
+ championRole1 ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
+ championRole2 ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
+ attack INT,
+ defense INT,
+ magic INT,
+ difficult INT,
+ hp DECIMAL,
+ hpPerLevel DECIMAL,
+ mp INT,
+ mpPerLevel DECIMAL,
+ moveSpeed INT,
+ armor DECIMAL,
+ armorPerLevel DECIMAL,
+ spellBlock DECIMAL,
+ spellBlockPerLevel DECIMAL,
+ attackRange INT,
+ hpRegen DECIMAL,
+ hpRegenPerLevel DECIMAL,
+ mpRegen DECIMAL,
+ mpRegenPerLevel DECIMAL,
+ attackDamage DECIMAL,
+ attackDamagePerLevel DECIMAL,
+ attackSpeedPerLevel DECIMAL,
+ attackSpeed DECIMAL,
+ passiveName VARCHAR(225),
+ passiveDescription VARCHAR(225),
+ CONSTRAINT pk_Champions_championId PRIMARY KEY (championId)
+);
+
+CREATE TABLE ChampionAdvice (
+ adviceId INT AUTO_INCREMENT,
+ championId INT,
+ allyAdvice VARCHAR(225),
+ enemyAdvice VARCHAR(225),
+ CONSTRAINT pk_ChampionAdvice_adviceId PRIMARY KEY (adviceId),
+ CONSTRAINT fk_ChampionAdvice_championId FOREIGN key (championId)
+  REFERENCES Champions (championId)
+  ON UPDATE CASCADE ON DELETE SET NULL
+);
+CREATE TABLE ParticipantIdentity (
+ accountId INT,
+ player VARCHAR(225),
+ summonerName VARCHAR(225),
+ summonerId VARCHAR(225),
+ currentPlatformId INT,
+ currentAccountId INT,
+ matchHistoryUri VARCHAR(225),
+ CONSTRAINT pk_ParticipantIdentity_accountId PRIMARY KEY (accountId)
+);
+
+CREATE TABLE SummonerStats (
+ summonerStatsId INT,
+ championId INT,
+ spell1Id INT,
+ spell2Id INT,
+ itemId0 INT,
+ itemId1 INT,
+ itemId2 INT,
+ itemId3 INT,
+ itemId4 INT,
+ itemId5 INT,
+ itemId6 INT,
+ kills INT,
+ deaths INT,
+ assists INT,
+ totalDamageDealt INT,
+ magicDamageDealt INT,
+ physicalDamageDealt INT,
+ trueDamageDealt INT,
+ largestCriticalStrike INT,
+ totalDamageDealtToChampions INT,
+ magicDamageDealtToChampions INT,
+ physicalDamageDealtToChampions INT,
+ trueDamageDealtToChampions INT,
+ totalHeal INT,
+ totalUnitsHealed INT,
+ damageSelfMitigated INT,
+ damageDealtToObjectives INT,
+ damageDealtToTurrets INT,
+ visionScore  INT,
+ timeCCingOthers INT,
+ totalDamageTaken INT,
+ magicalDamageTaken INT,
+ physicalDamageTaken INT,
+ trueDamageTaken INT,
+ goldEarned INT,
+ goldSpent INT,
+ turretKills INT,
+ totalMinionsKilled INT,
+ neutralMinionsKilled INT,
+ neutralMinionsKilledTeamJungle INT,
+ neutralMinionsKilledEnemyJungle INT,
+ totalTimeCrowdControlDealt INT,
+ champLevel INT,
+ visionWardsBoughtInGame INT,
+ sightWardsBoughtInGame INT,
+ wardsPlaced INT,
+ wardsKilled INT,
+ firstBloodKill BOOLEAN,
+ firstBloodAssist BOOLEAN,
+ firstTowerKill BOOLEAN,
+ firstTowerAssist BOOLEAN,
+ firstInhibitorKill BOOLEAN,
+ firstInhibitorAssist BOOLEAN,
+ combatPlayerScore INT,
+ objectivePlayerScore INT,
+ totalPlayerScore INT,
+ totalScoreRank INT,
+ role ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
+ lane ENUM ("TOP", "MIDDLE", "BOTTOM", "SUPPORT"),
+ perk0 INT,
+ perk0Var1 INT,
+ perk0Var2 INT,
+ perk0Var3 INT,
+ perk1 INT,
+ perk1Var1 INT,
+ perk1Var2 INT,
+ perk1Var3 INT,
+ perk2 INT,
+ perk2Var1 INT,
+ perk2Var2 INT,
+ perk2Var3 INT,
+ perk3 INT,
+ perk3Var1 INT,
+ perk3Var2 INT,
+ perk3Var3 INT,
+ perk4 INT,
+ perk4Var1 INT,
+ perk4Var2 INT,
+ perk4Var3 INT,
+ perk5 INT,
+ perk5Var1 INT,
+ perk5Var2 INT,
+ perk5Var3 INT,
+ perkPrimaryStyle INT,
+ perkSubStyle INT,
+ accountId INT,
+ CONSTRAINT pk_SummonerStats PRIMARY KEY (summonerStatsId),
+ CONSTRAINT fk_SummonerStats_championId FOREIGN KEY (championId)
+  REFERENCES Champions (championId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_spell1Id FOREIGN KEY (spell1Id)
+  REFERENCES SummonerSpells (summonerSpellId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_spell2Id FOREIGN KEY (spell2Id)
+  REFERENCES SummonerSpells (summonerSpellId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_SummonerStats_itemId0 FOREIGN KEY (itemId0)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId1 FOREIGN KEY (itemId1)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId2 FOREIGN KEY (itemId2)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId3 FOREIGN KEY (itemId3)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId4 FOREIGN KEY (itemId4)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId5 FOREIGN KEY (itemId5)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_itemId6 FOREIGN KEY (itemId6)
+  REFERENCES Item (itemId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk0 FOREIGN KEY (perk0)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk1 FOREIGN KEY (perk1)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk2 FOREIGN KEY (perk2)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk3 FOREIGN KEY (perk3)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk4 FOREIGN KEY (perk4)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_perk5 FOREIGN KEY (perk5)
+  REFERENCES RuneData(runeId)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_accountId FOREIGN KEY (accountId)
+  REFERENCES ParticipantIdentity(accountId)
+  ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
