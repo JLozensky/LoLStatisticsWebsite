@@ -2,9 +2,7 @@ package lol.model;
 
 public class SummonerStats {
 	
-	private int participantId;
-	private int gameId;
-	private int teamId;
+	private int summonerStatsId;
 	private int championId;
 	private int spell1Id;
 	private int spell2Id;
@@ -100,28 +98,24 @@ public class SummonerStats {
 		TOP, MIDDLE, BOTTOM, SUPPORT
 	}
 
-	public SummonerStats(int participantId, int gameId, int teamId, int championId, int spell1Id, int spell2Id,
-			int itemId0, int itemId1, int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills,
-			int deaths, int assists, int largestKillingSpree, int longestTimeSpentLiving, int doubleKills,
-			int tripleKills, int quadraKills, int pentaKills, int unrealKills, int totalDamageDealt,
-			int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt, int largestCriticalStrike,
-			int totalDamageDealtToChampions, int magicDamageDealtToChampions, int physicalDamageDealtToChampions,
-			int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed, int damageSelfMitigated,
-			int damageDealtToObjectives, int damageDealtToTurrets, int visionScore, int timeCCingOthers,
-			int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken, int trueDamageTaken, int goldEarned,
-			int goldSpent, int turrentKills, int totalMinionsKilled, int neutralMinionsKilled,
-			int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle, int totalTimeCrowdControlDealt,
-			int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGamel, int wardsPlaced, int wardsKilled,
-			boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill, boolean firstTowerKillAssist,
-			boolean firstInHibitor, boolean firstInHibitorAssist, int combatPlayerScore, int objectivePlayerScore,
-			int totalPlayerScore, int totalScoreRank, Role role, Lane lane, int perk0, int perk0Var1, int perk0Var2,
-			int perk0Var3, int perk1, int perk1Var1, int perk1Var2, int perk1Var3, int perk2, int perk2Var1,
-			int perk2Var2, int perk2Var3, int perk3, int perk3Var1, int perk3Var2, int perk3Var3, int perk4,
-			int perk4Var1, int perk4Var2, int perk4Var3, int perk5, int perk5Var1, int perk50Var2, int perk5Var3,
-			int perkPrimaryStyle, int perkSubStyle, int statPerk0, int statPerk1, int statPerk2, int accountId) {
-		this.participantId = participantId;
-		this.gameId = gameId;
-		this.teamId = teamId;
+	public SummonerStats(int summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0, int itemId1,
+			int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills, int deaths, int assists,
+			int totalDamageDealt, int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt,
+			int largestCriticalStrike, int totalDamageDealtToChampions, int magicDamageDealtToChampions,
+			int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
+			int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
+			int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
+			int trueDamageTaken, int goldEarned, int goldSpent, int turrentKills, int totalMinionsKilled,
+			int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
+			int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGamel,
+			int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
+			boolean firstTowerKillAssist, boolean firstInHibitor, boolean firstInHibitorAssist, int combatPlayerScore,
+			int objectivePlayerScore, int totalPlayerScore, int totalScoreRank, Role role, Lane lane, int perk0,
+			int perk0Var1, int perk0Var2, int perk0Var3, int perk1, int perk1Var1, int perk1Var2, int perk1Var3,
+			int perk2, int perk2Var1, int perk2Var2, int perk2Var3, int perk3, int perk3Var1, int perk3Var2,
+			int perk3Var3, int perk4, int perk4Var1, int perk4Var2, int perk4Var3, int perk5, int perk5Var1,
+			int perk50Var2, int perk5Var3, int perkPrimaryStyle, int perkSubStyle, int accountId) {
+		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
 		this.spell1Id = spell1Id;
 		this.spell2Id = spell2Id;
@@ -209,28 +203,12 @@ public class SummonerStats {
 		this.accountId = accountId;
 	}
 
-	public int getParticipantId() {
-		return participantId;
+	public int getSummonerStatsId() {
+		return summonerStatsId;
 	}
 
-	public void setParticipantId(int participantId) {
-		this.participantId = participantId;
-	}
-
-	public int getGameId() {
-		return gameId;
-	}
-
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
-	}
-
-	public int getTeamId() {
-		return teamId;
-	}
-
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
+	public void setSummonerStatsId(int summonerStatsId) {
+		this.summonerStatsId = summonerStatsId;
 	}
 
 	public int getChampionId() {
@@ -336,7 +314,6 @@ public class SummonerStats {
 	public void setAssists(int assists) {
 		this.assists = assists;
 	}
-
 
 	public int getTotalDamageDealt() {
 		return totalDamageDealt;
@@ -906,7 +883,6 @@ public class SummonerStats {
 		this.perkSubStyle = perkSubStyle;
 	}
 
-
 	public int getAccountId() {
 		return accountId;
 	}
@@ -915,6 +891,5 @@ public class SummonerStats {
 		this.accountId = accountId;
 	}
 	
-
 	
 }
