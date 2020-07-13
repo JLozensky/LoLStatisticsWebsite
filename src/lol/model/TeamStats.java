@@ -2,8 +2,7 @@ package lol.model;
 
 public class TeamStats {
 	
-	private int gameId;
-	private int teamId;
+	private int statsId;
 	private boolean win;
 	private boolean firstBoolean;
 	private boolean firstTower;
@@ -24,13 +23,13 @@ public class TeamStats {
 	private int banFour;
 	private int banFive;
 	
-	
-	public TeamStats(int gameId, int teamId, boolean win, boolean firstBoolean, boolean firstTower,
-			boolean firstInhibitor, boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills,
-			int inhibitorKills, int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills,
-			int dominionVictoryScore, int banOne, int banTwo, int banThree, int banFour, int banFive) {
-		this.gameId = gameId;
-		this.teamId = teamId;
+
+
+	public TeamStats(int statsId, boolean win, boolean firstBoolean, boolean firstTower, boolean firstInhibitor,
+			boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills, int inhibitorKills,
+			int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills, int dominionVictoryScore,
+			int banOne, int banTwo, int banThree, int banFour, int banFive) {
+		this.statsId = statsId;
 		this.win = win;
 		this.firstBoolean = firstBoolean;
 		this.firstTower = firstTower;
@@ -53,24 +52,20 @@ public class TeamStats {
 	}
 
 
-	public int getGameId() {
-		return gameId;
+
+
+	public int getStatsId() {
+		return statsId;
 	}
 
 
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
+
+
+	public void setStatsId(int statsId) {
+		this.statsId = statsId;
 	}
 
 
-	public int getTeamId() {
-		return teamId;
-	}
-
-
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
-	}
 
 
 	public boolean isWin() {
