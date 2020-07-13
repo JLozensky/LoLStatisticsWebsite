@@ -54,7 +54,7 @@ public class ChampionAdviceDao {
 
 		try {
 			connection = connectionManager.getConnection();
-			insertStmt = connection.prepareStatement(insertChampions);
+			insertStmt = connection.prepareStatement(insertChampions, Statement.RETURN_GENERATED_KEYS);
 			insertStmt.setInt(1, championAdvice.getChampionId());
 			insertStmt.setString(2, championAdvice.getAllyAdivce());
 			insertStmt.setString(3, championAdvice.getEnemyAdvice());			
