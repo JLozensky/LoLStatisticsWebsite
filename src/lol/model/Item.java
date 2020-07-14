@@ -7,7 +7,7 @@ public class Item {
 	private String description;
 	private String plainTextDesc;
 	private String baseCost;
-	private boolean turchasable;
+	private boolean purchasable;
 	private int totalCost;
 	private int sellPrice;
 	private String tags;
@@ -21,7 +21,7 @@ public class Item {
 	private String requiredChampion;
 	private String requiredAlly;
 	
-	public Item(int itemId, String name, String description, String plainTextDesc, String baseCost, boolean turchasable,
+	public Item(int itemId, String name, String description, String plainTextDesc, String baseCost, boolean purchasable,
 			int totalCost, int sellPrice, String tags, boolean map11, boolean map12, boolean map22, int depth,
 			int maxStack, boolean consumed, boolean inStore, String requiredChampion, String requiredAlly) {
 		this.itemId = itemId;
@@ -29,7 +29,7 @@ public class Item {
 		this.description = description;
 		this.plainTextDesc = plainTextDesc;
 		this.baseCost = baseCost;
-		this.turchasable = turchasable;
+		this.purchasable = purchasable;
 		this.totalCost = totalCost;
 		this.sellPrice = sellPrice;
 		this.tags = tags;
@@ -84,12 +84,12 @@ public class Item {
 		this.baseCost = baseCost;
 	}
 
-	public boolean isTurchasable() {
-		return turchasable;
+	public boolean isPurchasable() {
+		return purchasable;
 	}
 
-	public void setTurchasable(boolean turchasable) {
-		this.turchasable = turchasable;
+	public void setPurchasable(boolean purchasable) {
+		this.purchasable = purchasable;
 	}
 
 	public int getTotalCost() {
