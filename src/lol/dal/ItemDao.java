@@ -94,7 +94,7 @@ public class ItemDao {
 	 * @throws SQLException 
 	 */
 	public Item delete(Item item) throws SQLException {
-		String deleteItem = "DELETE FROM Item WHERE itemId=?;";
+		String deleteItem = "DELETE FROM Item WHERE temId=?;";
 		Connection connection = null;
 		PreparedStatement deleteStmt = null;
 		try {

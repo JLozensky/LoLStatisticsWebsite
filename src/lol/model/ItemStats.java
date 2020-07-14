@@ -3,14 +3,14 @@ package lol.model;
 public class ItemStats {
 	
 	private int itemStatsId;
-	private int itemId;
+	private Item item;
 	private String statName;
 	private double value;
 	
 	
-	public ItemStats(int itemStatsId, int itemId, String statName, double value) {
+	public ItemStats(int itemStatsId, Item item, String statName, double value) {
 		this.itemStatsId = itemStatsId;
-		this.itemId = itemId;
+		this.item = item;
 		this.statName = statName;
 		this.value = value;
 	}
@@ -26,13 +26,13 @@ public class ItemStats {
 	}
 
 
-	public int getItemId() {
-		return itemId;
+	public Item getItem() {
+		return item;
 	}
 
 
-	public void setItemId(int itemId) {
-		this.itemId = itemId;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 
