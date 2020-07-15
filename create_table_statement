@@ -12,9 +12,6 @@ DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS SummonerSpells;
 DROP TABLE IF EXISTS ItemStats;
 
-
-
-
 CREATE TABLE ItemStats (
  itemStatsId INT AUTO_INCREMENT,
  itemId INT,
@@ -86,6 +83,7 @@ CREATE TABLE TeamStats (
  banThree INT,
  banFour INT,
  banFive INT,
+ summonerStatsId INT,
  CONSTRAINT pk_TeamStats PRIMARY KEY (statsId)
 );
 
@@ -109,16 +107,13 @@ CREATE TABLE Game (
   ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-
-
 CREATE TABLE Champions (
  championId INT AUTO_INCREMENT,
  name VARCHAR(225),
  title VARCHAR(225),
  lore VARCHAR(225),
- championRole1 ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
- championRole2 ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
+ championRole1 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
+ championRole2 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
  attack INT,
  defense INT,
  magic INT,
@@ -225,8 +220,8 @@ CREATE TABLE SummonerStats (
  objectivePlayerScore INT,
  totalPlayerScore INT,
  totalScoreRank INT,
- role ENUM ("FIGHTER", "MAGE", "ASSASSIN", "TANK", "MARKSMAN", "SUPPORT"),
- lane ENUM ("TOP", "MIDDLE", "BOTTOM", "SUPPORT"),
+ role ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
+ lane ENUM ('TOP', 'MIDDLE', 'BOTTOM', 'SUPPORT'),
  perk0 INT,
  perk0Var1 INT,
  perk0Var2 INT,
@@ -254,6 +249,7 @@ CREATE TABLE SummonerStats (
  perkPrimaryStyle INT,
  perkSubStyle INT,
  accountId INT,
+ statsId INT,
  CONSTRAINT pk_SummonerStats PRIMARY KEY (summonerStatsId),
  CONSTRAINT fk_SummonerStats_championId FOREIGN KEY (championId)
   REFERENCES Champions (championId)
@@ -305,7 +301,10 @@ CONSTRAINT fk_SummonerStats_itemId0 FOREIGN KEY (itemId0)
   ON UPDATE CASCADE ON DELETE SET NULL,
  CONSTRAINT fk_SummonerStats_accountId FOREIGN KEY (accountId)
   REFERENCES ParticipantIdentity(accountId)
-  ON UPDATE CASCADE ON DELETE SET NULL
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ CONSTRAINT fk_SummonerStats_statsId FOREIGN KEY (statsId)
+  REFERENCES TeamStats(statsId)
+  ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

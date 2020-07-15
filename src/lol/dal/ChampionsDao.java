@@ -1,6 +1,8 @@
 package lol.dal;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import lol.model.*;
 
@@ -151,69 +153,159 @@ public class ChampionsDao {
 				+ "attackSpeed,attackSpeedPerLevel,passiveName,passiveDescription "
 				+ "FROM Champions "
 				+ "WHERE Champions.championId=?;";
-			Connection connection = null;
-			PreparedStatement selectStmt = null;
-			ResultSet results = null;
-			try {
-				connection = connectionManager.getConnection();
-				selectStmt = connection.prepareStatement(selectChampion);
-				selectStmt.setInt(1, id);
-				results = selectStmt.executeQuery();
-				if(results.next()) {
-					int resultID = results.getInt("championId");
-					String name = results.getString("name");
-					String title = results.getString("title");
-					String lore = results.getString("lore");
-					Champions.championRole championRole1 = Champions.championRole.valueOf(
-							results.getString("championRole1"));
-					Champions.championRole championRole2 = Champions.championRole.valueOf(
-							results.getString("championRole2"));
-					int attack = results.getInt("attack");
-					int defense = results.getInt("defense");
-					int magic = results.getInt("magic");
-					int difficulty = results.getInt("difficulty");
-					double hp = results.getDouble("hp");
-					double hpPerLevel = results.getDouble("hpPerLevel");
-					double mp = results.getDouble("mp");
-					double mpPerLevel = results.getDouble("mpPerLevel");
-					int moveSpeed = results.getInt("moveSpeed");
-					double armor = results.getDouble("armor");
-					double armorPerLevel = results.getDouble("armorPerLevel");
-					double spellBlock = results.getDouble("spellBlock");
-					double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
-					int attackRange = results.getInt("attackRange");
-					double hpRegen = results.getDouble("hpRegen");
-					double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
-					double mpRegen = results.getDouble("mpRegen");
-					double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
-					double attackDamage = results.getDouble("attackDamage");
-					double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
-					double attackSpeed = results.getDouble("attackSpeed");
-					double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
-					String passiveName = results.getString("passiveName");
-					String passiveDescription = results.getString("passiveDescription");
-					
-					Champions champion = new Champions(resultID, name, title, lore, championRole1,
-					 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
-					 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
-					 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription);
-					
-					return champion;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
-			} finally {
-				if(connection != null) {
-					connection.close();
-				}
-				if(selectStmt != null) {
-					selectStmt.close();
-				}
-				if(results != null) {
-					results.close();
-				}
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			selectStmt.setInt(1, id);
+			results = selectStmt.executeQuery();
+			if(results.next()) {
+				int resultID = results.getInt("championId");
+				String name = results.getString("name");
+				String title = results.getString("title");
+				String lore = results.getString("lore");
+				Champions.championRole championRole1 = Champions.championRole.valueOf(
+						results.getString("championRole1"));
+				Champions.championRole championRole2 = Champions.championRole.valueOf(
+						results.getString("championRole2"));
+				int attack = results.getInt("attack");
+				int defense = results.getInt("defense");
+				int magic = results.getInt("magic");
+				int difficulty = results.getInt("difficulty");
+				double hp = results.getDouble("hp");
+				double hpPerLevel = results.getDouble("hpPerLevel");
+				double mp = results.getDouble("mp");
+				double mpPerLevel = results.getDouble("mpPerLevel");
+				int moveSpeed = results.getInt("moveSpeed");
+				double armor = results.getDouble("armor");
+				double armorPerLevel = results.getDouble("armorPerLevel");
+				double spellBlock = results.getDouble("spellBlock");
+				double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
+				int attackRange = results.getInt("attackRange");
+				double hpRegen = results.getDouble("hpRegen");
+				double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
+				double mpRegen = results.getDouble("mpRegen");
+				double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
+				double attackDamage = results.getDouble("attackDamage");
+				double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
+				double attackSpeed = results.getDouble("attackSpeed");
+				double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
+				String passiveName = results.getString("passiveName");
+				String passiveDescription = results.getString("passiveDescription");
+				
+				Champions champion = new Champions(resultID, name, title, lore, championRole1,
+				 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
+				 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
+				 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription);
+				
+				return champion;
 			}
-			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+	
+	public List<Champions> getChampionsFromMatchOutcome(boolean isWin, int seasonId) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// gets the winning/losing champions for a particular season
+		String selectChampion =
+				"SELECT Champions.championId as championId,name,title,lore,"
+				+ "championRole1,championRole2,attack,defense,magic,difficulty,hp,"
+				+ "hpPerLevel,mp,mpPerLevel,moveSpeed,armor,armorPerLevel,spellBlock,"
+				+ "spellBlockPerLevel,attackRange,hpRegen,hpRegenPerLevel,mpRegen,"
+				+ "mpRegenPerLevel,attackDamage,attackDamagePerLevel,"
+				+ "attackSpeed,attackSpeedPerLevel,passiveName,passiveDescription,TeamStats.win,"
+				+ "Game.seasonId "
+				+ "FROM Champions "
+				+ "INNER JOIN SummonerStats "
+				+ "ON SummonerStats.championId=Champions.championId "
+				+ "INNER JOIN TeamStats "
+				+ "ON TeamStats.statsId=SummonerStats.summonerStatsId "
+				+ "LEFT OUTER JOIN Game "
+				+ "ON Game.team1=TeamStats.statId "
+				+ "LEFT OUTER JOIN Game "
+				+ "ON Game.team2=TeamStats.statId "
+				+ "WHERE TeamStats.win=? AND Game.seasonId=?;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			selectStmt.setBoolean(1, isWin);
+			selectStmt.setInt(2, seasonId);
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				int resultID = results.getInt("championId");
+				String name = results.getString("name");
+				String title = results.getString("title");
+				String lore = results.getString("lore");
+				Champions.championRole championRole1 = Champions.championRole.valueOf(
+						results.getString("championRole1"));
+				Champions.championRole championRole2 = Champions.championRole.valueOf(
+						results.getString("championRole2"));
+				int attack = results.getInt("attack");
+				int defense = results.getInt("defense");
+				int magic = results.getInt("magic");
+				int difficulty = results.getInt("difficulty");
+				double hp = results.getDouble("hp");
+				double hpPerLevel = results.getDouble("hpPerLevel");
+				double mp = results.getDouble("mp");
+				double mpPerLevel = results.getDouble("mpPerLevel");
+				int moveSpeed = results.getInt("moveSpeed");
+				double armor = results.getDouble("armor");
+				double armorPerLevel = results.getDouble("armorPerLevel");
+				double spellBlock = results.getDouble("spellBlock");
+				double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
+				int attackRange = results.getInt("attackRange");
+				double hpRegen = results.getDouble("hpRegen");
+				double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
+				double mpRegen = results.getDouble("mpRegen");
+				double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
+				double attackDamage = results.getDouble("attackDamage");
+				double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
+				double attackSpeed = results.getDouble("attackSpeed");
+				double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
+				String passiveName = results.getString("passiveName");
+				String passiveDescription = results.getString("passiveDescription");
+				
+				Champions champion = new Champions(resultID, name, title, lore, championRole1,
+				 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
+				 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
+				 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription);
+				
+				championList.add(champion);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
 	}
 }
