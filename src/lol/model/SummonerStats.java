@@ -38,7 +38,7 @@ public class SummonerStats {
 	private int trueDamageTaken;
 	private int goldEarned;
 	private int goldSpent;
-	private int turrentKills;
+	private int turretKills;
 	private int totalMinionsKilled;
 	private int neutralMinionsKilled;
 	private int neutralMinionsKilledTeamJungle;
@@ -90,11 +90,11 @@ public class SummonerStats {
 	private int accountId;
 	
 	
-	private enum Role {
+	public enum Role {
 		FIGHTER, MAGE, ASSASSIN, TANK, MARKSMAN, SUPPORT
 	}
 	
-	private enum Lane {
+	public enum Lane {
 		TOP, MIDDLE, BOTTOM, SUPPORT
 	}
 
@@ -105,7 +105,7 @@ public class SummonerStats {
 			int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
 			int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
 			int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
-			int trueDamageTaken, int goldEarned, int goldSpent, int turrentKills, int totalMinionsKilled,
+			int trueDamageTaken, int goldEarned, int goldSpent, int turretKills, int totalMinionsKilled,
 			int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
 			int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGamel,
 			int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
@@ -151,7 +151,7 @@ public class SummonerStats {
 		this.trueDamageTaken = trueDamageTaken;
 		this.goldEarned = goldEarned;
 		this.goldSpent = goldSpent;
-		this.turrentKills = turrentKills;
+		this.turretKills = turretKills;
 		this.totalMinionsKilled = totalMinionsKilled;
 		this.neutralMinionsKilled = neutralMinionsKilled;
 		this.neutralMinionsKilledTeamJungle = neutralMinionsKilledTeamJungle;
@@ -491,12 +491,12 @@ public class SummonerStats {
 		this.goldSpent = goldSpent;
 	}
 
-	public int getTurrentKills() {
-		return turrentKills;
+	public int getTurretKills() {
+		return turretKills;
 	}
 
-	public void setTurrentKills(int turrentKills) {
-		this.turrentKills = turrentKills;
+	public void setTurretKills(int turretKills) {
+		this.turretKills = turretKills;
 	}
 
 	public int getTotalMinionsKilled() {
