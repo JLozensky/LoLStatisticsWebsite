@@ -17,7 +17,7 @@
 			<label for="seasonId">Season</label>
 			<input id="seasonId" name="seasonId" value="${fn:escapeXml(param.seasonId)}">
 			<label for="isWin">Won Game</label>
-			<input id="isWin" name="isWin" value="${fn:escapeXml(param.isWin)}">
+			<input id="isWin" type="checkbox" name="isWin" value="${fn:escapeXml(param.isWin)}">
 		</p>
 		<p>
 			<input type="submit">
