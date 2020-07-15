@@ -37,7 +37,7 @@ CREATE TABLE Item (
  description VARCHAR(225),
  plaintextDesc VARCHAR(225),
  baseCost INT,
- turchasable BOOLEAN,
+ purchasable BOOLEAN,
  totalCost INT,
  sellPrice INT,
  tags VARCHAR(225),
