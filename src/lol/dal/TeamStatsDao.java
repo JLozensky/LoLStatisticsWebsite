@@ -25,7 +25,7 @@ public class TeamStatsDao {
   }
   
   public TeamStats create(TeamStats teamStats) throws SQLException {
-    String insertTeamStats = "INSERT INTO TeamStats(teamStatsId, win, firstBoolean, firstTower, " +
+    String insertTeamStats = "INSERT INTO TeamStats(statsId, win, firstBoolean, firstTower, " +
             "firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, " +
             "inhibitorKills, baronKills, dragonKills, vilemawKills, riftHeraldKills, " +
             "dominionVictoryScore, banOne, banTwo, banThree, banFour, banFive) VALUES(?,?,?,?,?," +
@@ -98,7 +98,7 @@ public class TeamStatsDao {
   }
   
   public TeamStats getTeamStatsFromStatsId(String teamStatsId) throws SQLException {
-    String selectTeamStats = "SELECT TeamStatsId FROM teamStats WHERE teamStatsId=?;";
+    String selectTeamStats = "SELECT statsId FROM teamStats WHERE statsId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -109,7 +109,7 @@ public class TeamStatsDao {
       results = selectStmt.executeQuery();
       
       if (results.next()) {
-        String resultTeamStatsId = results.getString("teamStatsId");
+        String resultTeamStatsId = results.getString("statsId");
         String win = results.getString("win");
         boolean firstBlood = results.getBoolean("firstBlood");
         boolean firstTower = results.getBoolean("firstTower");

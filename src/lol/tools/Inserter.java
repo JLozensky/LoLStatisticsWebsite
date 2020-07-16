@@ -8,19 +8,21 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import lol.model.ParticipantIdentity;
-import lol.model.TeamStats;
+import lol.dal.*;
+import lol.model.*;
+
 
 public class Inserter {
   public static void main(String[] args) throws IOException {
      List<TeamStats> teamStatsList = new ArrayList<>();
      List<ParticipantIdentity> identityList = new ArrayList<>();
      
-    String path = "C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json";
+    String path = "C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\test_set";
     PathReader fr = new PathReader();
     
     // Obtain a list of file path
@@ -31,7 +33,7 @@ public class Inserter {
     try {
       for (File f : fileList) {
         System.out.println(f.getPath());
-        if(f.getPath().equals("C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json\\.DS_Store")) {
+        if(f.getPath().equals("C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\test_set\\.DS_Store")) {
           continue;
         }
         // Parse the json file to JSONObject
@@ -118,8 +120,24 @@ public class Inserter {
     } catch (ParseException | IOException e) {
       e.printStackTrace();
     }
+    
+    TeamStatsDao tsDao = TeamStatsDao.getInstance();
+    ParticipantsDao piDao = ParticipantsDao.getInstance();
     for (TeamStats t : teamStatsList) {
-      
+      try {
+		tsDao.create(t);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     }
+    for (ParticipantIdentity p : identityList) {
+        try {
+  		piDao.create(p);
+  	} catch (SQLException e) {
+  		// TODO Auto-generated catch block
+  		e.printStackTrace();
+  	}
+      }
   }
 }

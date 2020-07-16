@@ -48,7 +48,7 @@ public class PlayerDelete extends HttpServlet {
             messages.put("title", "Invalid accountId");
             messages.put("disableSubmit", "true");
         } else {
-        	int accountId = Integer.parseInt(id);
+        	String accountId = id;
         	// Delete the BlogUser.
 	        ParticipantIdentity player = new ParticipantIdentity(accountId);
 	        try {

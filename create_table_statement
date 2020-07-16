@@ -63,7 +63,7 @@ CREATE TABLE RuneData (
 
 
 CREATE TABLE TeamStats (
- statsId INT,
+ teamStatsId INT,
  win BOOLEAN,
  firstBlood BOOLEAN,
  firstTower BOOLEAN,

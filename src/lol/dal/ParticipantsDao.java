@@ -46,20 +46,22 @@ public class ParticipantsDao {
 	 */
 	public ParticipantIdentity create(ParticipantIdentity participant) throws SQLException {
 
-		String insertParticipant = "INSERT INTO ParticipantIdentity(accountId,player,summonerName,summonerId,"
-				+ "currentPlatformId,currentAccountId,matchHistoryUri) VALUES(?,?,?,?,?,?,?);";
+		String insertParticipant = "INSERT INTO ParticipantIdentity(accountId,firstName,lastName,player,summonerName,summonerId,"
+				+ "currentPlatformId,currentAccountId,matchHistoryUri) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		try {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertParticipant);
 			insertStmt.setString(1, participant.getAccountId());
-			insertStmt.setString(2,  participant.getPlayer());
-			insertStmt.setString(3,  participant.getSummonerName());
-			insertStmt.setString(4,  participant.getSummonerId());
-			insertStmt.setString(5, participant.getCurrentPlatformId());
-			insertStmt.setString(6, participant.getCurrentAccountId());
-			insertStmt.setString(7, participant.getMatchHistoryUri());
+			insertStmt.setString(2,  participant.getFirstName());
+			insertStmt.setString(3,  participant.getLastName());
+			insertStmt.setString(4,  participant.getPlayer());
+			insertStmt.setString(5,  participant.getSummonerName());
+			insertStmt.setString(6,  participant.getSummonerId());
+			insertStmt.setString(7, participant.getCurrentPlatformId());
+			insertStmt.setString(8, participant.getCurrentAccountId());
+			insertStmt.setString(9, participant.getMatchHistoryUri());
 
 			insertStmt.executeUpdate();
 			return participant;
