@@ -24,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/playercreate") 
-public class PlayerCreate {
+public class PlayerCreate extends HttpServlet {
 	
-	protected ParticipantIdentityDao pid;
+	//protected ParticipantIdentityDao pid;
 	
 	@Override
-	public void inti() throws ServletException {
-		pid = ParticipantIdentity.getInstance();
+	public void init() throws ServletException {
+		//pid = ParticipantIdentity.getInstance();
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class PlayerCreate {
         	String firstName = req.getParameter("firstname");
         	String lastName = req.getParameter("lastname");
         	String accountId = req.getParameter("accountId");
-        	
+        	/*
         	try {
 	        	// Exercise: parse the input for StatusLevel.
 	        	ParticipantIdentity player = new ParticipantIdentity(accountId, firstName, lastName);
@@ -68,7 +68,7 @@ public class PlayerCreate {
 	        } catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
-	        }
+	        }*/
    
         
         req.getRequestDispatcher("/PlayerCreate.jsp").forward(req, resp);

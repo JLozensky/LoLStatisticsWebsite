@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/playerupdate")
-public class PlayerUpdate {
+public class PlayerUpdate extends HttpServlet {
 	
-	protected ParticipantIdentityDao pid;
+	//protected ParticipantIdentityDao pid;
 	
 	@Override
-	public void inti() throws ServletException {
-		pid = ParticipantIdentityDao.getInstance();
+	public void init() throws ServletException {
+		//pid = ParticipantIdentityDao.getInstance();
 	}
 	
 	@Override
@@ -39,6 +39,7 @@ public class PlayerUpdate {
         if (accountId == null || accountId.trim().isEmpty()) {
             messages.put("success", "Please enter a valid AccountId.");
         } else {
+        	/*
         	try {
         		ParticipantIdentity player = pid.getPlayerFromAccountId(accountId);
         		if(player == null) {
@@ -48,7 +49,7 @@ public class PlayerUpdate {
         	} catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
-	        }
+	        }*/
         }
         
         req.getRequestDispatcher("/PlayerUpdate.jsp").forward(req, resp);
@@ -66,6 +67,7 @@ public class PlayerUpdate {
         if (accountId == null || accountId.trim().isEmpty()) {
             messages.put("success", "Please enter a valid AccountId.");
         } else {
+        	/*
         	try {
         		ParticipantIdentity player = pid.getPlayerFromAccountId(accountId);
         		if(player == null) {
@@ -83,7 +85,7 @@ public class PlayerUpdate {
         	} catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
-	        }
+	        }*/
         }
         
         req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
