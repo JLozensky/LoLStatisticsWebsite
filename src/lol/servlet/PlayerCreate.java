@@ -71,13 +71,9 @@ public class PlayerCreate extends HttpServlet {
 				e.printStackTrace();
 				throw new IOException(e);
 	        }
-   
-        
+          
         req.getRequestDispatcher("/PlayerCreate.jsp").forward(req, resp);
         }
-	
-	
-	
 	}
 
 }

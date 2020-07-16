@@ -3,7 +3,7 @@ package lol.model;
 public class Game {
 
 	
-	private int gameId;
+	private String gameId;
 	private String date;
 	private int gameDuration;
 	private int queueId;
@@ -16,7 +16,7 @@ public class Game {
 	private int team2;
 	
 	
-	public Game(int gameId, String date, int gameDuration, int queueId, int mapId, int seasonId, int gameVersion,
+	public Game(String gameId, String date, int gameDuration, int queueId, int mapId, int seasonId, int gameVersion,
 			int gameMode, int gameType, int team1, int team2) {
 		this.gameId = gameId;
 		this.date = date;
@@ -32,12 +32,12 @@ public class Game {
 	}
 
 
-	public int getGameId() {
+	public String getGameId() {
 		return gameId;
 	}
 
 
-	public void setGameId(int gameId) {
+	public void setGameId(String gameId) {
 		this.gameId = gameId;
 	}
 

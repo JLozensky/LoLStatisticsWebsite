@@ -88,8 +88,4 @@ public class PlayerUpdate extends HttpServlet {
         
         req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
     }
-	
-	
-	
-
 }

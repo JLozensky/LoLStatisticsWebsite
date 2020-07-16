@@ -1,3 +1,4 @@
+
 package lol.servlet;
 
 import lol.dal.*;
@@ -34,7 +35,6 @@ public class PlayerDelete extends HttpServlet {
         req.getRequestDispatcher("/PlayerDelete.jsp").forward(req, resp);
 	}
 	
-
 	@Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
     		throws ServletException, IOException {
