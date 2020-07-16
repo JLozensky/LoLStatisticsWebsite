@@ -16,14 +16,14 @@ CREATE TABLE ItemStats (
  itemStatsId INT AUTO_INCREMENT,
  itemId INT,
  statName VARCHAR(225),
- value DECIMAL,
+ value DECIMAL(8,4),
  CONSTRAINT pk_ItemStats_itemStatsId PRIMARY KEY (itemStatsId)
 );
 
 CREATE TABLE SummonerSpells (
  summonerSpellId INT AUTO_INCREMENT,
  name VARCHAR(225),
- description VARCHAR(225),
+ description LONGTEXT,
  spellRange INT,
  cooldown INT,
  summonerLevel INT,
@@ -32,10 +32,10 @@ CREATE TABLE SummonerSpells (
 );
 
 CREATE TABLE Item (
- itemId INT AUTO_INCREMENT,
+ itemId INT,
  name VARCHAR(225),
- description VARCHAR(225),
- plaintextDesc VARCHAR(225),
+ description LONGTEXT,
+ plaintextDesc LONGTEXT,
  baseCost INT,
  purchasable BOOLEAN,
  totalCost INT,
@@ -44,20 +44,20 @@ CREATE TABLE Item (
  map11 BOOLEAN,
  map12 BOOLEAN,
  map22 BOOLEAN,
- depth INT,
+ depth INT DEFAULT NULL,
  maxStack INT,
  consumed BOOLEAN,
  inStore BOOLEAN,
  requiredChampion VARCHAR(225),
  requiredAlly VARCHAR(225),
- CONSTRAINT pk_Item_itemId PRIMARY KEY (itemId)
+ CONSTRAINT pk_Item_itemId_tags PRIMARY KEY (itemId, tags)
 );
  
 CREATE TABLE RuneData (
- runeId INT AUTO_INCREMENT,
+ runeId INT,
  name VARCHAR(225),
  pathName VARCHAR(225),
- longDesc VARCHAR(225),
+ longDesc LONGTEXT,
  CONSTRAINT pk_RuneData_runeId PRIMARY KEY (runeId)
 );
 
@@ -108,44 +108,44 @@ CREATE TABLE Game (
 );
 
 CREATE TABLE Champions (
- championId INT AUTO_INCREMENT,
+ championId INT,
  name VARCHAR(225),
  title VARCHAR(225),
- lore VARCHAR(225),
+ lore LONGTEXT,
  championRole1 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
- championRole2 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
+ championRole2 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT', '') DEFAULT NULL,
  attack INT,
  defense INT,
  magic INT,
  difficult INT,
- hp DECIMAL,
- hpPerLevel DECIMAL,
+ hp DECIMAL(8,4),
+ hpPerLevel DECIMAL(8,4),
  mp INT,
- mpPerLevel DECIMAL,
+ mpPerLevel DECIMAL(8,4),
  moveSpeed INT,
- armor DECIMAL,
- armorPerLevel DECIMAL,
- spellBlock DECIMAL,
- spellBlockPerLevel DECIMAL,
+ armor DECIMAL(8,4),
+ armorPerLevel DECIMAL(8,4),
+ spellBlock DECIMAL(8,4),
+ spellBlockPerLevel DECIMAL(8,4),
  attackRange INT,
- hpRegen DECIMAL,
- hpRegenPerLevel DECIMAL,
- mpRegen DECIMAL,
- mpRegenPerLevel DECIMAL,
- attackDamage DECIMAL,
- attackDamagePerLevel DECIMAL,
- attackSpeedPerLevel DECIMAL,
- attackSpeed DECIMAL,
+ hpRegen DECIMAL(8,4),
+ hpRegenPerLevel DECIMAL(8,4),
+ mpRegen DECIMAL(8,4),
+ mpRegenPerLevel DECIMAL(8,4),
+ attackDamage DECIMAL(8,4),
+ attackDamagePerLevel DECIMAL(8,4),
+ attackSpeedPerLevel DECIMAL(8,4),
+ attackSpeed DECIMAL(8,4),
  passiveName VARCHAR(225),
- passiveDescription VARCHAR(225),
+ passiveDescription LONGTEXT,
  CONSTRAINT pk_Champions_championId PRIMARY KEY (championId)
 );
 
 CREATE TABLE ChampionAdvice (
  adviceId INT AUTO_INCREMENT,
  championId INT,
- allyAdvice VARCHAR(225),
- enemyAdvice VARCHAR(225),
+ allyAdvice LONGTEXT,
+ enemyAdvice LONGTEXT,
  CONSTRAINT pk_ChampionAdvice_adviceId PRIMARY KEY (adviceId),
  CONSTRAINT fk_ChampionAdvice_championId FOREIGN key (championId)
   REFERENCES Champions (championId)
