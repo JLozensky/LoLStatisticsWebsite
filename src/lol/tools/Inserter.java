@@ -20,7 +20,7 @@ public class Inserter {
      List<TeamStats> teamStatsList = new ArrayList<>();
      List<ParticipantIdentity> identityList = new ArrayList<>();
      
-    String path = "/Users/calvinyin/Documents/CS5200/match_json";
+    String path = "C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json";
     PathReader fr = new PathReader();
     
     // Obtain a list of file path
@@ -31,7 +31,7 @@ public class Inserter {
     try {
       for (File f : fileList) {
         System.out.println(f.getPath());
-        if(f.getPath().equals("/Users/calvinyin/Documents/CS5200/match_json/.DS_Store")) {
+        if(f.getPath().equals("C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json\\.DS_Store")) {
           continue;
         }
         // Parse the json file to JSONObject
@@ -101,9 +101,13 @@ public class Inserter {
           String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
           String matchHistoryUri = String.valueOf(player.get("matchHistoryUri"));
           long profileIcon = (long) player.get("profileIcon");
+          String firstName = "";
+          String lastName = "";
+          String playerPlaceholder = "";
+          String currentAccountIdPlaceholder = "";
 
-          ParticipantIdentity participantIdentity = new ParticipantIdentity(accountId, summonerName,
-                  summonerId, currentPlatformId, matchHistoryUri, profileIcon);
+          ParticipantIdentity participantIdentity = new ParticipantIdentity(accountId, firstName, lastName, playerPlaceholder, summonerName,
+                  summonerId, currentPlatformId, currentAccountIdPlaceholder, matchHistoryUri, profileIcon);
           
           identityList.add(participantIdentity);
           count++;

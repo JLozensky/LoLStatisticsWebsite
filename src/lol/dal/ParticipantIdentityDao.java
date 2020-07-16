@@ -83,8 +83,10 @@ public class ParticipantIdentityDao {
 
   public ParticipantIdentity getParticipantIdentityFromSummonerName(String SummonerName) 
           throws SQLException {
-    String selectParticipantIdentity = "SELECT SummonerName FROM ParticipantIdentity WHERE " +
-            "SummonerName=?;";
+    String selectParticipantIdentity = "SELECT accountId,lastName,firstName,player,summonerName,summonerId,"
+			+ "currentPlatformId,currentAccountId,matchHistoryUri,profileIcon "
+			+ "FROM ParticipantIdentity "
+			+ "WHERE summonerName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -95,14 +97,21 @@ public class ParticipantIdentityDao {
       results = selectStmt.executeQuery();
       
       if (results.next()) {
-        String accountId = results.getString("accountId");
-        String resultSummonerName = results.getString("summonerName");
-        String summonerId = results.getString("summonerId");
-        String currentPlatformId = results.getString("currentPlatformId");
-        String matchHistoryUri =results.getString("matchHistoryUri");
-        long profileIcon = results.getLong("profileIcon");
-        return new ParticipantIdentity(accountId, resultSummonerName, summonerId, currentPlatformId,
-                matchHistoryUri, profileIcon);
+			String resultAccountId = results.getString("accountId");
+			String player = results.getString("player");
+			String lastName = results.getString("lastName");
+			String firstName = results.getString("firstName");
+			String summonerName = results.getString("summonerName");
+			String summonerId = results.getString("summonerId");
+			String currentPlatformId = results.getString("currentPlatformId");
+			String currentAccountId = results.getString("currentAccountId");
+			String matchHistoryUri = results.getString("matchHistoryUri");
+			Long profileIcon = results.getLong("profileIcon");
+			
+			ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, 
+					firstName, lastName, player,
+					summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri, profileIcon);
+			return participant;
       }
     } catch (SQLException e) {
       e.printStackTrace();

@@ -9,14 +9,14 @@ public class ParticipantIdentity {
 	private String player;
 	private String summonerName;
 	private String summonerId;
-	private int currentPlatformId;
-	private int currentAccountId;
+	private String currentPlatformId;
+	private String currentAccountId;
 	private String matchHistoryUri;
-	private long profileIcon;
+	private Long profileIcon;
 	
 
 	public ParticipantIdentity(String accountId, String firstName, String lastName, String player, String summonerName,
-			String summonerId, String currentPlatformId, String currentAccountId, String matchHistoryUri) {
+			String summonerId, String currentPlatformId, String currentAccountId, String matchHistoryUri, Long profileIcon) {
 		this.accountId = accountId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -34,7 +34,7 @@ public class ParticipantIdentity {
 		this.lastName = lastName;
 	}
 	
-	public ParticipantIdentity(int accountId) {
+	public ParticipantIdentity(String accountId) {
 		this.accountId = accountId;
 	}
 

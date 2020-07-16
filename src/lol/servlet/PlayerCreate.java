@@ -52,7 +52,7 @@ public class PlayerCreate extends HttpServlet {
             messages.put("success", "Invalid AccountId");
         } else {
         	// Create the Player.
-        	int accountId = Integer.parseInt(id);
+        	String accountId = id;
         	String player = req.getParameter("player");
         	String firstName = req.getParameter("firstName");
         	String lastName = req.getParameter("lastName");
@@ -60,11 +60,10 @@ public class PlayerCreate extends HttpServlet {
         	String summonerId = req.getParameter("summonerId");
         	
         	try {
-	        	// Exercise: parse the input for StatusLevel.
 	        	ParticipantIdentity participantIdentity = 
 	        			new ParticipantIdentity(accountId,
 	        					firstName, lastName, player, summonerName, summonerId, 
-	        					-1, -1, "");
+	        					"", "", "", -1L);
 	        	participantIdentity = pid.create(participantIdentity);
 	        	messages.put("success", "Successfully created " + accountId);
 	        } catch (SQLException e) {

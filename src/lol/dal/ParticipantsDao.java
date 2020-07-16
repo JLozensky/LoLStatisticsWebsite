@@ -53,12 +53,12 @@ public class ParticipantsDao {
 		try {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertParticipant);
-			insertStmt.setInt(1, participant.getAccountId());
+			insertStmt.setString(1, participant.getAccountId());
 			insertStmt.setString(2,  participant.getPlayer());
 			insertStmt.setString(3,  participant.getSummonerName());
 			insertStmt.setString(4,  participant.getSummonerId());
-			insertStmt.setInt(5, participant.getCurrentPlatformId());
-			insertStmt.setInt(6, participant.getCurrentAccountId());
+			insertStmt.setString(5, participant.getCurrentPlatformId());
+			insertStmt.setString(6, participant.getCurrentAccountId());
 			insertStmt.setString(7, participant.getMatchHistoryUri());
 
 			insertStmt.executeUpdate();
@@ -83,7 +83,7 @@ public class ParticipantsDao {
 		try {
 			connection = connectionManager.getConnection();
 			deleteStmt = connection.prepareStatement(deleteChampion);
-			deleteStmt.setInt(1, participant.getAccountId());
+			deleteStmt.setString(1, participant.getAccountId());
 			deleteStmt.executeUpdate();
 
 			return null;
@@ -103,7 +103,7 @@ public class ParticipantsDao {
 	public ParticipantIdentity getParticipantFromId(int id) throws SQLException {
 		String selectChampion =
 				"SELECT accountId,lastName,firstName,player,summonerName,summonerId,"
-				+ "currentPlatformId,currentAccountId,matchHistoryUri "
+				+ "currentPlatformId,currentAccountId,matchHistoryUri,profileIcon "
 				+ "FROM ParticipantIdentity "
 				+ "WHERE accountId=?;";
 		Connection connection = null;
@@ -115,19 +115,20 @@ public class ParticipantsDao {
 			selectStmt.setInt(1, id);
 			results = selectStmt.executeQuery();
 			if(results.next()) {
-				int resultAccountId = results.getInt("accountId");
+				String resultAccountId = results.getString("accountId");
 				String player = results.getString("player");
 				String lastName = results.getString("lastName");
 				String firstName = results.getString("firstName");
 				String summonerName = results.getString("summonerName");
 				String summonerId = results.getString("summonerId");
-				int currentPlatformId = results.getInt("currentPlatformId");
-				int currentAccountId = results.getInt("currentAccountId");
+				String currentPlatformId = results.getString("currentPlatformId");
+				String currentAccountId = results.getString("currentAccountId");
 				String matchHistoryUri = results.getString("matchHistoryUri");
+				Long profileIcon = results.getLong("profileIcon");
 				
 				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, 
 						firstName, lastName, player,
-						summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri);
+						summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri, profileIcon);
 				return participant;
 			}
 		} catch (SQLException e) {
@@ -157,7 +158,7 @@ public class ParticipantsDao {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(updateParticipant);
 			selectStmt.setString(1,  newSummonerName);
-			selectStmt.setInt(2, participant.getAccountId());
+			selectStmt.setString(2, participant.getAccountId());
 			selectStmt.executeQuery();
 			
 			participant.setSummonerName(newSummonerName);
@@ -182,7 +183,7 @@ public class ParticipantsDao {
 		List<ParticipantIdentity> participants = new ArrayList<ParticipantIdentity>();
 		String selectParticipants =
 				"SELECT accountId,player,summonerName,summonerId,"
-				+ "currentPlatformId,currentAccountId,matchHistoryUri "
+				+ "currentPlatformId,currentAccountId,matchHistoryUri,profileIcon "
 				+ "FROM ParticipantIdentity "
 				+ "WHERE summonerName LIKE'" + startPrefix + "%';";
 		Connection connection = null;
@@ -194,19 +195,20 @@ public class ParticipantsDao {
 			selectStmt.setString(1, startPrefix);
 			results = selectStmt.executeQuery();
 			while(results.next()) {
-				int resultAccountId = results.getInt("accountId");
+				String resultAccountId = results.getString("accountId");
 				String player = results.getString("player");
 				String lastName = results.getString("lastName");
 				String firstName = results.getString("firstName");
 				String summonerName = results.getString("summonerName");
 				String summonerId = results.getString("summonerId");
-				int currentPlatformId = results.getInt("currentPlatformId");
-				int currentAccountId = results.getInt("currentAccountId");
+				String currentPlatformId = results.getString("currentPlatformId");
+				String currentAccountId = results.getString("currentAccountId");
 				String matchHistoryUri = results.getString("matchHistoryUri");
+				Long profileIcon = results.getLong("profileIcon");
 				
 				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId,
-						firstName, lastName, player,
-						summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri);
+						firstName, lastName, player, summonerName, summonerId, currentPlatformId,
+						currentAccountId, matchHistoryUri, profileIcon);
 			    participants.add(participant);
 			}
 		} catch (SQLException e) {
