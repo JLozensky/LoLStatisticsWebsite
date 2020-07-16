@@ -12,11 +12,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import lol.model.ParticipantIdentity;
 import lol.model.TeamStats;
 
 public class Inserter {
   public static void main(String[] args) throws IOException {
      List<TeamStats> teamStatsList = new ArrayList<>();
+     List<ParticipantIdentity> identityList = new ArrayList<>();
+     
     String path = "/Users/calvinyin/Documents/CS5200/match_json";
     PathReader fr = new PathReader();
     
@@ -39,9 +42,11 @@ public class Inserter {
         String date = String.valueOf(matchObject.get("date"));
         int gameDuration = ((Long) matchObject.get("gameDuration")).intValue();
         
+        /*
+        TeamStats insertion
+         */
         JSONArray teams = (JSONArray) matchObject.get("teams");
-        Iterator<JSONObject> teamIterator = teams.iterator(); 
-        
+        Iterator<JSONObject> teamIterator = teams.iterator();
         while (teamIterator.hasNext()) {
           JSONObject team = teamIterator.next();
   
@@ -79,8 +84,32 @@ public class Inserter {
                   firstBaron, firstDragon, firstRiftHerald, towerKills, inhibitorKills, baronKills,
                   dragonKills, vilemawKills, riftHeraldKills, dominionVictoryScore, banOne, banTwo,
                   banThree, banFour, banFive);
+          
           teamStatsList.add(teamStats);
         }
+
+        /*
+         * ParticipantIdentity insertion 
+         */
+        JSONArray participantIdentities = (JSONArray) matchObject.get("participantIdentities");
+        Iterator<JSONObject> identityIterator = participantIdentities.iterator();
+        while (identityIterator.hasNext()) {
+          JSONObject player = (JSONObject) identityIterator.next().get("player");
+          String accountId = String.valueOf(player.get("accountId"));
+          String summonerName = String.valueOf(player.get("summonerName"));
+          String summonerId = String.valueOf(player.get("summonerId"));
+          String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
+          String matchHistoryUri = String.valueOf(player.get("matchHistoryUri"));
+          long profileIcon = (long) player.get("profileIcon");
+
+          ParticipantIdentity participantIdentity = new ParticipantIdentity(accountId, summonerName,
+                  summonerId, currentPlatformId, matchHistoryUri, profileIcon);
+          
+          identityList.add(participantIdentity);
+          count++;
+        }
+        
+        System.out.println(count);
       }
     } catch (ParseException | IOException e) {
       e.printStackTrace();

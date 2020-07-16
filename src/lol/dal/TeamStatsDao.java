@@ -58,6 +58,7 @@ public class TeamStatsDao {
       insertStmt.setInt(20, teamStats.getBanFive());
 
       insertStmt.executeUpdate();
+      
       return teamStats;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -106,6 +107,7 @@ public class TeamStatsDao {
       selectStmt = connection.prepareStatement(selectTeamStats);
       selectStmt.setString(1, teamStatsId);
       results = selectStmt.executeQuery();
+      
       if (results.next()) {
         String resultTeamStatsId = results.getString("teamStatsId");
         String win = results.getString("win");
