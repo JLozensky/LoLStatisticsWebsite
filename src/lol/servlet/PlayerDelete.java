@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/playerdelete")
 public class PlayerDelete extends HttpServlet {
 	
-	//protected ParticipantIdentityDao pid;
+	protected ParticipantsDao pid;
 	
 	@Override
 	public void init() throws ServletException {
-		//pid = ParticipantIdentityDao.getInstance();
+		pid = ParticipantsDao.getInstance();
 	}
 	
 	@Override
@@ -43,12 +43,12 @@ public class PlayerDelete extends HttpServlet {
         req.setAttribute("messages", messages);
 
         // Retrieve and validate name.
-        String accountId = req.getParameter("accountId");
-        if (accountId == null || accountId.trim().isEmpty()) {
+        String id = req.getParameter("accountId");
+        if (id == null || id.trim().isEmpty()) {
             messages.put("title", "Invalid accountId");
             messages.put("disableSubmit", "true");
         } else {
-        	/*
+        	int accountId = Integer.parseInt(id);
         	// Delete the BlogUser.
 	        ParticipantIdentity player = new ParticipantIdentity(accountId);
 	        try {
@@ -64,7 +64,7 @@ public class PlayerDelete extends HttpServlet {
 	        } catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
-	        }*/
+	        }
         }
         
         req.getRequestDispatcher("/PlayerDelete.jsp").forward(req, resp);

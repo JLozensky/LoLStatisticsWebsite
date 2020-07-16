@@ -16,7 +16,10 @@
       <h3 class="masthead-brand">LolDB</h3>
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link" href="findchampions">Find Champions</a>
+                        <a class="nav-link" href="findplayers">Find Players</a>
+        
         <a class="nav-link active" href="playercreate">Create</a>
+        
         <a class="nav-link" href="playerdelete">Delete</a>
         <a class="nav-link" href="playerupdate">Update</a>
       </nav>

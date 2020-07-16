@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<title>Find Champions</title>
+<title>Find Players</title>
 </head>
 <body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
@@ -18,12 +18,11 @@
     <div class="inner">
       <h3 class="masthead-brand">LolDB</h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#">Find Champions</a>
-                        <a class="nav-link" href="findplayers">Find Players</a>
-        
-        <a class="nav-link" href="#">Create</a>
-        <a class="nav-link" href="#">Delete</a>
-        <a class="nav-link" href="#">Update</a>
+        <a class="nav-link" href="findchampions">Find Champions</a>
+        <a class="nav-link active" href="findplayers">Find Players</a>
+        <a class="nav-link" href="playercreate">Create</a>
+        <a class="nav-link" href="playerdelete">Delete</a>
+        <a class="nav-link" href="playerupdate">Update</a>
       </nav>
     </div>
   </header>
@@ -31,23 +30,18 @@
   <div>
   <div class="inner-cover d-flex p-3 mx-auto flex-column w-50 justify-content-center">
   <div class="text-center">
-	<h1 class="cover-heading">Search for champions</h1>
-	<p class="lead">Use this page to search for winning or losing champions from specific seasons</p>
+	<h1 class="cover-heading">Search for players</h1>
+	<p class="lead">Use this page to search for players by summoner name</p>
 	</div>
     <form action="findchampions" method="post">
 		
 		<div class="form-group row">
-			<label class="col-sm-3 col-form-label" for="seasonId">Season</label>
+			<label class="col-sm-3 col-form-label" for="summonerName">Summoner Name</label>
 			<div class="col-sm-9">
-				<input class="form-control" id="seasonId" name="seasonId" value="${fn:escapeXml(param.seasonId)}">
+				<input class="form-control" id="summonerName" name="summonerName" value="${fn:escapeXml(param.previousStartPrefix)}">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label class="col-sm-3 col-form-label" for="isWin">Won Game?</label>
-			<div class="col-sm-9">
-				<input class="form-check-input" id="isWin" type="checkbox" name="isWin" value="${fn:escapeXml(param.isWin)}">
-			</div>
-		</div>
+
 		<div class="lead text-center">
 			<input class="btn btn-lg btn-secondary" type="submit">
 		</div>
@@ -58,29 +52,32 @@
   </div>
 	<br/>
 	<br/>
-	<div class="text-center cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
-	<h1>Matching Champions</h1>
+	<div class="text-center cover-container d-flex w-85 h-100 p-3 mx-auto flex-column">
+	<h1>Matching Players</h1>
     <table class="lead" border="1">
         <tr>
-            <th>Champion</th>
-            <th>Title</th>
-            <th>Attack</th>
-            <th>Defense</th>
-            <th>Magic</th>
-            <th>Difficulty</th>
-            <th>HP</th>
-            <th>MP</th>
+            <th>AccountID</th>
+            <th>Player</th>
+            <th>Summoner Name</th>
+            <th>Summoner ID</th>
+            <th>Current Platform ID</th>
+            <th>Current Account ID</th>
+            <th>Match History URI</th>
+            <th>Delete</th>
+            <th>Update</th>
+            
         </tr>
-        <c:forEach items="${champions}" var="champion" >
+        <c:forEach items="${participants}" var="participant" >
             <tr>
-                <td><c:out value="${champion.getName()}" /></td>
-                <td><c:out value="${champion.getTitle()}" /></td>
-                <td><c:out value="${champion.getAttack()}" /></td>
-                <td><c:out value="${champion.getDefense()}"/></td>
-                <td><c:out value="${champion.getMagic()}"/></td>
-                <td><c:out value="${champion.getDifficulty()}"/></td>
-                <td><c:out value="${champion.getHp()}"/></td>
-                <td><c:out value="${champion.getMp()}"/></td>
+                <td><c:out value="${participant.getAccountId()}" /></td>
+                <td><c:out value="${participant.getPlayer()}" /></td>
+                <td><c:out value="${participant.getSummonerName()}" /></td>
+                <td><c:out value="${participant.getSummonerId()}"/></td>
+                <td><c:out value="${participant.getCurrentPlatformId()}"/></td>
+                <td><c:out value="${participant.getCurrentAccountId()}"/></td>
+                <td><c:out value="${participant.getMatchHistoryUri()}"/></td>
+                <td><a href="playerdelete?accountId=<c:out value="${participant.getAccountId()}"/>">Delete</a></td>
+                <td><a href="playerupdate??accountId=<c:out value="${participant.getAccountId()}"/>">Update</a></td>
             </tr>
         </c:forEach>
    </table>

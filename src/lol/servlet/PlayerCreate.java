@@ -19,18 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-
 @WebServlet("/playercreate") 
 public class PlayerCreate extends HttpServlet {
 	
-	//protected ParticipantIdentityDao pid;
+	protected ParticipantsDao pid;
 	
 	@Override
 	public void init() throws ServletException {
-		//pid = ParticipantIdentity.getInstance();
+		pid = ParticipantsDao.getInstance();
 	}
 	
 	@Override
@@ -56,19 +52,22 @@ public class PlayerCreate extends HttpServlet {
             messages.put("success", "Invalid AccountId");
         } else {
         	// Create the Player.
-        	String firstName = req.getParameter("firstname");
-        	String lastName = req.getParameter("lastname");
-        	String accountId = req.getParameter("accountId");
-        	/*
+        	int accountId = Integer.parseInt(id);
+        	String player = req.getParameter("player");
+        	String summonerName = req.getParameter("summonerName");
+        	String summonerId = req.getParameter("summonerId");
+        	
         	try {
 	        	// Exercise: parse the input for StatusLevel.
-	        	ParticipantIdentity player = new ParticipantIdentity(accountId, firstName, lastName);
-	        	player = pid.create(player);
+	        	ParticipantIdentity participantIdentity = 
+	        			new ParticipantIdentity(accountId, player, summonerName, summonerId, 
+	        					-1, -1, "");
+	        	participantIdentity = pid.create(participantIdentity);
 	        	messages.put("success", "Successfully created " + accountId);
 	        } catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
-	        }*/
+	        }
    
         
         req.getRequestDispatcher("/PlayerCreate.jsp").forward(req, resp);
