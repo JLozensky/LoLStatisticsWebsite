@@ -7,15 +7,13 @@ public class ParticipantIdentity {
 	private String lastName;
 	private String player;
 	private String summonerName;
-	private int summonerId;
+	private String summonerId;
 	private int currentPlatformId;
 	private int currentAccountId;
 	private String matchHistoryUri;
 	
-	
-
 	public ParticipantIdentity(int accountId, String firstName, String lastName, String player, String summonerName,
-			int summonerId, int currentPlatformId, int currentAccountId, String matchHistoryUri) {
+			String summonerId, int currentPlatformId, int currentAccountId, String matchHistoryUri) {
 		this.accountId = accountId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -34,9 +32,10 @@ public class ParticipantIdentity {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
-
-
+	
+	public ParticipantIdentity(int accountId) {
+		this.accountId = accountId;
+	}
 
 
 	public int getAccountId() {
@@ -97,15 +96,11 @@ public class ParticipantIdentity {
 		this.summonerName = summonerName;
 	}
 
-
-
-	public int getSummonerId() {
+public String getSummonerId() {
 		return summonerId;
 	}
 
-
-
-	public void setSummonerId(int summonerId) {
+	public void setSummonerId(String summonerId) {
 		this.summonerId = summonerId;
 	}
 

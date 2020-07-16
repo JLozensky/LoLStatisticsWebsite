@@ -153,6 +153,8 @@ CREATE TABLE ChampionAdvice (
 );
 CREATE TABLE ParticipantIdentity (
  accountId INT,
+ lastName VARCHAR(255),
+ firstName VARCHAR(255),
  player VARCHAR(225),
  summonerName VARCHAR(225),
  summonerId VARCHAR(225),

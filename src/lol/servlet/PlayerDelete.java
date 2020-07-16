@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/playerdelete")
-public class PlayerDelete {
+public class PlayerDelete extends HttpServlet {
 	
-protected ParticipantIdentityDao pid;
+	protected ParticipantsDao pid;
 	
 	@Override
-	public void inti() throws ServletException {
-		pid = ParticipantIdentityDao.getInstance();
+	public void init() throws ServletException {
+		pid = ParticipantsDao.getInstance();
 	}
 	
 	@Override
@@ -43,11 +43,12 @@ protected ParticipantIdentityDao pid;
         req.setAttribute("messages", messages);
 
         // Retrieve and validate name.
-        String accountId = req.getParameter("accountId");
-        if (accountId == null || accountId.trim().isEmpty()) {
+        String id = req.getParameter("accountId");
+        if (id == null || id.trim().isEmpty()) {
             messages.put("title", "Invalid accountId");
             messages.put("disableSubmit", "true");
         } else {
+        	int accountId = Integer.parseInt(id);
         	// Delete the BlogUser.
 	        ParticipantIdentity player = new ParticipantIdentity(accountId);
 	        try {

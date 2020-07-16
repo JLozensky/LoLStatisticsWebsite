@@ -15,16 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
-
 @WebServlet("/playerupdate")
-public class PlayerUpdate {
+public class PlayerUpdate extends HttpServlet {
 	
-	protected ParticipantIdentityDao pid;
+	protected ParticipantsDao pid;
 	
 	@Override
-	public void inti() throws ServletException {
-		pid = ParticipantIdentityDao.getInstance();
+	public void init() throws ServletException {
+		pid = ParticipantsDao.getInstance();
 	}
 	
 	@Override
@@ -35,12 +33,13 @@ public class PlayerUpdate {
         req.setAttribute("messages", messages);
 
         // Retrieve user and validate.
-        String accountId = req.getParameter("accountId");
-        if (accountId == null || accountId.trim().isEmpty()) {
+        String id = req.getParameter("accountId");
+        if (id == null || id.trim().isEmpty()) {
             messages.put("success", "Please enter a valid AccountId.");
         } else {
+        	int accountId = Integer.parseInt(id);
         	try {
-        		ParticipantIdentity player = pid.getPlayerFromAccountId(accountId);
+        		ParticipantIdentity player = pid.getParticipantFromId(accountId);
         		if(player == null) {
         			messages.put("success", "Player does not exist.");
         		}
@@ -62,12 +61,13 @@ public class PlayerUpdate {
         req.setAttribute("messages", messages);
 
         // Retrieve user and validate.
-        String accountId = req.getParameter("accountId");
-        if (accountId == null || accountId.trim().isEmpty()) {
+        String id = req.getParameter("accountId");
+        if (id == null || id.trim().isEmpty()) {
             messages.put("success", "Please enter a valid AccountId.");
         } else {
+        	int accountId = Integer.parseInt(id);
         	try {
-        		ParticipantIdentity player = pid.getPlayerFromAccountId(accountId);
+        		ParticipantIdentity player = pid.getParticipantFromId(accountId);
         		if(player == null) {
         			messages.put("success", "Player does not exist. No update to perform.");
         		} else {
@@ -75,7 +75,7 @@ public class PlayerUpdate {
         			if (newLastName == null || newLastName.trim().isEmpty()) {
         	            messages.put("success", "Please enter a valid LastName.");
         	        } else {
-        	        	player= pid.updateLastName(player, newLastName);
+        	        	player= pid.updateParticipantSummonerName(player, newLastName);
         	        	messages.put("success", "Successfully updated " + accountId);
         	        }
         		}
