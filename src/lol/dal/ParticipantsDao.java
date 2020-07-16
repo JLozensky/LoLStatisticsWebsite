@@ -102,7 +102,7 @@ public class ParticipantsDao {
 	
 	public ParticipantIdentity getParticipantFromId(int id) throws SQLException {
 		String selectChampion =
-				"SELECT accountId,player,summonerName,summonerId,"
+				"SELECT accountId,lastName,firstName,player,summonerName,summonerId,"
 				+ "currentPlatformId,currentAccountId,matchHistoryUri "
 				+ "FROM ParticipantIdentity "
 				+ "WHERE accountId=?;";
@@ -117,13 +117,16 @@ public class ParticipantsDao {
 			if(results.next()) {
 				int resultAccountId = results.getInt("accountId");
 				String player = results.getString("player");
+				String lastName = results.getString("lastName");
+				String firstName = results.getString("firstName");
 				String summonerName = results.getString("summonerName");
 				String summonerId = results.getString("summonerId");
 				int currentPlatformId = results.getInt("currentPlatformId");
 				int currentAccountId = results.getInt("currentAccountId");
 				String matchHistoryUri = results.getString("matchHistoryUri");
 				
-				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, player,
+				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, 
+						firstName, lastName, player,
 						summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri);
 				return participant;
 			}
@@ -193,13 +196,16 @@ public class ParticipantsDao {
 			while(results.next()) {
 				int resultAccountId = results.getInt("accountId");
 				String player = results.getString("player");
+				String lastName = results.getString("lastName");
+				String firstName = results.getString("firstName");
 				String summonerName = results.getString("summonerName");
 				String summonerId = results.getString("summonerId");
 				int currentPlatformId = results.getInt("currentPlatformId");
 				int currentAccountId = results.getInt("currentAccountId");
 				String matchHistoryUri = results.getString("matchHistoryUri");
 				
-				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, player,
+				ParticipantIdentity participant = new ParticipantIdentity(resultAccountId,
+						firstName, lastName, player,
 						summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri);
 			    participants.add(participant);
 			}

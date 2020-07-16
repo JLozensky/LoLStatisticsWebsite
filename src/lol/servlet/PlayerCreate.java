@@ -54,13 +54,16 @@ public class PlayerCreate extends HttpServlet {
         	// Create the Player.
         	int accountId = Integer.parseInt(id);
         	String player = req.getParameter("player");
+        	String firstName = req.getParameter("firstName");
+        	String lastName = req.getParameter("lastName");
         	String summonerName = req.getParameter("summonerName");
         	String summonerId = req.getParameter("summonerId");
         	
         	try {
 	        	// Exercise: parse the input for StatusLevel.
 	        	ParticipantIdentity participantIdentity = 
-	        			new ParticipantIdentity(accountId, player, summonerName, summonerId, 
+	        			new ParticipantIdentity(accountId,
+	        					firstName, lastName, player, summonerName, summonerId, 
 	        					-1, -1, "");
 	        	participantIdentity = pid.create(participantIdentity);
 	        	messages.put("success", "Successfully created " + accountId);

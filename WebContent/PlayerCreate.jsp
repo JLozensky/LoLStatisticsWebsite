@@ -51,6 +51,18 @@
 			</div>
 		</div>
 		<div class="form-group row">
+			<label class="col-sm-3 col-form-label" for="firstName">First Name</label>
+			<div class="col-sm-9">
+				<input class="form-control" id="firstName" name="firstName" value="">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label" for="lastName">Last Name</label>
+			<div class="col-sm-9">
+				<input class="form-control" id="lastName" name="lastName" value="">
+			</div>
+		</div>
+		<div class="form-group row">
 			<label class="col-sm-3 col-form-label" for="summonername">SummonerName</label>
 			<div class="col-sm-9">
 				<input class="form-control" id="summonername" name="summonername" value="">

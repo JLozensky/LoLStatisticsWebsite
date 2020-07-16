@@ -32,9 +32,10 @@ public class ParticipantIdentity {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
-
-
+	
+	public ParticipantIdentity(int accountId) {
+		this.accountId = accountId;
+	}
 
 
 	public int getAccountId() {
