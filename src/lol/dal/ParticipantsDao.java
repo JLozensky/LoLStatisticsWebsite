@@ -26,6 +26,8 @@ public class ParticipantsDao {
 		connectionManager = new ConnectionManager();
 	}
 	
+	
+	
 	/**
 	 * Returns the singleton instance for this class.
 	 * @return singleton instance for this class
