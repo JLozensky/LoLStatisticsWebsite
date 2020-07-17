@@ -25,7 +25,7 @@ public class TeamStatsDao {
   }
   
   public TeamStats create(TeamStats teamStats) throws SQLException {
-    String insertTeamStats = "INSERT INTO TeamStats(statsId, win, firstBoolean, firstTower, " +
+    String insertTeamStats = "INSERT INTO TeamStats(statsId, win, firstBlood, firstTower, " +
             "firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, " +
             "inhibitorKills, baronKills, dragonKills, vilemawKills, riftHeraldKills, " +
             "dominionVictoryScore, banOne, banTwo, banThree, banFour, banFive) VALUES(?,?,?,?,?," +
