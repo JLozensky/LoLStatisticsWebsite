@@ -1,7 +1,5 @@
 package lol.model;
-
 public class SummonerStats {
-	
 	private String summonerStatsId;
 	private int championId;
 	private int spell1Id;
@@ -16,34 +14,34 @@ public class SummonerStats {
 	private int kills;
 	private int deaths;
 	private int assists;
-	private int totalDamageDealt;
-	private int magicDamageDealt;
-	private int physicalDamageDealt;
-	private int trueDamageDealt;
-	private int largestCriticalStrike;
-	private int totalDamageDealtToChampions;
-	private int magicDamageDealtToChampions;
-	private int physicalDamageDealtToChampions;
-	private int trueDamageDealtToChampions;
-	private int totalHeal;
-	private int totalUnitHealed;
-	private int damageSelfMitigated;
-	private int damageDealtToObjectives;
-	private int damageDealtToTurrets;
-	private int visionScore;
-	private int timeCCingOthers;
-	private int totalDamageTaken;
-	private int magicDamageTaken;
-	private int physicalDamageTaken;
-	private int trueDamageTaken;
-	private int goldEarned;
-	private int goldSpent;
+	private long totalDamageDealt;
+	private long magicDamageDealt;
+	private long physicalDamageDealt;
+	private long trueDamageDealt;
+	private long largestCriticalStrike;
+	private long totalDamageDealtToChampions;
+	private long magicDamageDealtToChampions;
+	private long physicalDamageDealtToChampions;
+	private long trueDamageDealtToChampions;
+	private long totalHeal;
+	private long totalUnitHealed;
+	private long damageSelfMitigated;
+	private long damageDealtToObjectives;
+	private long damageDealtToTurrets;
+	private long visionScore;
+	private long timeCCingOthers;
+	private long totalDamageTaken;
+	private long magicDamageTaken;
+	private long physicalDamageTaken;
+	private long trueDamageTaken;
+	private long goldEarned;
+	private long goldSpent;
 	private int turretKills;
-	private int totalMinionsKilled;
-	private int neutralMinionsKilled;
-	private int neutralMinionsKilledTeamJungle;
-	private int neutralMinionsKilledEnemyJungle;
-	private int totalTimeCrowdControlDealt;
+	private long totalMinionsKilled;
+	private long neutralMinionsKilled;
+	private long neutralMinionsKilledTeamJungle;
+	private long neutralMinionsKilledEnemyJungle;
+	private long totalTimeCrowdControlDealt;
 	private int champLevel;
 	private int visionWardsBoughtInGame;
 	private int sightWardsBoughtInGame;
@@ -69,26 +67,25 @@ public class SummonerStats {
 	private int runeId5;
 	private String highestAchievedSeasonTier;
 
-	public SummonerStats() {
-		
-	}
-
-	
-
-	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0, int itemId1,
-											 int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills, int deaths, int assists,
-											 int totalDamageDealt, int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt,
-											 int largestCriticalStrike, int totalDamageDealtToChampions, int magicDamageDealtToChampions,
-											 int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
-											 int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
-											 int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
-											 int trueDamageTaken, int goldEarned, int goldSpent, int turretKills, int totalMinionsKilled,
-											 int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
-											 int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGame,
-											 int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
-											 boolean firstTowerKillAssist, boolean firstInhibitor, boolean firstInhibitorAssist, int combatPlayerScore,
-											 int objectivePlayerScore, int totalPlayerScore, int totalScoreRank, String role, String lane,
-											 int runeId0, int runeId1, int runeId2, int runeId3, int runeId4, int runeId5,
+	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0,
+											 int itemId1, int itemId2, int itemId3, int itemId4, int itemId5, int itemId6,
+											 int kills, int deaths, int assists, long totalDamageDealt, long magicDamageDealt,
+											 long physicalDamageDealt, long trueDamageDealt, long largestCriticalStrike,
+											 long totalDamageDealtToChampions, long magicDamageDealtToChampions,
+											 long physicalDamageDealtToChampions, long trueDamageDealtToChampions,
+											 long totalHeal, long totalUnitHealed, long damageSelfMitigated,
+											 long damageDealtToObjectives, long damageDealtToTurrets, long visionScore,
+											 long timeCCingOthers, long totalDamageTaken, long magicDamageTaken,
+											 long physicalDamageTaken, long trueDamageTaken, long goldEarned, long goldSpent,
+											 int turretKills, long totalMinionsKilled, long neutralMinionsKilled,
+											 long neutralMinionsKilledTeamJungle, long neutralMinionsKilledEnemyJungle,
+											 long totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame,
+											 int sightWardsBoughtInGame, int wardsPlaced, int wardsKilled,
+											 boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
+											 boolean firstTowerKillAssist, boolean firstInhibitor, boolean firstInhibitorAssist,
+											 int combatPlayerScore, int objectivePlayerScore, int totalPlayerScore,
+											 int totalScoreRank, String role, String lane, int runeId0, int runeId1,
+											 int runeId2, int runeId3, int runeId4, int runeId5,
 											 String highestAchievedSeasonTier) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
@@ -156,6 +153,10 @@ public class SummonerStats {
 		this.runeId4 = runeId4;
 		this.runeId5 = runeId5;
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+	}
+
+	public SummonerStats() {
+
 	}
 
 	public String getSummonerStatsId() {
@@ -270,179 +271,179 @@ public class SummonerStats {
 		this.assists = assists;
 	}
 
-	public int getTotalDamageDealt() {
+	public long getTotalDamageDealt() {
 		return totalDamageDealt;
 	}
 
-	public void setTotalDamageDealt(int totalDamageDealt) {
+	public void setTotalDamageDealt(long totalDamageDealt) {
 		this.totalDamageDealt = totalDamageDealt;
 	}
 
-	public int getMagicDamageDealt() {
+	public long getMagicDamageDealt() {
 		return magicDamageDealt;
 	}
 
-	public void setMagicDamageDealt(int magicDamageDealt) {
+	public void setMagicDamageDealt(long magicDamageDealt) {
 		this.magicDamageDealt = magicDamageDealt;
 	}
 
-	public int getPhysicalDamageDealt() {
+	public long getPhysicalDamageDealt() {
 		return physicalDamageDealt;
 	}
 
-	public void setPhysicalDamageDealt(int physicalDamageDealt) {
+	public void setPhysicalDamageDealt(long physicalDamageDealt) {
 		this.physicalDamageDealt = physicalDamageDealt;
 	}
 
-	public int getTrueDamageDealt() {
+	public long getTrueDamageDealt() {
 		return trueDamageDealt;
 	}
 
-	public void setTrueDamageDealt(int trueDamageDealt) {
+	public void setTrueDamageDealt(long trueDamageDealt) {
 		this.trueDamageDealt = trueDamageDealt;
 	}
 
-	public int getLargestCriticalStrike() {
+	public long getLargestCriticalStrike() {
 		return largestCriticalStrike;
 	}
 
-	public void setLargestCriticalStrike(int largestCriticalStrike) {
+	public void setLargestCriticalStrike(long largestCriticalStrike) {
 		this.largestCriticalStrike = largestCriticalStrike;
 	}
 
-	public int getTotalDamageDealtToChampions() {
+	public long getTotalDamageDealtToChampions() {
 		return totalDamageDealtToChampions;
 	}
 
-	public void setTotalDamageDealtToChampions(int totalDamageDealtToChampions) {
+	public void setTotalDamageDealtToChampions(long totalDamageDealtToChampions) {
 		this.totalDamageDealtToChampions = totalDamageDealtToChampions;
 	}
 
-	public int getMagicDamageDealtToChampions() {
+	public long getMagicDamageDealtToChampions() {
 		return magicDamageDealtToChampions;
 	}
 
-	public void setMagicDamageDealtToChampions(int magicDamageDealtToChampions) {
+	public void setMagicDamageDealtToChampions(long magicDamageDealtToChampions) {
 		this.magicDamageDealtToChampions = magicDamageDealtToChampions;
 	}
 
-	public int getPhysicalDamageDealtToChampions() {
+	public long getPhysicalDamageDealtToChampions() {
 		return physicalDamageDealtToChampions;
 	}
 
-	public void setPhysicalDamageDealtToChampions(int physicalDamageDealtToChampions) {
+	public void setPhysicalDamageDealtToChampions(long physicalDamageDealtToChampions) {
 		this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
 	}
 
-	public int getTrueDamageDealtToChampions() {
+	public long getTrueDamageDealtToChampions() {
 		return trueDamageDealtToChampions;
 	}
 
-	public void setTrueDamageDealtToChampions(int trueDamageDealtToChampions) {
+	public void setTrueDamageDealtToChampions(long trueDamageDealtToChampions) {
 		this.trueDamageDealtToChampions = trueDamageDealtToChampions;
 	}
 
-	public int getTotalHeal() {
+	public long getTotalHeal() {
 		return totalHeal;
 	}
 
-	public void setTotalHeal(int totalHeal) {
+	public void setTotalHeal(long totalHeal) {
 		this.totalHeal = totalHeal;
 	}
 
-	public int getTotalUnitHealed() {
+	public long getTotalUnitHealed() {
 		return totalUnitHealed;
 	}
 
-	public void setTotalUnitHealed(int totalUnitHealed) {
+	public void setTotalUnitHealed(long totalUnitHealed) {
 		this.totalUnitHealed = totalUnitHealed;
 	}
 
-	public int getDamageSelfMitigated() {
+	public long getDamageSelfMitigated() {
 		return damageSelfMitigated;
 	}
 
-	public void setDamageSelfMitigated(int damageSelfMitigated) {
+	public void setDamageSelfMitigated(long damageSelfMitigated) {
 		this.damageSelfMitigated = damageSelfMitigated;
 	}
 
-	public int getDamageDealtToObjectives() {
+	public long getDamageDealtToObjectives() {
 		return damageDealtToObjectives;
 	}
 
-	public void setDamageDealtToObjectives(int damageDealtToObjectives) {
+	public void setDamageDealtToObjectives(long damageDealtToObjectives) {
 		this.damageDealtToObjectives = damageDealtToObjectives;
 	}
 
-	public int getDamageDealtToTurrets() {
+	public long getDamageDealtToTurrets() {
 		return damageDealtToTurrets;
 	}
 
-	public void setDamageDealtToTurrets(int damageDealtToTurrets) {
+	public void setDamageDealtToTurrets(long damageDealtToTurrets) {
 		this.damageDealtToTurrets = damageDealtToTurrets;
 	}
 
-	public int getVisionScore() {
+	public long getVisionScore() {
 		return visionScore;
 	}
 
-	public void setVisionScore(int visionScore) {
+	public void setVisionScore(long visionScore) {
 		this.visionScore = visionScore;
 	}
 
-	public int getTimeCCingOthers() {
+	public long getTimeCCingOthers() {
 		return timeCCingOthers;
 	}
 
-	public void setTimeCCingOthers(int timeCCingOthers) {
+	public void setTimeCCingOthers(long timeCCingOthers) {
 		this.timeCCingOthers = timeCCingOthers;
 	}
 
-	public int getTotalDamageTaken() {
+	public long getTotalDamageTaken() {
 		return totalDamageTaken;
 	}
 
-	public void setTotalDamageTaken(int totalDamageTaken) {
+	public void setTotalDamageTaken(long totalDamageTaken) {
 		this.totalDamageTaken = totalDamageTaken;
 	}
 
-	public int getMagicDamageTaken() {
+	public long getMagicDamageTaken() {
 		return magicDamageTaken;
 	}
 
-	public void setMagicDamageTaken(int magicDamageTaken) {
+	public void setMagicDamageTaken(long magicDamageTaken) {
 		this.magicDamageTaken = magicDamageTaken;
 	}
 
-	public int getPhysicalDamageTaken() {
+	public long getPhysicalDamageTaken() {
 		return physicalDamageTaken;
 	}
 
-	public void setPhysicalDamageTaken(int physicalDamageTaken) {
+	public void setPhysicalDamageTaken(long physicalDamageTaken) {
 		this.physicalDamageTaken = physicalDamageTaken;
 	}
 
-	public int getTrueDamageTaken() {
+	public long getTrueDamageTaken() {
 		return trueDamageTaken;
 	}
 
-	public void setTrueDamageTaken(int trueDamageTaken) {
+	public void setTrueDamageTaken(long trueDamageTaken) {
 		this.trueDamageTaken = trueDamageTaken;
 	}
 
-	public int getGoldEarned() {
+	public long getGoldEarned() {
 		return goldEarned;
 	}
 
-	public void setGoldEarned(int goldEarned) {
+	public void setGoldEarned(long goldEarned) {
 		this.goldEarned = goldEarned;
 	}
 
-	public int getGoldSpent() {
+	public long getGoldSpent() {
 		return goldSpent;
 	}
 
-	public void setGoldSpent(int goldSpent) {
+	public void setGoldSpent(long goldSpent) {
 		this.goldSpent = goldSpent;
 	}
 
@@ -454,43 +455,43 @@ public class SummonerStats {
 		this.turretKills = turretKills;
 	}
 
-	public int getTotalMinionsKilled() {
+	public long getTotalMinionsKilled() {
 		return totalMinionsKilled;
 	}
 
-	public void setTotalMinionsKilled(int totalMinionsKilled) {
+	public void setTotalMinionsKilled(long totalMinionsKilled) {
 		this.totalMinionsKilled = totalMinionsKilled;
 	}
 
-	public int getNeutralMinionsKilled() {
+	public long getNeutralMinionsKilled() {
 		return neutralMinionsKilled;
 	}
 
-	public void setNeutralMinionsKilled(int neutralMinionsKilled) {
+	public void setNeutralMinionsKilled(long neutralMinionsKilled) {
 		this.neutralMinionsKilled = neutralMinionsKilled;
 	}
 
-	public int getNeutralMinionsKilledTeamJungle() {
+	public long getNeutralMinionsKilledTeamJungle() {
 		return neutralMinionsKilledTeamJungle;
 	}
 
-	public void setNeutralMinionsKilledTeamJungle(int neutralMinionsKilledTeamJungle) {
+	public void setNeutralMinionsKilledTeamJungle(long neutralMinionsKilledTeamJungle) {
 		this.neutralMinionsKilledTeamJungle = neutralMinionsKilledTeamJungle;
 	}
 
-	public int getNeutralMinionsKilledEnemyJungle() {
+	public long getNeutralMinionsKilledEnemyJungle() {
 		return neutralMinionsKilledEnemyJungle;
 	}
 
-	public void setNeutralMinionsKilledEnemyJungle(int neutralMinionsKilledEnemyJungle) {
+	public void setNeutralMinionsKilledEnemyJungle(long neutralMinionsKilledEnemyJungle) {
 		this.neutralMinionsKilledEnemyJungle = neutralMinionsKilledEnemyJungle;
 	}
 
-	public int getTotalTimeCrowdControlDealt() {
+	public long getTotalTimeCrowdControlDealt() {
 		return totalTimeCrowdControlDealt;
 	}
 
-	public void setTotalTimeCrowdControlDealt(int totalTimeCrowdControlDealt) {
+	public void setTotalTimeCrowdControlDealt(long totalTimeCrowdControlDealt) {
 		this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
 	}
 
@@ -514,8 +515,8 @@ public class SummonerStats {
 		return sightWardsBoughtInGame;
 	}
 
-	public void setSightWardsBoughtInGame(int sightWardsBoughtInGamel) {
-		this.sightWardsBoughtInGame = sightWardsBoughtInGamel;
+	public void setSightWardsBoughtInGame(int sightWardsBoughtInGame) {
+		this.sightWardsBoughtInGame = sightWardsBoughtInGame;
 	}
 
 	public int getWardsPlaced() {
@@ -629,7 +630,7 @@ public class SummonerStats {
 	public void setLane(String lane) {
 		this.lane = lane;
 	}
-	
+
 	public int getRuneId0() {
 		return runeId0;
 	}

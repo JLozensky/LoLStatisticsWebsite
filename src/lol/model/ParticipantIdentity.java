@@ -4,16 +4,23 @@ public class ParticipantIdentity {
 
 	private String participantIdentityId;
 	private String accountId;
+	private String firstName;
+	private String lastName;
+	private String player;
 	private String summonerName;
 	private String summonerId;
 	private String currentPlatformId;
+	private String currentAccountId;
 	private String matchHistoryUri;
 	private long profileIcon;
-	
-	public ParticipantIdentity(String participantIdentityId, String accountId, String summonerName, String summonerId, 
-														 String currentPlatformId, String matchHistoryUri, long profileIcon) {
-		this.participantIdentityId = participantIdentityId;
+
+
+	public ParticipantIdentity(String accountId, String firstName, String lastName, String player, String summonerName,
+			String summonerId, String currentPlatformId, String currentAccountId, String matchHistoryUri) {
 		this.accountId = accountId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.player = player;
 		this.summonerName = summonerName;
 		this.summonerId = summonerId;
 		this.currentPlatformId = currentPlatformId;
@@ -32,23 +39,72 @@ public class ParticipantIdentity {
 		this.participantIdentityId = participantIdentityId;
 	}
 	
+
+	public ParticipantIdentity(String accountId, String firstName, String lastName) {
+		this.accountId = accountId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	
 	public String getAccountId() {
 		return accountId;
 	}
 
+
+
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
-	
+
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(String player) {
+		this.player = player;
+	}
+
+
 	public String getSummonerName() {
 		return summonerName;
 	}
+
+
 
 	public void setSummonerName(String summonerName) {
 		this.summonerName = summonerName;
 	}
 
-	public String getSummonerId() {
+
+
+public String getSummonerId() {
 		return summonerId;
 	}
 
@@ -56,22 +112,40 @@ public class ParticipantIdentity {
 		this.summonerId = summonerId;
 	}
 
+
 	public String getCurrentPlatformId() {
 		return currentPlatformId;
 	}
+
+
 
 	public void setCurrentPlatformId(String currentPlatformId) {
 		this.currentPlatformId = currentPlatformId;
 	}
 
+
+
+	public String getCurrentAccountId() {
+		return currentAccountId;
+	}
+
+
+
+	public void setCurrentAccountId(String currentAccountId) {
+		this.currentAccountId = currentAccountId;
+	}
+
+
+
 	public String getMatchHistoryUri() {
 		return matchHistoryUri;
 	}
 
+
+
 	public void setMatchHistoryUri(String matchHistoryUri) {
 		this.matchHistoryUri = matchHistoryUri;
 	}
-
 
 	public long getProfileIcon() {
 		return profileIcon;
