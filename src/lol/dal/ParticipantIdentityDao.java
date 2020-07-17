@@ -26,20 +26,22 @@ public class ParticipantIdentityDao {
 
   public ParticipantIdentity create(ParticipantIdentity participantIdentity) 
           throws SQLException {
-    String insertParticipantIdentity = "INSERT INTO ParticipantIdentity(accountId, summonerName, " +
-            "summonerId, currentPlatformId, matchHistoryUri, profileIcon) VAULES(?,?,?,?,?,?);";
+    String insertParticipantIdentity = "INSERT INTO ParticipantIdentity(participantIdentityId, " +
+            "accountId, summonerName, summonerId, currentPlatformId, matchHistoryUri, profileIcon) " +
+            "VAULES(?,?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertParticipantIdentity);
-      
-      insertStmt.setString(1, participantIdentity.getAccountId());
-      insertStmt.setString(2, participantIdentity.getSummonerName());
-      insertStmt.setString(3, participantIdentity.getSummonerId());
-      insertStmt.setString(4, participantIdentity.getCurrentPlatformId());
-      insertStmt.setString(5, participantIdentity.getMatchHistoryUri());
-      insertStmt.setLong(6, participantIdentity.getProfileIcon());
+
+      insertStmt.setString(1, participantIdentity.getParticipantIdentityId());
+      insertStmt.setString(2, participantIdentity.getAccountId());
+      insertStmt.setString(3, participantIdentity.getSummonerName());
+      insertStmt.setString(4, participantIdentity.getSummonerId());
+      insertStmt.setString(5, participantIdentity.getCurrentPlatformId());
+      insertStmt.setString(6, participantIdentity.getMatchHistoryUri());
+      insertStmt.setLong(7, participantIdentity.getProfileIcon());
       
       insertStmt.executeUpdate();
       
@@ -95,14 +97,15 @@ public class ParticipantIdentityDao {
       results = selectStmt.executeQuery();
       
       if (results.next()) {
+        String participantIdentityId = results.getString("participantIdentityId");
         String accountId = results.getString("accountId");
         String resultSummonerName = results.getString("summonerName");
         String summonerId = results.getString("summonerId");
         String currentPlatformId = results.getString("currentPlatformId");
         String matchHistoryUri =results.getString("matchHistoryUri");
         long profileIcon = results.getLong("profileIcon");
-        return new ParticipantIdentity(accountId, resultSummonerName, summonerId, currentPlatformId,
-                matchHistoryUri, profileIcon);
+        return new ParticipantIdentity(participantIdentityId, accountId, resultSummonerName, 
+                summonerId, currentPlatformId, matchHistoryUri, profileIcon);
       }
     } catch (SQLException e) {
       e.printStackTrace();

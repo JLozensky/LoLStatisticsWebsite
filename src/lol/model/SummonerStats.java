@@ -2,7 +2,7 @@ package lol.model;
 
 public class SummonerStats {
 	
-	private int summonerStatsId;
+	private String summonerStatsId;
 	private int championId;
 	private int spell1Id;
 	private int spell2Id;
@@ -46,75 +46,50 @@ public class SummonerStats {
 	private int totalTimeCrowdControlDealt;
 	private int champLevel;
 	private int visionWardsBoughtInGame;
-	private int sightWardsBoughtInGamel;
+	private int sightWardsBoughtInGame;
 	private int wardsPlaced;
 	private int wardsKilled;
 	private boolean firstBloodKill;
 	private boolean firstBloodAssist;
 	private boolean firstTowerKill;
 	private boolean firstTowerKillAssist;
-	private boolean firstInHibitor;
-	private boolean firstInHibitorAssist;
+	private boolean firstInhibitor;
+	private boolean firstInhibitorAssist;
 	private int combatPlayerScore;
 	private int objectivePlayerScore;
 	private int totalPlayerScore;
 	private int totalScoreRank;
-	private Role role;
-	private Lane lane;
-	private int perk0;
-	private int perk0Var1;
-	private int perk0Var2;
-	private int perk0Var3;
-	private int perk1;
-	private int perk1Var1;
-	private int perk1Var2;
-	private int perk1Var3;
-	private int perk2;
-	private int perk2Var1;
-	private int perk2Var2;
-	private int perk2Var3;
-	private int perk3;
-	private int perk3Var1;
-	private int perk3Var2;
-	private int perk3Var3;
-	private int perk4;
-	private int perk4Var1;
-	private int perk4Var2;
-	private int perk4Var3;
-	private int perk5;
-	private int perk5Var1;
-	private int perk50Var2;
-	private int perk5Var3;
-	private int perkPrimaryStyle;
-	private int perkSubStyle;
-	private int accountId;
-	
-	
-	public enum Role {
-		FIGHTER, MAGE, ASSASSIN, TANK, MARKSMAN, SUPPORT
-	}
-	
-	public enum Lane {
-		TOP, MIDDLE, BOTTOM, SUPPORT
+	private String role;
+	private String lane;
+	private int runeId0;
+	private int runeId1;
+	private int runeId2;
+	private int runeId3;
+	private int runeId4;
+	private int runeId5;
+	private String highestAchievedSeasonTier;
+
+	public SummonerStats() {
+		
 	}
 
-	public SummonerStats(int summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0, int itemId1,
-			int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills, int deaths, int assists,
-			int totalDamageDealt, int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt,
-			int largestCriticalStrike, int totalDamageDealtToChampions, int magicDamageDealtToChampions,
-			int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
-			int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
-			int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
-			int trueDamageTaken, int goldEarned, int goldSpent, int turretKills, int totalMinionsKilled,
-			int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
-			int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGamel,
-			int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
-			boolean firstTowerKillAssist, boolean firstInHibitor, boolean firstInHibitorAssist, int combatPlayerScore,
-			int objectivePlayerScore, int totalPlayerScore, int totalScoreRank, Role role, Lane lane, int perk0,
-			int perk0Var1, int perk0Var2, int perk0Var3, int perk1, int perk1Var1, int perk1Var2, int perk1Var3,
-			int perk2, int perk2Var1, int perk2Var2, int perk2Var3, int perk3, int perk3Var1, int perk3Var2,
-			int perk3Var3, int perk4, int perk4Var1, int perk4Var2, int perk4Var3, int perk5, int perk5Var1,
-			int perk50Var2, int perk5Var3, int perkPrimaryStyle, int perkSubStyle, int accountId) {
+	
+
+	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0, int itemId1,
+											 int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills, int deaths, int assists,
+											 int totalDamageDealt, int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt,
+											 int largestCriticalStrike, int totalDamageDealtToChampions, int magicDamageDealtToChampions,
+											 int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
+											 int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
+											 int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
+											 int trueDamageTaken, int goldEarned, int goldSpent, int turretKills, int totalMinionsKilled,
+											 int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
+											 int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGame,
+											 int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
+											 boolean firstTowerKillAssist, boolean firstInhibitor, boolean firstInhibitorAssist, int combatPlayerScore,
+											 int objectivePlayerScore, int totalPlayerScore, int totalScoreRank, String role, String lane,
+											 int runeId0, int runeId1, int runeId2, int runeId3, int runeId4, int runeId5,
+											 String highestAchievedSeasonTier) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
 		this.spell1Id = spell1Id;
@@ -159,55 +134,35 @@ public class SummonerStats {
 		this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
 		this.champLevel = champLevel;
 		this.visionWardsBoughtInGame = visionWardsBoughtInGame;
-		this.sightWardsBoughtInGamel = sightWardsBoughtInGamel;
+		this.sightWardsBoughtInGame = sightWardsBoughtInGame;
 		this.wardsPlaced = wardsPlaced;
 		this.wardsKilled = wardsKilled;
 		this.firstBloodKill = firstBloodKill;
 		this.firstBloodAssist = firstBloodAssist;
 		this.firstTowerKill = firstTowerKill;
 		this.firstTowerKillAssist = firstTowerKillAssist;
-		this.firstInHibitor = firstInHibitor;
-		this.firstInHibitorAssist = firstInHibitorAssist;
+		this.firstInhibitor = firstInhibitor;
+		this.firstInhibitorAssist = firstInhibitorAssist;
 		this.combatPlayerScore = combatPlayerScore;
 		this.objectivePlayerScore = objectivePlayerScore;
 		this.totalPlayerScore = totalPlayerScore;
 		this.totalScoreRank = totalScoreRank;
 		this.role = role;
 		this.lane = lane;
-		this.perk0 = perk0;
-		this.perk0Var1 = perk0Var1;
-		this.perk0Var2 = perk0Var2;
-		this.perk0Var3 = perk0Var3;
-		this.perk1 = perk1;
-		this.perk1Var1 = perk1Var1;
-		this.perk1Var2 = perk1Var2;
-		this.perk1Var3 = perk1Var3;
-		this.perk2 = perk2;
-		this.perk2Var1 = perk2Var1;
-		this.perk2Var2 = perk2Var2;
-		this.perk2Var3 = perk2Var3;
-		this.perk3 = perk3;
-		this.perk3Var1 = perk3Var1;
-		this.perk3Var2 = perk3Var2;
-		this.perk3Var3 = perk3Var3;
-		this.perk4 = perk4;
-		this.perk4Var1 = perk4Var1;
-		this.perk4Var2 = perk4Var2;
-		this.perk4Var3 = perk4Var3;
-		this.perk5 = perk5;
-		this.perk5Var1 = perk5Var1;
-		this.perk50Var2 = perk50Var2;
-		this.perk5Var3 = perk5Var3;
-		this.perkPrimaryStyle = perkPrimaryStyle;
-		this.perkSubStyle = perkSubStyle;
-		this.accountId = accountId;
+		this.runeId0 = runeId0;
+		this.runeId1 = runeId1;
+		this.runeId2 = runeId2;
+		this.runeId3 = runeId3;
+		this.runeId4 = runeId4;
+		this.runeId5 = runeId5;
+		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
 	}
 
-	public int getSummonerStatsId() {
+	public String getSummonerStatsId() {
 		return summonerStatsId;
 	}
 
-	public void setSummonerStatsId(int summonerStatsId) {
+	public void setSummonerStatsId(String summonerStatsId) {
 		this.summonerStatsId = summonerStatsId;
 	}
 
@@ -555,12 +510,12 @@ public class SummonerStats {
 		this.visionWardsBoughtInGame = visionWardsBoughtInGame;
 	}
 
-	public int getSightWardsBoughtInGamel() {
-		return sightWardsBoughtInGamel;
+	public int getSightWardsBoughtInGame() {
+		return sightWardsBoughtInGame;
 	}
 
-	public void setSightWardsBoughtInGamel(int sightWardsBoughtInGamel) {
-		this.sightWardsBoughtInGamel = sightWardsBoughtInGamel;
+	public void setSightWardsBoughtInGame(int sightWardsBoughtInGamel) {
+		this.sightWardsBoughtInGame = sightWardsBoughtInGamel;
 	}
 
 	public int getWardsPlaced() {
@@ -611,20 +566,20 @@ public class SummonerStats {
 		this.firstTowerKillAssist = firstTowerKillAssist;
 	}
 
-	public boolean isFirstInHibitor() {
-		return firstInHibitor;
+	public boolean isFirstInhibitor() {
+		return firstInhibitor;
 	}
 
-	public void setFirstInHibitor(boolean firstInHibitor) {
-		this.firstInHibitor = firstInHibitor;
+	public void setFirstInhibitor(boolean firstInhibitor) {
+		this.firstInhibitor = firstInhibitor;
 	}
 
-	public boolean isFirstInHibitorAssist() {
-		return firstInHibitorAssist;
+	public boolean isFirstInhibitorAssist() {
+		return firstInhibitorAssist;
 	}
 
-	public void setFirstInHibitorAssist(boolean firstInHibitorAssist) {
-		this.firstInHibitorAssist = firstInHibitorAssist;
+	public void setFirstInhibitorAssist(boolean firstInhibitorAssist) {
+		this.firstInhibitorAssist = firstInhibitorAssist;
 	}
 
 	public int getCombatPlayerScore() {
@@ -659,237 +614,76 @@ public class SummonerStats {
 		this.totalScoreRank = totalScoreRank;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
-	public Lane getLane() {
+	public String getLane() {
 		return lane;
 	}
 
-	public void setLane(Lane lane) {
+	public void setLane(String lane) {
 		this.lane = lane;
 	}
-
-	public int getPerk0() {
-		return perk0;
-	}
-
-	public void setPerk0(int perk0) {
-		this.perk0 = perk0;
-	}
-
-	public int getPerk0Var1() {
-		return perk0Var1;
-	}
-
-	public void setPerk0Var1(int perk0Var1) {
-		this.perk0Var1 = perk0Var1;
-	}
-
-	public int getPerk0Var2() {
-		return perk0Var2;
-	}
-
-	public void setPerk0Var2(int perk0Var2) {
-		this.perk0Var2 = perk0Var2;
-	}
-
-	public int getPerk0Var3() {
-		return perk0Var3;
-	}
-
-	public void setPerk0Var3(int perk0Var3) {
-		this.perk0Var3 = perk0Var3;
-	}
-
-	public int getPerk1() {
-		return perk1;
-	}
-
-	public void setPerk1(int perk1) {
-		this.perk1 = perk1;
-	}
-
-	public int getPerk1Var1() {
-		return perk1Var1;
-	}
-
-	public void setPerk1Var1(int perk1Var1) {
-		this.perk1Var1 = perk1Var1;
-	}
-
-	public int getPerk1Var2() {
-		return perk1Var2;
-	}
-
-	public void setPerk1Var2(int perk1Var2) {
-		this.perk1Var2 = perk1Var2;
-	}
-
-	public int getPerk1Var3() {
-		return perk1Var3;
-	}
-
-	public void setPerk1Var3(int perk1Var3) {
-		this.perk1Var3 = perk1Var3;
-	}
-
-	public int getPerk2() {
-		return perk2;
-	}
-
-	public void setPerk2(int perk2) {
-		this.perk2 = perk2;
-	}
-
-	public int getPerk2Var1() {
-		return perk2Var1;
-	}
-
-	public void setPerk2Var1(int perk2Var1) {
-		this.perk2Var1 = perk2Var1;
-	}
-
-	public int getPerk2Var2() {
-		return perk2Var2;
-	}
-
-	public void setPerk2Var2(int perk2Var2) {
-		this.perk2Var2 = perk2Var2;
-	}
-
-	public int getPerk2Var3() {
-		return perk2Var3;
-	}
-
-	public void setPerk2Var3(int perk2Var3) {
-		this.perk2Var3 = perk2Var3;
-	}
-
-	public int getPerk3() {
-		return perk3;
-	}
-
-	public void setPerk3(int perk3) {
-		this.perk3 = perk3;
-	}
-
-	public int getPerk3Var1() {
-		return perk3Var1;
-	}
-
-	public void setPerk3Var1(int perk3Var1) {
-		this.perk3Var1 = perk3Var1;
-	}
-
-	public int getPerk3Var2() {
-		return perk3Var2;
-	}
-
-	public void setPerk3Var2(int perk3Var2) {
-		this.perk3Var2 = perk3Var2;
-	}
-
-	public int getPerk3Var3() {
-		return perk3Var3;
-	}
-
-	public void setPerk3Var3(int perk3Var3) {
-		this.perk3Var3 = perk3Var3;
-	}
-
-	public int getPerk4() {
-		return perk4;
-	}
-
-	public void setPerk4(int perk4) {
-		this.perk4 = perk4;
-	}
-
-	public int getPerk4Var1() {
-		return perk4Var1;
-	}
-
-	public void setPerk4Var1(int perk4Var1) {
-		this.perk4Var1 = perk4Var1;
-	}
-
-	public int getPerk4Var2() {
-		return perk4Var2;
-	}
-
-	public void setPerk4Var2(int perk4Var2) {
-		this.perk4Var2 = perk4Var2;
-	}
-
-	public int getPerk4Var3() {
-		return perk4Var3;
-	}
-
-	public void setPerk4Var3(int perk4Var3) {
-		this.perk4Var3 = perk4Var3;
-	}
-
-	public int getPerk5() {
-		return perk5;
-	}
-
-	public void setPerk5(int perk5) {
-		this.perk5 = perk5;
-	}
-
-	public int getPerk5Var1() {
-		return perk5Var1;
-	}
-
-	public void setPerk5Var1(int perk5Var1) {
-		this.perk5Var1 = perk5Var1;
-	}
-
-	public int getPerk50Var2() {
-		return perk50Var2;
-	}
-
-	public void setPerk50Var2(int perk50Var2) {
-		this.perk50Var2 = perk50Var2;
-	}
-
-	public int getPerk5Var3() {
-		return perk5Var3;
-	}
-
-	public void setPerk5Var3(int perk5Var3) {
-		this.perk5Var3 = perk5Var3;
-	}
-
-	public int getPerkPrimaryStyle() {
-		return perkPrimaryStyle;
-	}
-
-	public void setPerkPrimaryStyle(int perkPrimaryStyle) {
-		this.perkPrimaryStyle = perkPrimaryStyle;
-	}
-
-	public int getPerkSubStyle() {
-		return perkSubStyle;
-	}
-
-	public void setPerkSubStyle(int perkSubStyle) {
-		this.perkSubStyle = perkSubStyle;
-	}
-
-	public int getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
 	
+	public int getRuneId0() {
+		return runeId0;
+	}
+
+	public void setRuneId0(int runeId0) {
+		this.runeId0 = runeId0;
+	}
+
+	public int getRuneId1() {
+		return runeId1;
+	}
+
+	public void setRuneId1(int runeId1) {
+		this.runeId1 = runeId1;
+	}
+
+	public int getRuneId2() {
+		return runeId2;
+	}
+
+	public void setRuneId2(int runeId2) {
+		this.runeId2 = runeId2;
+	}
+
+	public int getRuneId3() {
+		return runeId3;
+	}
+
+	public void setRuneId3(int runeId3) {
+		this.runeId3 = runeId3;
+	}
+
+	public int getRuneId4() {
+		return runeId4;
+	}
+
+	public void setRuneId4(int runeId4) {
+		this.runeId4 = runeId4;
+	}
+
+	public int getRuneId5() {
+		return runeId5;
+	}
+
+	public void setRuneId5(int runeId5) {
+		this.runeId5 = runeId5;
+	}
+
+	public String getHighestAchievedSeasonTier() {
+		return highestAchievedSeasonTier;
+	}
+
+	public void setHighestAchievedSeasonTier(String highestAchievedSeasonTier) {
+		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+	}
 	
 }

@@ -2,6 +2,7 @@ package lol.model;
 
 public class ParticipantIdentity {
 
+	private String participantIdentityId;
 	private String accountId;
 	private String summonerName;
 	private String summonerId;
@@ -9,8 +10,9 @@ public class ParticipantIdentity {
 	private String matchHistoryUri;
 	private long profileIcon;
 	
-	public ParticipantIdentity(String accountId, String summonerName, String summonerId, 
+	public ParticipantIdentity(String participantIdentityId, String accountId, String summonerName, String summonerId, 
 														 String currentPlatformId, String matchHistoryUri, long profileIcon) {
+		this.participantIdentityId = participantIdentityId;
 		this.accountId = accountId;
 		this.summonerName = summonerName;
 		this.summonerId = summonerId;
@@ -19,10 +21,17 @@ public class ParticipantIdentity {
 		this.profileIcon = profileIcon;
 	}
 
-	public ParticipantIdentity(String accountId) {
-		this.accountId = accountId;
+	public ParticipantIdentity(String participantIdentityId) {
+		this.participantIdentityId = participantIdentityId;
+	}
+	public String getParticipantIdentityId() {
+		return participantIdentityId;
 	}
 
+	public void setParticipantIdentityId(String participantIdentityId) {
+		this.participantIdentityId = participantIdentityId;
+	}
+	
 	public String getAccountId() {
 		return accountId;
 	}
