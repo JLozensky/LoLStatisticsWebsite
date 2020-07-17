@@ -25,8 +25,7 @@ public class ParticipantIdentityDao {
     }
     return instance;
   }
-  getPlayerFromAccountId
-  updateLastName
+  
 
   public ParticipantIdentity delete(ParticipantIdentity participantIdentity) throws SQLException {
     String deleteParticipantIdentity = "DELETE FROM participantIdentity WHERE SummonerName=?;";

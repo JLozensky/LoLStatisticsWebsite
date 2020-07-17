@@ -32,6 +32,12 @@ public class Game {
 	}
 
 
+	public Game(String gameId2, String date2, int gameDuration2, int queueId2, int mapId2, int seasonId2,
+			String gameVersion2, String gameMode2, String gameType2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public String getGameId() {
 		return gameId;
 	}

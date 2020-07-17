@@ -35,7 +35,7 @@
 		<h1 class="cover-heading">Update Player</h1>
 		<p class="lead">Use this page to update an existing player/participant</p>
 	</div>
-	<form action="playupdate" method="post">
+	<form action="playerupdate" method="post">
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label" for="accountid">AccountId</label>
 			<div class="col-sm-9">

@@ -203,6 +203,25 @@ public class SummonerStats {
 		this.accountId = accountId;
 	}
 
+	public SummonerStats(String summonerStatsId2, int championId2, int spell1Id2, int spell2Id2, int itemId02,
+			int itemId12, int itemId22, int itemId32, int itemId42, int itemId52, int itemId62, int kills2, int deaths2,
+			int assists2, long totalDamageDealt2, long magicDamageDealt2, long physicalDamageDealt2,
+			long trueDamageDealt2, long largestCriticalStrike2, long totalDamageDealtToChampions2,
+			long magicDamageDealtToChampions2, long physicalDamageDealtToChampions2, long trueDamageDealtToChampions2,
+			long totalHeal2, long totalUnitHealed2, long damageSelfMitigated2, long damageDealtToObjectives2,
+			long damageDealtToTurrets2, long visionScore2, long timeCCingOthers2, long totalDamageTaken2,
+			long magicDamageTaken2, long physicalDamageTaken2, long trueDamageTaken2, long goldEarned2, long goldSpent2,
+			int turretKills2, long totalMinionsKilled2, long neutralMinionsKilled2,
+			long neutralMinionsKilledTeamJungle2, long neutralMinionsKilledEnemyJungle2,
+			long totalTimeCrowdControlDealt2, int champLevel2, int visionWardsBoughtInGame2, int sightWardsBoughtInGame,
+			int wardsPlaced2, int wardsKilled2, boolean firstBloodKill2, boolean firstBloodAssist2,
+			boolean firstTowerKill2, boolean firstTowerKillAssist2, boolean firstInhibitor2,
+			boolean firstInhibitorAssist2, int combatPlayerScore2, int objectivePlayerScore2, int totalPlayerScore2,
+			int totalScoreRank2, String role2, String lane2, int runeId0, int runeId1, int runeId2, int runeId3,
+			int runeId4, int runeId5, String highestAchievedSeasonTier) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getSummonerStatsId() {
 		return summonerStatsId;
 	}
