@@ -10,6 +10,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
+<title>Create a Player</title>
+</head>
+<body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
   <header class="text-center masthead mb-auto">
     <div class="inner">
@@ -26,9 +30,6 @@
     </div>
   </header>
 </div>
-<title>Create a Player</title>
-</head>
-<body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
   <div class="inner-cover d-flex p-3 mx-auto flex-column w-50 justify-content-center">
 
@@ -84,6 +85,15 @@
 	<p>
 		<span id="successMessage"><b>${messages.success}</b></span>
 	</p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</div>
 	 <!-- Bootstrap -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

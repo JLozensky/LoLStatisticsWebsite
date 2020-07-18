@@ -10,14 +10,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
+<title>Update a Player</title>
+</head>
+<body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
   <header class="text-center masthead mb-auto">
     <div class="inner">
       <h3 class="masthead-brand">LolDB</h3>
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link" href="findchampions">Find Champions</a>
-                        <a class="nav-link" href="findplayers">Find Players</a>
-        
+        <a class="nav-link" href="findplayers">Find Players</a>
         <a class="nav-link" href="playercreate">Create</a>
         <a class="nav-link" href="playerdelete">Delete</a>
         <a class="nav-link active" href="playerupdate">Update</a>
@@ -25,9 +28,6 @@
     </div>
   </header>
 </div>
-<title>Update a Player</title>
-</head>
-<body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
   <div class="inner-cover d-flex p-3 mx-auto flex-column w-50 justify-content-center">
 
@@ -35,7 +35,7 @@
 		<h1 class="cover-heading">Update Player</h1>
 		<p class="lead">Use this page to update an existing player/participant</p>
 	</div>
-	<form action="playupdate" method="post">
+	<form action="playerupdate" method="post">
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label" for="accountid">AccountId</label>
 			<div class="col-sm-9">

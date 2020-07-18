@@ -1,52 +1,118 @@
 package lol.dal;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lol.model.*;
+import lol.model.ParticipantIdentity;
 
-public class ParticipantsDao {
 
-	/**
-	 * Manages connection to the database.
-	 */
-	protected ConnectionManager connectionManager;
-	
-	/**
-	 * Single pattern: instantiation is limited to one object.
-	 */
-	private static ParticipantsDao instance = null;
-	
-	/**
-	 * Private constructor that creates a new connection manager.
-	 * Inaccessible to outside classes only the singleton instance can be accessed.
-	 */
-	private ParticipantsDao() {
-		connectionManager = new ConnectionManager();
-	}
-	
-	
-	
-	/**
-	 * Returns the singleton instance for this class.
-	 * @return singleton instance for this class
-	 */
-	public static ParticipantsDao getInstance() {
-		if(instance == null) {
-			instance = new ParticipantsDao();
-		}
-		return instance;
-	}
-	
-	/**
-	 * Creates a new champion record in Champions.
-	 * Runs an INSERT statement.
-	 * @param champion Champions object to create in the database
-	 * @return the created champion
-	 * @throws SQLException
-	 */
-	public ParticipantIdentity create(ParticipantIdentity participant) throws SQLException {
+public class ParticipantIdentityDao {
+  protected ConnectionManager connectionManager;
+
+  private static ParticipantIdentityDao instance = null;
+
+  protected ParticipantIdentityDao() {
+    connectionManager = new ConnectionManager();
+  }
+
+  public static ParticipantIdentityDao getInstance() {
+    if (instance == null) {
+      instance = new ParticipantIdentityDao();
+    }
+    return instance;
+  }
+  
+
+  public ParticipantIdentity delete(ParticipantIdentity participantIdentity) throws SQLException {
+    String deleteParticipantIdentity = "DELETE FROM participantIdentity WHERE SummonerName=?;";
+    Connection connection = null;
+    PreparedStatement deleteStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      deleteStmt = connection.prepareStatement(deleteParticipantIdentity);
+      deleteStmt.setString(1, participantIdentity.getSummonerName());
+      deleteStmt.executeUpdate();
+
+      return null;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (deleteStmt != null) {
+        deleteStmt.close();
+      }
+    }
+  }
+
+  public ParticipantIdentity getParticipantIdentityFromSummonerName(String SummonerName) 
+          throws SQLException {
+    String selectParticipantIdentity = "SELECT accountId,lastName,firstName,player,summonerName,summonerId,"
+			+ "currentPlatformId,currentAccountId,matchHistoryUri,profileIcon "
+			+ "FROM ParticipantIdentity "
+			+ "WHERE summonerName=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectParticipantIdentity);
+      selectStmt.setString(1, SummonerName);
+      results = selectStmt.executeQuery();
+      
+      if (results.next()) {
+			String resultAccountId = results.getString("accountId");
+			String player = results.getString("player");
+			String lastName = results.getString("lastName");
+			String firstName = results.getString("firstName");
+			String summonerName = results.getString("summonerName");
+			String summonerId = results.getString("summonerId");
+			String currentPlatformId = results.getString("currentPlatformId");
+			String currentAccountId = results.getString("currentAccountId");
+			String matchHistoryUri = results.getString("matchHistoryUri");
+			Long profileIcon = results.getLong("profileIcon");
+			
+			ParticipantIdentity participant = new ParticipantIdentity(resultAccountId, 
+					firstName, lastName, player,
+					summonerName, summonerId, currentPlatformId, currentAccountId, matchHistoryUri, profileIcon);
+			return participant;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return null;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  public ParticipantIdentity create(ParticipantIdentity participant) throws SQLException {
 
 		String insertParticipant = "INSERT INTO ParticipantIdentity(accountId,firstName,lastName,player,summonerName,summonerId,"
 				+ "currentPlatformId,currentAccountId,matchHistoryUri) VALUES(?,?,?,?,?,?,?,?,?);";
@@ -80,29 +146,7 @@ public class ParticipantsDao {
 		}
 	}
 
-	public ParticipantIdentity delete(ParticipantIdentity participant) throws SQLException {
-		String deleteChampion = "DELETE FROM ParticipantIdentity WHERE accountId=?;";
-		Connection connection = null;
-		PreparedStatement deleteStmt = null;
-		try {
-			connection = connectionManager.getConnection();
-			deleteStmt = connection.prepareStatement(deleteChampion);
-			deleteStmt.setString(1, participant.getAccountId());
-			deleteStmt.executeUpdate();
-
-			return null;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if(connection != null) {
-				connection.close();
-			}
-			if(deleteStmt != null) {
-				deleteStmt.close();
-			}
-		}
-	}
+	
 	
 	public ParticipantIdentity getParticipantFromId(int id) throws SQLException {
 		String selectChampion =
@@ -231,4 +275,9 @@ public class ParticipantsDao {
 		}
 		return participants;
 	}
+  
+  
+  
+  
+  
 }

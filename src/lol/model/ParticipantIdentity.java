@@ -2,18 +2,21 @@ package lol.model;
 
 public class ParticipantIdentity {
 
-	private int accountId;
+
+	private String accountId;
 	private String firstName;
 	private String lastName;
 	private String player;
 	private String summonerName;
 	private String summonerId;
-	private int currentPlatformId;
-	private int currentAccountId;
+	private String currentPlatformId;
+	private String currentAccountId;
 	private String matchHistoryUri;
+	private Long profileIcon;
 	
-	public ParticipantIdentity(int accountId, String firstName, String lastName, String player, String summonerName,
-			String summonerId, int currentPlatformId, int currentAccountId, String matchHistoryUri) {
+
+	public ParticipantIdentity(String accountId, String firstName, String lastName, String player, String summonerName,
+			String summonerId, String currentPlatformId, String currentAccountId, String matchHistoryUri, Long profileIcon) {
 		this.accountId = accountId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -21,30 +24,28 @@ public class ParticipantIdentity {
 		this.summonerName = summonerName;
 		this.summonerId = summonerId;
 		this.currentPlatformId = currentPlatformId;
-		this.currentAccountId = currentAccountId;
 		this.matchHistoryUri = matchHistoryUri;
+		this.profileIcon = profileIcon;
 	}
 	
-	
-
-	public ParticipantIdentity(int accountId, String firstName, String lastName) {
+	public ParticipantIdentity(String accountId, String firstName, String lastName) {
 		this.accountId = accountId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 	
-	public ParticipantIdentity(int accountId) {
+	public ParticipantIdentity(String accountId) {
 		this.accountId = accountId;
 	}
 
 
-	public int getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
 
 
-	public void setAccountId(int accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 
@@ -73,17 +74,14 @@ public class ParticipantIdentity {
 	}
 
 
-
 	public String getPlayer() {
 		return player;
 	}
 
 
-
 	public void setPlayer(String player) {
 		this.player = player;
 	}
-
 
 
 	public String getSummonerName() {
@@ -96,6 +94,8 @@ public class ParticipantIdentity {
 		this.summonerName = summonerName;
 	}
 
+
+
 public String getSummonerId() {
 		return summonerId;
 	}
@@ -105,26 +105,25 @@ public String getSummonerId() {
 	}
 
 
-
-	public int getCurrentPlatformId() {
+	public String getCurrentPlatformId() {
 		return currentPlatformId;
 	}
 
 
 
-	public void setCurrentPlatformId(int currentPlatformId) {
+	public void setCurrentPlatformId(String currentPlatformId) {
 		this.currentPlatformId = currentPlatformId;
 	}
 
 
 
-	public int getCurrentAccountId() {
+	public String getCurrentAccountId() {
 		return currentAccountId;
 	}
 
 
 
-	public void setCurrentAccountId(int currentAccountId) {
+	public void setCurrentAccountId(String currentAccountId) {
 		this.currentAccountId = currentAccountId;
 	}
 
@@ -140,7 +139,12 @@ public String getSummonerId() {
 		this.matchHistoryUri = matchHistoryUri;
 	}
 
+	public long getProfileIcon() {
+		return profileIcon;
+	}
 
-	
+	public void setProfileIcon(long profileIcon) {
+		this.profileIcon = profileIcon;
+	}
 	
 }

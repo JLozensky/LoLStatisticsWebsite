@@ -33,7 +33,7 @@
 	<h1 class="cover-heading">Search for players</h1>
 	<p class="lead">Use this page to search for players by summoner name</p>
 	</div>
-    <form action="findchampions" method="post">
+    <form action="findplayers" method="post">
 		
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label" for="summonerName">Summoner Name</label>
