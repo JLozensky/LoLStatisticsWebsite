@@ -84,7 +84,7 @@ CREATE TABLE TeamStats (
  banFour INT,
  banFive INT,
  summonerStatsId INT,
- CONSTRAINT pk_TeamStats PRIMARY KEY (statsId)
+ CONSTRAINT pk_TeamStatsId PRIMARY KEY (teamStatsId)
 );
 
 CREATE TABLE Game (
@@ -100,10 +100,10 @@ CREATE TABLE Game (
  team2 INT,
  CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId),
  CONSTRAINT fk_Game_team1 FOREIGN KEY (team1)
-  REFERENCES TeamStats(statsId)
+  REFERENCES TeamStats(teamStatsId)
   ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT fk_Game_team2 FOREIGN KEY (team2)
-  REFERENCES TeamStats(statsId)
+  REFERENCES TeamStats(teamStatsId)
   ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -252,7 +252,7 @@ CREATE TABLE SummonerStats (
  perkPrimaryStyle INT,
  perkSubStyle INT,
  accountId INT,
- statsId INT,
+ teamStatsId INT,
  CONSTRAINT pk_SummonerStats PRIMARY KEY (summonerStatsId),
  CONSTRAINT fk_SummonerStats_championId FOREIGN KEY (championId)
   REFERENCES Champions (championId)
@@ -305,27 +305,45 @@ CONSTRAINT fk_SummonerStats_itemId0 FOREIGN KEY (itemId0)
  CONSTRAINT fk_SummonerStats_accountId FOREIGN KEY (accountId)
   REFERENCES ParticipantIdentity(accountId)
   ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_statsId FOREIGN KEY (statsId)
-  REFERENCES TeamStats(statsId)
+ CONSTRAINT fk_SummonerStats_teamStatsId FOREIGN KEY (teamStatsId)
+  REFERENCES TeamStats(teamStatsId)
   ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+ USE LOL; 
 
+  LOAD DATA INFILE 'ItemStatTable.csv' INTO TABLE ItemStats
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES
+  (ItemStats.itemId, ItemStats.statName, ItemStats.value)
+  SET itemStatsId = NULL;
+  
+  LOAD DATA INFILE 'SummonerSpellTable.csv' INTO TABLE SummonerSpells
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES
+  (SummonerSpells.SummonerSpellId, SummonerSpells.name, SummonerSpells.description, SummonerSpells.spellRange, SummonerSpells.cooldown, SummonerSpells.summonerLevel, SummonerSpells.ModesAvailable)
+  SET summonerSpellId = NULL;
+  
+  LOAD DATA INFILE 'ItemTable.csv' INTO TABLE Item
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  LOAD DATA INFILE 'RuneTable.csv' INTO TABLE RuneData
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES;
+  
+  LOAD DATA INFILE 'ChampionTable.csv' INTO TABLE Champions
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES;
+  
+  LOAD DATA INFILE 'ChampionAdviceTable.csv' INTO TABLE ChampionAdvice
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES
+  (ChampionAdvice.championId, ChampionAdvice.allyAdvice, ChampionAdvice.enemyAdvice)
+  SET adviceId = NULL;
