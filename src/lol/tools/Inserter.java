@@ -47,15 +47,15 @@ public class Inserter {
         /*
         Game insertion
          */
-        String gameId = String.valueOf(matchObject.get("gameId"));
-        String date = String.valueOf(matchObject.get("date"));
-        int gameDuration = ((Long) matchObject.get("gameDuration")).intValue();
-        int queueId = ((Long) matchObject.get("queueId")).intValue();
-        int mapId = ((Long) matchObject.get("mapId")).intValue();
-        int seasonId = ((Long) matchObject.get("seasonId")).intValue();
-        String gameVersion = String.valueOf(matchObject.get("gameVersion"));
-        String gameMode = String.valueOf(matchObject.get("gameMode"));
-        String gameType = String.valueOf(matchObject.get("gameType"));
+        String gameId = matchObject.get("gameId") == null ? null : String.valueOf(matchObject.get("gameId"));
+        String date = matchObject.get("date") == null ? null : String.valueOf(matchObject.get("date"));
+        int gameDuration = matchObject.get("gameDuration") == null ? null : ((Long) matchObject.get("gameDuration")).intValue();
+        int queueId = matchObject.get("queueId") == null ? 0 : ((Long) matchObject.get("queueId")).intValue();
+        int mapId = matchObject.get("mapId") == null ? 0 : ((Long) matchObject.get("mapId")).intValue();
+        int seasonId = matchObject.get("seasonId") == null ? 0 : ((Long) matchObject.get("seasonId")).intValue();
+        String gameVersion = matchObject.get("gameVersion") == null ? null : String.valueOf(matchObject.get("gameVersion"));
+        String gameMode = matchObject.get("gameMode") == null ? null : String.valueOf(matchObject.get("gameMode"));
+        String gameType = matchObject.get("gameType") == null ? null : String.valueOf(matchObject.get("gameType"));
 
         Game game = new Game(gameId, date, gameDuration, queueId, mapId, seasonId, gameVersion,
                 gameMode, gameType);
@@ -70,22 +70,22 @@ public class Inserter {
         Iterator<JSONObject> teamIterator = teams.iterator();
         while (teamIterator.hasNext()) {
           JSONObject team = teamIterator.next();
-          long teamId = (long) team.get("teamId");
+          long teamId = team.get("teamId") == null ? 0 : (long) team.get("teamId");
           String teamStatsId = gameId + teamId;
-          String win = String.valueOf(team.get("win"));
-          boolean firstBlood = (boolean) team.get("firstBlood");
-          boolean firstTower = (boolean) team.get("firstTower");
-          boolean firstInhibitor = (boolean) team.get("firstInhibitor");
-          boolean firstBaron = (boolean) team.get("firstBaron");
-          boolean firstDragon = (boolean) team.get("firstDragon");
-          boolean firstRiftHerald = (boolean) team.get("firstRiftHerald");
-          int towerKills = ((Long) team.get("towerKills")).intValue();
-          int inhibitorKills = ((Long) team.get("inhibitorKills")).intValue();
-          int baronKills = ((Long) team.get("baronKills")).intValue();
-          int dragonKills = ((Long) team.get("dragonKills")).intValue();
-          int vilemawKills = ((Long) team.get("vilemawKills")).intValue();
-          int riftHeraldKills = ((Long) team.get("riftHeraldKills")).intValue();
-          int dominionVictoryScore = ((Long) team.get("dominionVictoryScore")).intValue();
+          String win = team.get("win") == null ? null : String.valueOf(team.get("win"));
+          boolean firstBlood = team.get("firstBlood") != null && (boolean) team.get("firstBlood");
+          boolean firstTower = team.get("firstTower") != null && (boolean) team.get("firstTower");
+          boolean firstInhibitor = team.get("firstInhibitor") != null && (boolean) team.get("firstInhibitor");
+          boolean firstBaron = team.get("firstBaron") != null && (boolean) team.get("firstBaron");
+          boolean firstDragon = team.get("firstDragon") != null && (boolean) team.get("firstDragon");
+          boolean firstRiftHerald = team.get("firstRiftHerald") != null && (boolean) team.get("firstRiftHerald");
+          int towerKills = team.get("towerKills") == null ? 0 : ((Long) team.get("towerKills")).intValue();
+          int inhibitorKills = team.get("inhibitorKills") == null ? 0 : ((Long) team.get("inhibitorKills")).intValue();
+          int baronKills = team.get("baronKills") == null ? 0 : ((Long) team.get("baronKills")).intValue();
+          int dragonKills = team.get("dragonKills") == null ? 0 : ((Long) team.get("dragonKills")).intValue();
+          int vilemawKills = team.get("vilemawKills") == null ? 0 : ((Long) team.get("vilemawKills")).intValue();
+          int riftHeraldKills = team.get("riftHeraldKills") == null ? 0 :  ((Long) team.get("riftHeraldKills")).intValue();
+          int dominionVictoryScore = team.get("dominionVictoryScore") == null ? 0 : ((Long) team.get("dominionVictoryScore")).intValue();
           JSONArray bans = (JSONArray) team.get("bans");
           Iterator<JSONObject> banIterator = bans.iterator();
           int banOne = banIterator.hasNext()
@@ -119,11 +119,11 @@ public class Inserter {
         while (summonerIterator.hasNext()) {
           Summoner summoner;
           JSONObject player = (JSONObject) summonerIterator.next().get("player");
-          String accountId = String.valueOf(player.get("accountId"));
-          String summonerName = String.valueOf(player.get("summonerName"));
-          String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
-          String matchHistoryUri = String.valueOf(player.get("matchHistoryUri"));
-          int profileIcon = ((Long) player.get("profileIcon")).intValue();
+          String accountId = player.get("accountId") == null ? null : String.valueOf(player.get("accountId"));
+          String summonerName = player.get("summonerName") == null ? null : String.valueOf(player.get("summonerName"));
+          String currentPlatformId = player.get("currentPlatformId") == null ? null : String.valueOf(player.get("currentPlatformId"));
+          String matchHistoryUri = player.get("matchHistoryUri") == null ? null : String.valueOf(player.get("matchHistoryUri"));
+          int profileIcon = player.get("profileIcon") == null ? 0 : ((Long) player.get("profileIcon")).intValue();
           if (index < 5) {
             // assign teamStats0 to summoner 1 - 5
             summoner = new Summoner(accountId, summonerName, currentPlatformId, matchHistoryUri,
@@ -149,45 +149,45 @@ public class Inserter {
           JSONObject participant = participantIterator.next();
           String participantId = String.valueOf(participant.get("participantId"));
           String summonerStatsId = participantId + gameId;
-          int championId = ((Long) participant.get("championId")).intValue();
-          int spell1Id = ((Long) participant.get("spell1Id")).intValue();
-          int spell2Id = ((Long) participant.get("spell2Id")).intValue();
+          int championId = participant.get("championId") == null ? 0 : ((Long) participant.get("championId")).intValue();
+          int spell1Id = participant.get("spell1Id") == null ? 0 : ((Long) participant.get("spell1Id")).intValue();
+          int spell2Id = participant.get("spell2Id") == null ? 0 : ((Long) participant.get("spell2Id")).intValue();
           JSONObject stats = (JSONObject) participant.get("stats");
-          int itemId0 = ((Long) stats.get("item0")).intValue();
-          int itemId1 = ((Long) stats.get("item1")).intValue();
-          int itemId2 = ((Long) stats.get("item2")).intValue();
-          int itemId3 = ((Long) stats.get("item3")).intValue();
-          int itemId4 = ((Long) stats.get("item4")).intValue();
-          int itemId5 = ((Long) stats.get("item5")).intValue();
-          int itemId6 = ((Long) stats.get("item6")).intValue();
-          int kills = ((Long) stats.get("kills")).intValue();
-          int deaths = ((Long) stats.get("deaths")).intValue();
-          int assists = ((Long) stats.get("assists")).intValue();
-          long totalDamageDealt = (long) stats.get("totalDamageDealt");
-          long magicDamageDealt = (long) stats.get("magicDamageDealt");
-          long physicalDamageDealt = (long) stats.get("physicalDamageDealt");
-          long trueDamageDealt = (long) stats.get("trueDamageDealt");
-          long largestCriticalStrike = (long) stats.get("largestCriticalStrike");
-          long totalDamageDealtToChampions = (long) stats.get("totalDamageDealtToChampions");
-          long magicDamageDealtToChampions = (long) stats.get("magicDamageDealtToChampions");
-          long physicalDamageDealtToChampions = (long) stats.get("physicalDamageDealtToChampions");
-          long trueDamageDealtToChampions = (long) stats.get("trueDamageDealtToChampions");
-          long totalHeal = (long) stats.get("totalHeal");
-          long totalUnitsHealed = (long) stats.get("totalUnitsHealed");
-          long damageSelfMitigated = (long) stats.get("damageSelfMitigated");
-          long damageDealtToObjectives = (long) stats.get("damageDealtToObjectives");
-          long damageDealtToTurrets = (long) stats.get("damageDealtToTurrets");
-          long visionScore = (long) stats.get("visionScore");
-          long timeCCingOthers = (long) stats.get("timeCCingOthers");
-          long totalDamageTaken = (long) stats.get("totalDamageTaken");
-          long magicalDamageTaken = (long) stats.get("magicalDamageTaken");
-          long physicalDamageTaken = (long) stats.get("physicalDamageTaken");
-          long trueDamageTaken = (long) stats.get("trueDamageTaken");
-          long goldEarned = (long) stats.get("goldEarned");
-          long goldSpent = (long) stats.get("goldSpent");
-          int turretKills = ((Long) stats.get("turretKills")).intValue();
-          long totalMinionsKilled = (long) stats.get("totalMinionsKilled");
-          long neutralMinionsKilled = (long) stats.get("neutralMinionsKilled");
+          int itemId0 = stats.get("item0") == null ? 0 : ((Long) stats.get("item0")).intValue();
+          int itemId1 = stats.get("item1") == null ? 0 : ((Long) stats.get("item1")).intValue();
+          int itemId2 = stats.get("item2") == null ? 0 : ((Long) stats.get("item2")).intValue();
+          int itemId3 = stats.get("item3") == null ? 0 : ((Long) stats.get("item3")).intValue();
+          int itemId4 = stats.get("item4") == null ? 0 : ((Long) stats.get("item4")).intValue();
+          int itemId5 = stats.get("item5") == null ? 0 : ((Long) stats.get("item5")).intValue();
+          int itemId6 = stats.get("item6") == null ? 0 : ((Long) stats.get("item6")).intValue();
+          int kills = stats.get("kills") == null ? 0 : ((Long) stats.get("kills")).intValue();
+          int deaths =  stats.get("deaths") == null ? 0 : ((Long) stats.get("deaths")).intValue();
+          int assists = stats.get("assists") == null ? 0 : ((Long) stats.get("assists")).intValue();
+          long totalDamageDealt = stats.get("totalDamageDealt") == null ? 0 : (long) stats.get("totalDamageDealt");
+          long magicDamageDealt = stats.get("magicDamageDealt") == null ? 0 : (long) stats.get("magicDamageDealt");
+          long physicalDamageDealt = stats.get("physicalDamageDealt") == null ? 0 : (long) stats.get("physicalDamageDealt");
+          long trueDamageDealt =  stats.get("trueDamageDealt") == null ? 0 : (long) stats.get("trueDamageDealt");
+          long largestCriticalStrike =  stats.get("largestCriticalStrike") == null ? 0 : (long) stats.get("largestCriticalStrike");
+          long totalDamageDealtToChampions =  stats.get("totalDamageDealtToChampions") == null ? 0 : (long) stats.get("totalDamageDealtToChampions");
+          long magicDamageDealtToChampions =  stats.get("magicDamageDealtToChampions") == null ? 0 : (long) stats.get("magicDamageDealtToChampions");
+          long physicalDamageDealtToChampions =  stats.get("physicalDamageDealtToChampions") == null ? 0 : (long) stats.get("physicalDamageDealtToChampions");
+          long trueDamageDealtToChampions =  stats.get("trueDamageDealtToChampions") == null ? 0 : (long) stats.get("trueDamageDealtToChampions");
+          long totalHeal =  stats.get("totalHeal") == null ? 0 : (long) stats.get("totalHeal");
+          long totalUnitsHealed =  stats.get("totalUnitsHealed") == null ? 0 : (long) stats.get("totalUnitsHealed");
+          long damageSelfMitigated =  stats.get("damageSelfMitigated") == null ? 0 : (long) stats.get("damageSelfMitigated");
+          long damageDealtToObjectives =  stats.get("damageDealtToObjectives") == null ? 0 : (long) stats.get("damageDealtToObjectives");
+          long damageDealtToTurrets =  stats.get("damageDealtToTurrets") == null ? 0 : (long) stats.get("damageDealtToTurrets");
+          long visionScore =  stats.get("visionScore") == null ? 0 : (long) stats.get("visionScore");
+          long timeCCingOthers =  stats.get("timeCCingOthers") == null ? 0 : (long) stats.get("timeCCingOthers");
+          long totalDamageTaken =  stats.get("totalDamageTaken") == null ? 0 : (long) stats.get("totalDamageTaken");
+          long magicalDamageTaken =  stats.get("magicalDamageTaken") == null ? 0 : (long) stats.get("magicalDamageTaken");
+          long physicalDamageTaken =  stats.get("physicalDamageTaken") == null ? 0 : (long) stats.get("physicalDamageTaken");
+          long trueDamageTaken =  stats.get("trueDamageTaken") == null ? 0 : (long) stats.get("trueDamageTaken");
+          long goldEarned =  stats.get("goldEarned") == null ? 0 : (long) stats.get("goldEarned");
+          long goldSpent =  stats.get("goldSpent") == null ? 0 : (long) stats.get("goldSpent");
+          int turretKills =  stats.get("turretKills") == null ? 0 : ((Long) stats.get("turretKills")).intValue();
+          long totalMinionsKilled =  stats.get("totalMinionsKilled") == null ? 0 : (long) stats.get("totalMinionsKilled");
+          long neutralMinionsKilled =  stats.get("neutralMinionsKilled") == null ? 0 : (long) stats.get("neutralMinionsKilled");
           long neutralMinionsKilledTeamJungle = stats.get("neutralMinionsKilledTeamJungle") 
                   == null ? 0 : (long)stats.get("neutralMinionsKilledTeamJungle");
           long neutralMinionsKilledEnemyJungle = stats.get("neutralMinionsKilledEnemyJungle")
@@ -204,12 +204,12 @@ public class Inserter {
           boolean firstTowerAssist = stats.get("firstTowerAssist") != null && (boolean) stats.get("firstTowerAssist");
           boolean firstInhibitorKill = stats.get("firstInhibitorKill") != null && (boolean) stats.get("firstInhibitorKill");
           boolean firstInhibitorAssist = stats.get("firstInhibitorAssist") != null && (boolean) stats.get("firstInhibitorAssist");
-          int combatPlayerScore = ((Long) stats.get("combatPlayerScore")).intValue();
-          int objectivePlayerScore = ((Long) stats.get("objectivePlayerScore")).intValue();
-          int totalPlayerScore = ((Long) stats.get("totalPlayerScore")).intValue();
-          int totalScoreRank = ((Long) stats.get("totalScoreRank")).intValue();
-          String role = String.valueOf(stats.get("role"));
-          String lane = String.valueOf(stats.get("lane"));
+          int combatPlayerScore = stats.get("combatPlayerScore") == null ? 0 : ((Long) stats.get("combatPlayerScore")).intValue();
+          int objectivePlayerScore = stats.get("objectivePlayerScore") == null ? 0 : ((Long) stats.get("objectivePlayerScore")).intValue();
+          int totalPlayerScore = stats.get("totalPlayerScore") == null ? 0 : ((Long) stats.get("totalPlayerScore")).intValue();
+          int totalScoreRank = stats.get("totalScoreRank") == null ? 0 : ((Long) stats.get("totalScoreRank")).intValue();
+          String role = stats.get("role") == null ? null : String.valueOf(stats.get("role"));
+          String lane = stats.get("lane") == null ? null : String.valueOf(stats.get("lane"));
           JSONArray runes = (JSONArray) participant.get("runes");
           int runeId0 = 0, runeId1 = 0, runeId2 = 0, runeId3 = 0, runeId4 = 0, runeId5 = 0;
           if (runes != null) {
