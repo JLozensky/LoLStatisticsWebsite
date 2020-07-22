@@ -24,14 +24,14 @@ public class SummonerStats {
 	private long physicalDamageDealtToChampions;
 	private long trueDamageDealtToChampions;
 	private long totalHeal;
-	private long totalUnitHealed;
+	private long totalUnitsHealed;
 	private long damageSelfMitigated;
 	private long damageDealtToObjectives;
 	private long damageDealtToTurrets;
 	private long visionScore;
 	private long timeCCingOthers;
 	private long totalDamageTaken;
-	private long magicDamageTaken;
+	private long magicalDamageTaken;
 	private long physicalDamageTaken;
 	private long trueDamageTaken;
 	private long goldEarned;
@@ -50,8 +50,8 @@ public class SummonerStats {
 	private boolean firstBloodKill;
 	private boolean firstBloodAssist;
 	private boolean firstTowerKill;
-	private boolean firstTowerKillAssist;
-	private boolean firstInhibitor;
+	private boolean firstTowerAssist;
+	private boolean firstInhibitorKill;
 	private boolean firstInhibitorAssist;
 	private int combatPlayerScore;
 	private int objectivePlayerScore;
@@ -66,27 +66,28 @@ public class SummonerStats {
 	private int runeId4;
 	private int runeId5;
 	private String highestAchievedSeasonTier;
-
+	private Summoner summoner;
+	
 	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0,
 											 int itemId1, int itemId2, int itemId3, int itemId4, int itemId5, int itemId6,
 											 int kills, int deaths, int assists, long totalDamageDealt, long magicDamageDealt,
 											 long physicalDamageDealt, long trueDamageDealt, long largestCriticalStrike,
 											 long totalDamageDealtToChampions, long magicDamageDealtToChampions,
 											 long physicalDamageDealtToChampions, long trueDamageDealtToChampions,
-											 long totalHeal, long totalUnitHealed, long damageSelfMitigated,
+											 long totalHeal, long totalUnitsHealed, long damageSelfMitigated,
 											 long damageDealtToObjectives, long damageDealtToTurrets, long visionScore,
-											 long timeCCingOthers, long totalDamageTaken, long magicDamageTaken,
+											 long timeCCingOthers, long totalDamageTaken, long magicalDamageTaken,
 											 long physicalDamageTaken, long trueDamageTaken, long goldEarned, long goldSpent,
 											 int turretKills, long totalMinionsKilled, long neutralMinionsKilled,
 											 long neutralMinionsKilledTeamJungle, long neutralMinionsKilledEnemyJungle,
 											 long totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame,
 											 int sightWardsBoughtInGame, int wardsPlaced, int wardsKilled,
 											 boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
-											 boolean firstTowerKillAssist, boolean firstInhibitor, boolean firstInhibitorAssist,
+											 boolean firstTowerAssist, boolean firstInhibitorKill, boolean firstInhibitorAssist,
 											 int combatPlayerScore, int objectivePlayerScore, int totalPlayerScore,
 											 int totalScoreRank, String role, String lane, int runeId0, int runeId1,
 											 int runeId2, int runeId3, int runeId4, int runeId5,
-											 String highestAchievedSeasonTier) {
+											 String highestAchievedSeasonTier, Summoner summoner) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
 		this.spell1Id = spell1Id;
@@ -111,14 +112,14 @@ public class SummonerStats {
 		this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
 		this.trueDamageDealtToChampions = trueDamageDealtToChampions;
 		this.totalHeal = totalHeal;
-		this.totalUnitHealed = totalUnitHealed;
+		this.totalUnitsHealed = totalUnitsHealed;
 		this.damageSelfMitigated = damageSelfMitigated;
 		this.damageDealtToObjectives = damageDealtToObjectives;
 		this.damageDealtToTurrets = damageDealtToTurrets;
 		this.visionScore = visionScore;
 		this.timeCCingOthers = timeCCingOthers;
 		this.totalDamageTaken = totalDamageTaken;
-		this.magicDamageTaken = magicDamageTaken;
+		this.magicalDamageTaken = magicalDamageTaken;
 		this.physicalDamageTaken = physicalDamageTaken;
 		this.trueDamageTaken = trueDamageTaken;
 		this.goldEarned = goldEarned;
@@ -137,8 +138,8 @@ public class SummonerStats {
 		this.firstBloodKill = firstBloodKill;
 		this.firstBloodAssist = firstBloodAssist;
 		this.firstTowerKill = firstTowerKill;
-		this.firstTowerKillAssist = firstTowerKillAssist;
-		this.firstInhibitor = firstInhibitor;
+		this.firstTowerAssist = firstTowerAssist;
+		this.firstInhibitorKill = firstInhibitorKill;
 		this.firstInhibitorAssist = firstInhibitorAssist;
 		this.combatPlayerScore = combatPlayerScore;
 		this.objectivePlayerScore = objectivePlayerScore;
@@ -153,6 +154,7 @@ public class SummonerStats {
 		this.runeId4 = runeId4;
 		this.runeId5 = runeId5;
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+		this.summoner = summoner;
 	}
 
 	public SummonerStats() {
@@ -351,12 +353,12 @@ public class SummonerStats {
 		this.totalHeal = totalHeal;
 	}
 
-	public long getTotalUnitHealed() {
-		return totalUnitHealed;
+	public long getTotalUnitsHealed() {
+		return totalUnitsHealed;
 	}
 
-	public void setTotalUnitHealed(long totalUnitHealed) {
-		this.totalUnitHealed = totalUnitHealed;
+	public void setTotalUnitsHealed(long totalUnitsHealed) {
+		this.totalUnitsHealed = totalUnitsHealed;
 	}
 
 	public long getDamageSelfMitigated() {
@@ -407,12 +409,12 @@ public class SummonerStats {
 		this.totalDamageTaken = totalDamageTaken;
 	}
 
-	public long getMagicDamageTaken() {
-		return magicDamageTaken;
+	public long getMagicalDamageTaken() {
+		return magicalDamageTaken;
 	}
 
-	public void setMagicDamageTaken(long magicDamageTaken) {
-		this.magicDamageTaken = magicDamageTaken;
+	public void setMagicalDamageTaken(long magicalDamageTaken) {
+		this.magicalDamageTaken = magicalDamageTaken;
 	}
 
 	public long getPhysicalDamageTaken() {
@@ -559,20 +561,20 @@ public class SummonerStats {
 		this.firstTowerKill = firstTowerKill;
 	}
 
-	public boolean isFirstTowerKillAssist() {
-		return firstTowerKillAssist;
+	public boolean isFirstTowerAssist() {
+		return firstTowerAssist;
 	}
 
-	public void setFirstTowerKillAssist(boolean firstTowerKillAssist) {
-		this.firstTowerKillAssist = firstTowerKillAssist;
+	public void setFirstTowerAssist(boolean firstTowerAssist) {
+		this.firstTowerAssist = firstTowerAssist;
 	}
 
-	public boolean isFirstInhibitor() {
-		return firstInhibitor;
+	public boolean isFirstInhibitorKill() {
+		return firstInhibitorKill;
 	}
 
-	public void setFirstInhibitor(boolean firstInhibitor) {
-		this.firstInhibitor = firstInhibitor;
+	public void setFirstInhibitorKill(boolean firstInhibitorKill) {
+		this.firstInhibitorKill = firstInhibitorKill;
 	}
 
 	public boolean isFirstInhibitorAssist() {
@@ -614,7 +616,7 @@ public class SummonerStats {
 	public void setTotalScoreRank(int totalScoreRank) {
 		this.totalScoreRank = totalScoreRank;
 	}
-
+	
 	public String getRole() {
 		return role;
 	}
@@ -622,7 +624,7 @@ public class SummonerStats {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
 	public String getLane() {
 		return lane;
 	}
@@ -686,5 +688,12 @@ public class SummonerStats {
 	public void setHighestAchievedSeasonTier(String highestAchievedSeasonTier) {
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
 	}
-	
+
+	public Summoner getSummoner() {
+		return summoner;
+	}
+
+	public void setSummoner(Summoner summoner) {
+		this.summoner = summoner;
+	}
 }

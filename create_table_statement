@@ -63,7 +63,7 @@ CREATE TABLE RuneData (
 
 
 CREATE TABLE TeamStats (
- statsId INT,
+ teamStatsId INT,
  win BOOLEAN,
  firstBlood BOOLEAN,
  firstTower BOOLEAN,
@@ -158,9 +158,10 @@ CREATE TABLE ParticipantIdentity (
  player VARCHAR(225),
  summonerName VARCHAR(225),
  summonerId VARCHAR(225),
- currentPlatformId INT,
- currentAccountId INT,
+ currentPlatformId VARCHAR(225),
+ currentAccountId VARCHAR(225),
  matchHistoryUri VARCHAR(225),
+ profileIcon BIGINT,
  CONSTRAINT pk_ParticipantIdentity_accountId PRIMARY KEY (accountId)
 );
 

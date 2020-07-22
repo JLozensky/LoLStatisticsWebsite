@@ -8,39 +8,42 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import lol.model.Game;
-import lol.model.ParticipantIdentity;
+import lol.model.Summoner;
 import lol.model.SummonerStats;
 import lol.model.TeamStats;
+import lol.dal.*;
 
 public class Inserter {
   public static void main(String[] args) throws IOException {
-    List<Game> gameList = new ArrayList<>();
-     List<TeamStats> teamStatsList = new ArrayList<>();
-     List<ParticipantIdentity> identityList = new ArrayList<>();
-     
+    // DAO instances
+    GameDao gameDao = GameDao.getInstance();
+    TeamStatsDao teamStatsDao = TeamStatsDao.getInstance();
+    SummonerDao summonerDao = SummonerDao.getInstance();
+    SummonerStatsDao summonerStatsDao = SummonerStatsDao.getInstance();
+    
+    List<TeamStats> teamStatsList = new ArrayList<>();
+    List<Summoner> summonerList = new ArrayList<>();
     String path = "/Users/calvinyin/Documents/CS5200/match_json";
     PathReader fr = new PathReader();
-    
     // Obtain a list of file path
     List<File> fileList = fr.pathReader(path);
     JSONParser jsonParser = new JSONParser();
     
-    int  count = 0;
     try {
       for (File f : fileList) {
-        System.out.println(f.getPath());
         if(f.getPath().equals("/Users/calvinyin/Documents/CS5200/match_json/.DS_Store")) {
           continue;
         }
+        int counter = 0;
         // Parse the json file to JSONObject
         JSONObject matchObject = (JSONObject) jsonParser
                 .parse(new FileReader(f.getPath()));
-
         /*
         Game insertion
          */
@@ -53,11 +56,10 @@ public class Inserter {
         String gameVersion = String.valueOf(matchObject.get("gameVersion"));
         String gameMode = String.valueOf(matchObject.get("gameMode"));
         String gameType = String.valueOf(matchObject.get("gameType"));
-        
-        Game game = new Game(gameId, date, gameDuration, queueId, mapId, seasonId, gameVersion, 
+
+        Game game = new Game(gameId, date, gameDuration, queueId, mapId, seasonId, gameVersion,
                 gameMode, gameType);
-        
-        gameList.add(game);
+        game = gameDao.create(game);
         
         
         /*
@@ -68,8 +70,8 @@ public class Inserter {
         Iterator<JSONObject> teamIterator = teams.iterator();
         while (teamIterator.hasNext()) {
           JSONObject team = teamIterator.next();
-          long team0Id = (long) team.get("teamId");
-          String teamStatsId = gameId + team0Id;
+          long teamId = (long) team.get("teamId");
+          String teamStatsId = gameId + teamId;
           String win = String.valueOf(team.get("win"));
           boolean firstBlood = (boolean) team.get("firstBlood");
           boolean firstTower = (boolean) team.get("firstTower");
@@ -86,7 +88,7 @@ public class Inserter {
           int dominionVictoryScore = ((Long) team.get("dominionVictoryScore")).intValue();
           JSONArray bans = (JSONArray) team.get("bans");
           Iterator<JSONObject> banIterator = bans.iterator();
-          int banOne = banIterator.hasNext() 
+          int banOne = banIterator.hasNext()
                   ? ((Long) banIterator.next().get("championId")).intValue() : 0;
           int banTwo = banIterator.hasNext()
                   ? ((Long) banIterator.next().get("championId")).intValue() : 0;
@@ -96,28 +98,60 @@ public class Inserter {
                   ? ((Long) banIterator.next().get("championId")).intValue() : 0;
           int banFive = banIterator.hasNext()
                   ? ((Long) banIterator.next().get("championId")).intValue() : 0;
-  
+
           TeamStats teamStats = new TeamStats(teamStatsId, win, firstBlood, firstTower, firstInhibitor,
                   firstBaron, firstDragon, firstRiftHerald, towerKills, inhibitorKills, baronKills,
                   dragonKills, vilemawKills, riftHeraldKills, dominionVictoryScore, banOne, banTwo,
-                  banThree, banFour, banFive);
-          
-          teamStatsList.add(teamStats);
+                  banThree, banFour, banFive, game);
+          teamStats = teamStatsDao.create(teamStats);
+          // store teamStats of team0 and team1 in a list for future use
+          teamStatsList.add(teamStats);     
         }
+        
+        
+        /*
+        Summoner insertion 
+         */
+        JSONArray Summoners = (JSONArray) matchObject.get("participantIdentities");
+        Iterator<JSONObject> summonerIterator = Summoners.iterator();
+        int index = 0;    // count index of summoner
+        
+        while (summonerIterator.hasNext()) {
+          Summoner summoner;
+          JSONObject player = (JSONObject) summonerIterator.next().get("player");
+          String accountId = String.valueOf(player.get("accountId"));
+          String summonerName = String.valueOf(player.get("summonerName"));
+          String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
+          String matchHistoryUri = String.valueOf(player.get("matchHistoryUri"));
+          int profileIcon = ((Long) player.get("profileIcon")).intValue();
+          if (index < 5) {
+            // assign teamStats0 to summoner 1 - 5
+            summoner = new Summoner(accountId, summonerName, currentPlatformId, matchHistoryUri,
+                    profileIcon, teamStatsList.get(0));
+          } else { 
+            // assign teamStats1 to summoner 6 - 10
+            summoner = new Summoner(accountId, summonerName, currentPlatformId, matchHistoryUri,
+                    profileIcon, teamStatsList.get(1));
+          }
+          summoner = summonerDao.create(summoner);
+          summonerList.add(summoner);
+          index++;
+        }
+        
 
         /*
         SummonerStats insertion
          */
-         JSONArray participants = (JSONArray) matchObject.get("participants");
+        index = 0;
+        JSONArray participants = (JSONArray) matchObject.get("participants");
         Iterator<JSONObject> participantIterator = participants.iterator();
         while (participantIterator.hasNext()) {
           JSONObject participant = participantIterator.next();
-          int participantId = (int) participant.get("participantId");
+          String participantId = String.valueOf(participant.get("participantId"));
           String summonerStatsId = participantId + gameId;
           int championId = ((Long) participant.get("championId")).intValue();
           int spell1Id = ((Long) participant.get("spell1Id")).intValue();
           int spell2Id = ((Long) participant.get("spell2Id")).intValue();
-
           JSONObject stats = (JSONObject) participant.get("stats");
           int itemId0 = ((Long) stats.get("item0")).intValue();
           int itemId1 = ((Long) stats.get("item1")).intValue();
@@ -139,14 +173,14 @@ public class Inserter {
           long physicalDamageDealtToChampions = (long) stats.get("physicalDamageDealtToChampions");
           long trueDamageDealtToChampions = (long) stats.get("trueDamageDealtToChampions");
           long totalHeal = (long) stats.get("totalHeal");
-          long totalUnitHealed = (long) stats.get("totalUnitHealed");
+          long totalUnitsHealed = (long) stats.get("totalUnitsHealed");
           long damageSelfMitigated = (long) stats.get("damageSelfMitigated");
           long damageDealtToObjectives = (long) stats.get("damageDealtToObjectives");
           long damageDealtToTurrets = (long) stats.get("damageDealtToTurrets");
           long visionScore = (long) stats.get("visionScore");
           long timeCCingOthers = (long) stats.get("timeCCingOthers");
           long totalDamageTaken = (long) stats.get("totalDamageTaken");
-          long magicDamageTaken = (long) stats.get("magicDamageTaken");
+          long magicalDamageTaken = (long) stats.get("magicalDamageTaken");
           long physicalDamageTaken = (long) stats.get("physicalDamageTaken");
           long trueDamageTaken = (long) stats.get("trueDamageTaken");
           long goldEarned = (long) stats.get("goldEarned");
@@ -154,82 +188,64 @@ public class Inserter {
           int turretKills = ((Long) stats.get("turretKills")).intValue();
           long totalMinionsKilled = (long) stats.get("totalMinionsKilled");
           long neutralMinionsKilled = (long) stats.get("neutralMinionsKilled");
-          long neutralMinionsKilledTeamJungle = (long) stats.get("neutralMinionsKilledTeamJungle");
-          long neutralMinionsKilledEnemyJungle = (long) stats.get("neutralMinionsKilledEnemyJungle");
+          long neutralMinionsKilledTeamJungle = stats.get("neutralMinionsKilledTeamJungle") 
+                  == null ? 0 : (long)stats.get("neutralMinionsKilledTeamJungle");
+          long neutralMinionsKilledEnemyJungle = stats.get("neutralMinionsKilledEnemyJungle")
+                  == null ? 0 : (long)stats.get("neutralMinionsKilledEnemyJungle");;
           long totalTimeCrowdControlDealt = (long) stats.get("totalTimeCrowdControlDealt");
           int champLevel = ((Long) stats.get("champLevel")).intValue();
           int visionWardsBoughtInGame = ((Long) stats.get("visionWardsBoughtInGame")).intValue();
           int sightWardsBoughtInGame = ((Long) stats.get("sightWardsBoughtInGame")).intValue();
-          int wardsPlaced = ((Long) stats.get("wardsPlaced")).intValue();
-          int wardsKilled = ((Long) stats.get("wardsKilled")).intValue();
-          boolean firstBloodKill = (boolean) stats.get("firstBloodKill");
-          boolean firstBloodAssist = (boolean) stats.get("firstBloodAssist");
-          boolean firstTowerKill = (boolean) stats.get("firstTowerKill");
-          boolean firstTowerKillAssist = (boolean) stats.get("firstTowerKillAssist");
-          boolean firstInhibitor = (boolean) stats.get("firstInhibitor");
-          boolean firstInhibitorAssist = (boolean) stats.get("firstInhibitorAssist");
+          int wardsPlaced = stats.get("wardsPlaced") == null ? 0 : ((Long) stats.get("wardsPlaced")).intValue();
+          int wardsKilled =  stats.get("wardsKilled") == null ? 0 : ((Long) stats.get("wardsKilled")).intValue();
+          boolean firstBloodKill = stats.get("firstBloodKill") != null && (boolean) stats.get("firstBloodKill");
+          boolean firstBloodAssist = stats.get("firstBloodAssist") != null && (boolean) stats.get("firstBloodAssist");
+          boolean firstTowerKill = stats.get("firstTowerKill") != null && (boolean) stats.get("firstTowerKill");
+          boolean firstTowerAssist = stats.get("firstTowerAssist") != null && (boolean) stats.get("firstTowerAssist");
+          boolean firstInhibitorKill = stats.get("firstInhibitorKill") != null && (boolean) stats.get("firstInhibitorKill");
+          boolean firstInhibitorAssist = stats.get("firstInhibitorAssist") != null && (boolean) stats.get("firstInhibitorAssist");
           int combatPlayerScore = ((Long) stats.get("combatPlayerScore")).intValue();
           int objectivePlayerScore = ((Long) stats.get("objectivePlayerScore")).intValue();
           int totalPlayerScore = ((Long) stats.get("totalPlayerScore")).intValue();
           int totalScoreRank = ((Long) stats.get("totalScoreRank")).intValue();
           String role = String.valueOf(stats.get("role"));
           String lane = String.valueOf(stats.get("lane"));
-          
           JSONArray runes = (JSONArray) participant.get("runes");
-          Iterator<JSONObject> rune = runes.iterator();
-          int runeId0 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
-          int runeId1 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
-          int runeId2 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
-          int runeId3 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
-          int runeId4 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
-          int runeId5 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;      
+          int runeId0 = 0, runeId1 = 0, runeId2 = 0, runeId3 = 0, runeId4 = 0, runeId5 = 0;
+          if (runes != null) {
+            Iterator<JSONObject> rune = runes.iterator();
+            runeId0 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+            runeId1 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+            runeId2 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+            runeId3 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+            runeId4 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+            runeId5 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
+          }
+           
           String highestAchievedSeasonTier = String.valueOf(participant.get("highestAchievedSeasonTier"));
           
           SummonerStats summonerStats = new SummonerStats(summonerStatsId, championId, spell1Id, spell2Id, 
                   itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6, kills, deaths, assists, 
                   totalDamageDealt, magicDamageDealt,  physicalDamageDealt, trueDamageDealt, 
                   largestCriticalStrike, totalDamageDealtToChampions, magicDamageDealtToChampions, 
-                  physicalDamageDealtToChampions, trueDamageDealtToChampions, totalHeal, totalUnitHealed, 
+                  physicalDamageDealtToChampions, trueDamageDealtToChampions, totalHeal, totalUnitsHealed, 
                   damageSelfMitigated,  damageDealtToObjectives, damageDealtToTurrets,  visionScore, 
-                  timeCCingOthers,  totalDamageTaken, magicDamageTaken, physicalDamageTaken, 
+                  timeCCingOthers,  totalDamageTaken, magicalDamageTaken, physicalDamageTaken, 
                   trueDamageTaken, goldEarned, goldSpent, turretKills, totalMinionsKilled, 
                   neutralMinionsKilled, neutralMinionsKilledTeamJungle,  neutralMinionsKilledEnemyJungle, 
-                  totalTimeCrowdControlDealt,  champLevel,  visionWardsBoughtInGame,  sightWardsBoughtInGame, 
-                  wardsPlaced,  wardsKilled,  firstBloodKill,  firstBloodAssist,  firstTowerKill, 
-                  firstTowerKillAssist, firstInhibitor,  firstInhibitorAssist,  combatPlayerScore, 
-                  objectivePlayerScore,  totalPlayerScore, totalScoreRank,  role, lane, 
-                  runeId0, runeId1,  runeId2, runeId3, runeId4,  runeId5, highestAchievedSeasonTier);
-          
-          
+                  totalTimeCrowdControlDealt, champLevel, visionWardsBoughtInGame, sightWardsBoughtInGame, 
+                  wardsPlaced,  wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill, 
+                  firstTowerAssist, firstInhibitorKill,  firstInhibitorAssist, combatPlayerScore, 
+                  objectivePlayerScore, totalPlayerScore, totalScoreRank, role, lane, runeId0, 
+                  runeId1, runeId2, runeId3, runeId4, runeId5, highestAchievedSeasonTier, summonerList.get(index));
+          summonerStats = summonerStatsDao.create(summonerStats);
+          index++;
         }
-        /*
-        ParticipantIdentity insertion 
-         */
-        JSONArray participantIdentities = (JSONArray) matchObject.get("participantIdentities");
-        Iterator<JSONObject> identityIterator = participantIdentities.iterator();
-        while (identityIterator.hasNext()) {
-          JSONObject player = (JSONObject) identityIterator.next().get("player");
-          String accountId = String.valueOf(player.get("accountId"));
-          String summonerName = String.valueOf(player.get("summonerName"));
-          String summonerId = String.valueOf(player.get("summonerId"));
-          String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
-          String matchHistoryUri = String.valueOf(player.get("matchHistoryUri"));
-          long profileIcon = (long) player.get("profileIcon");
-          String participantIdentityId = gameId + summonerName;
-          ParticipantIdentity participantIdentity = new ParticipantIdentity(participantIdentityId, 
-                  accountId, summonerName, summonerId, currentPlatformId, matchHistoryUri, profileIcon);
-          
-          identityList.add(participantIdentity);
-          count++;
-        }
-        
-        System.out.println(count);
+        counter++;
+        System.out.println(100 * counter / fileList.size() + "%");
       }
-    } catch (ParseException | IOException e) {
+    } catch (ParseException | IOException | SQLException e) {
       e.printStackTrace();
-    }
-    for (TeamStats t : teamStatsList) {
-      
     }
   }
 }

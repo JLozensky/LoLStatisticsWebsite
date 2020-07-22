@@ -85,6 +85,15 @@
 	<p>
 		<span id="successMessage"><b>${messages.success}</b></span>
 	</p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</div>
 	 <!-- Bootstrap -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -22,11 +22,12 @@ public class TeamStats {
 	private int banThree;
 	private int banFour;
 	private int banFive;
+	private Game game;
 	
 	public TeamStats(String teamStatsId, String win, boolean firstBlood, boolean firstTower, boolean firstInhibitor,
-			boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills, int inhibitorKills,
-			int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills, int dominionVictoryScore,
-			int banOne, int banTwo, int banThree, int banFour, int banFive) {
+									 boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills, int inhibitorKills,
+									 int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills, int dominionVictoryScore,
+									 int banOne, int banTwo, int banThree, int banFour, int banFive, Game game) {
 		this.teamStatsId = teamStatsId;
 		this.win = win;
 		this.firstBlood = firstBlood;
@@ -47,6 +48,7 @@ public class TeamStats {
 		this.banThree = banThree;
 		this.banFour = banFour;
 		this.banFive = banFive;
+		this.game = game;
 	}
 	
 	public String  getTeamStatsId() {
@@ -69,10 +71,10 @@ public class TeamStats {
 		return firstBlood;
 	}
 
-	public void setFirstBoolean(boolean firstBoolean) {
-		this.firstBlood = firstBoolean;
+	public void setFirstBlood(boolean firstBlood) {
+		this.firstBlood = firstBlood;
 	}
-	
+
 	public boolean isFirstTower() {
 		return firstTower;
 	}
@@ -209,4 +211,11 @@ public class TeamStats {
 		this.banFive = banFive;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+	
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }

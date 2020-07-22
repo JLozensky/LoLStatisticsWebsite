@@ -1,7 +1,6 @@
 package lol.model;
 
 public class Game {
-
 	
 	private String gameId;
 	private String date;
@@ -12,7 +11,6 @@ public class Game {
 	private String gameVersion;
 	private String gameMode;
 	private String gameType;
-	
 	
 	public Game(String gameId, String date, int gameDuration, int queueId, int mapId, int seasonId, 
 							String gameVersion, String gameMode, String gameType) {
@@ -25,9 +23,8 @@ public class Game {
 		this.gameVersion = gameVersion;
 		this.gameMode = gameMode;
 		this.gameType = gameType;
-
 	}
-
+	
 
 	public String getGameId() {
 		return gameId;
@@ -117,11 +114,6 @@ public class Game {
 	public void setGameType(String gameType) {
 		this.gameType = gameType;
 	}
-
-	
-	
-	
-	
 	
 	
 }
