@@ -1,6 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS LOL;
 USE LOL;
 
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS SummonerStats;
 DROP TABLE IF EXISTS Summoner;
 DROP TABLE IF EXISTS ChampionAdvice;
@@ -253,6 +254,13 @@ CREATE TABLE SummonerStats (
  CONSTRAINT fk_summonerStats_summonerName FOREIGN KEY (summonerName)
  REFERENCES Summoner(summonerName)
 );
+
+CREATE TABLE Users {
+ summonerName VARCHAR(225),
+ firstName VARCHAR(225),
+ lastName VARCHAR(225),
+ CONSTRAINT pk_Users_summonerName PRIMARY KEY (summonerName)
+}
 
 
   LOAD DATA INFILE 'SummonerSpellTable.csv' INTO TABLE SummonerSpells
