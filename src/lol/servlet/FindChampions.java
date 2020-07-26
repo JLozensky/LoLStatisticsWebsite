@@ -35,32 +35,22 @@ public class FindChampions extends HttpServlet {
 
         List<Champions> champions = new ArrayList<Champions>();
         
-        String stringSeasonId = req.getParameter("seasonId");
-        boolean isWin = Boolean.parseBoolean(req.getParameter("isWin"));
-        if (stringSeasonId == null || stringSeasonId.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid season.");
-        } else {
-            int seasonId = Integer.parseInt(req.getParameter("seasonId"));
+        String championName = req.getParameter("championName");
 
-        	// Retrieve , and store as a message.
-        	try {
-            	champions = championsDao.getChampionsFromMatchOutcome(isWin, seasonId);
-            } catch (SQLException e) {
-    			e.printStackTrace();
-    			throw new IOException(e);
-            }
-        	
-        	StringBuilder sb = new StringBuilder();
-        	sb.append("Displaying results for ");
-        	if (isWin) {
-        		sb.append("winning ");
-        	} else {
-        		sb.append("losing ");
-        	}
-        	sb.append("champions for season ");
-        	sb.append(stringSeasonId);
-        	messages.put("success", sb.toString());
+    	// Retrieve , and store as a message.
+    	try {
+        	champions = championsDao.getChampionsFromName(championName);
+        } catch (SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
         }
+        
+    	if (championName == null || championName.trim().isEmpty()) {
+        	messages.put("success", "Displaying all champions");
+    	} else {
+        	messages.put("success", "Displaying results for champion name '" + championName + "'");
+    	}
+        
         req.setAttribute("champions", champions);
         
         req.getRequestDispatcher("/FindChampions.jsp").forward(req, resp);
@@ -78,32 +68,19 @@ public class FindChampions extends HttpServlet {
         // Retrieve and validate seasonId.
         // isWin and seasonId are retrieved from the form POST submission. By default, it
         // is populated by the URL query string (in FindChampions.jsp).
-        String stringSeasonId = req.getParameter("seasonId");
-        boolean isWin = Boolean.parseBoolean(req.getParameter("isWin"));
-        if (stringSeasonId == null || stringSeasonId.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid season.");
-        } else {
-            int seasonId = Integer.parseInt(req.getParameter("seasonId"));
-
-        	// Retrieve , and store as a message.
-        	try {
-            	champions = championsDao.getChampionsFromMatchOutcome(isWin, seasonId);
-            } catch (SQLException e) {
-    			e.printStackTrace();
-    			throw new IOException(e);
-            }
-        	
-        	StringBuilder sb = new StringBuilder();
-        	sb.append("Displaying results for ");
-        	if (isWin) {
-        		sb.append("winning ");
-        	} else {
-        		sb.append("losing ");
-        	}
-        	sb.append("champions for season ");
-        	sb.append(stringSeasonId);
-        	messages.put("success", sb.toString());
+        String championName = req.getParameter("championName");
+    	try {
+        	champions = championsDao.getChampionsFromName(championName);
+        } catch (SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
         }
+        
+    	if (championName == null || championName.trim().isEmpty()) {
+        	messages.put("success", "Displaying all champions");
+    	} else {
+        	messages.put("success", "Displaying results for champion name '" + championName + "'");
+    	}
         req.setAttribute("champions", champions);
         
         req.getRequestDispatcher("/FindChampions.jsp").forward(req, resp);

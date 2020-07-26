@@ -144,15 +144,43 @@ public class ChampionsDao {
 	 * @throws SQLException
 	 */
 	public Champions getChampionFromID(int id) throws SQLException {
-		String selectChampion =
-				"SELECT Champions.championId as championId,name,title,lore,"
-				+ "championRole1,championRole2,attack,defense,magic,difficulty,hp,"
-				+ "hpPerLevel,mp,mpPerLevel,moveSpeed,armor,armorPerLevel,spellBlock,"
-				+ "spellBlockPerLevel,attackRange,hpRegen,hpRegenPerLevel,mpRegen,"
-				+ "mpRegenPerLevel,attackDamage,attackDamagePerLevel,"
-				+ "attackSpeed,attackSpeedPerLevel,passiveName,passiveDescription "
-				+ "FROM Champions "
-				+ "WHERE Champions.championId=?;";
+		String selectChampion =	
+				"SELECT championId,name,title,lore,championRole1,championRole2,attack,t.minAttack, t.maxAttack,defense,t.minDefense,t.maxDefense,"
+				+ "magic,t.minMagic, t.maxMagic,difficulty,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
+				+ "hpPerLevel,t.minHpPerLevel, t.maxHpPerLevel,mp,t.minMp, t.maxMp,mpPerLevel,t.minMpPerLevel, t.maxMpPerLevel,"
+				+ "moveSpeed,t.minMoveSpeed, t.maxMoveSpeed,armor,t.minArmor, t.maxArmor,armorPerLevel,t.minArmorPerLevel, "
+				+ "t.maxArmorPerLevel,spellBlock,t.minSpellBlock, t.maxSpellBlock,spellBlockPerLevel,t.minSpellBlockPerLevel, "
+				+ "t.maxSpellBlockPerLevel,attackRange,t.minAttackRange, t.maxAttackRange,hpRegen,t.minHpRegen, t.maxHpRegen,"
+				+ "hpRegenPerLevel,t.minHpRegenPerLevel, t.maxHpRegenPerLevel,mpRegen,t.minMpRegen, t.maxMpRegen,"
+				+ "mpRegenPerLevel,t.minMpRegenPerLevel, t.maxMpRegenPerLevel,attackDamage,t.minAttackDamage, t.maxAttackDamage,"
+				+ "attackDamagePerLevel,t.minAttackDamagePerLevel, t.maxAttackDamagePerLevel,attackSpeed,t.minAttackSpeed, "
+				+ "t.maxAttackSpeed,attackSpeedPerLevel,t.minAttackSpeedPerLevel, t.maxAttackSpeedPerLevel,"
+				+ "passiveName,passiveDescription,imageFile "
+				+ "FROM ("
+				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+				+ "FROM Champions) AS t "
+				+ "CROSS JOIN Champions WHERE championId=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -162,45 +190,7 @@ public class ChampionsDao {
 			selectStmt.setInt(1, id);
 			results = selectStmt.executeQuery();
 			if(results.next()) {
-				int resultID = results.getInt("championId");
-				String name = results.getString("name");
-				String title = results.getString("title");
-				String lore = results.getString("lore");
-				Champions.championRole championRole1 = Champions.championRole.valueOf(
-						results.getString("championRole1"));
-				Champions.championRole championRole2 = Champions.championRole.valueOf(
-						results.getString("championRole2"));
-				int attack = results.getInt("attack");
-				int defense = results.getInt("defense");
-				int magic = results.getInt("magic");
-				int difficulty = results.getInt("difficulty");
-				double hp = results.getDouble("hp");
-				double hpPerLevel = results.getDouble("hpPerLevel");
-				double mp = results.getDouble("mp");
-				double mpPerLevel = results.getDouble("mpPerLevel");
-				int moveSpeed = results.getInt("moveSpeed");
-				double armor = results.getDouble("armor");
-				double armorPerLevel = results.getDouble("armorPerLevel");
-				double spellBlock = results.getDouble("spellBlock");
-				double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
-				int attackRange = results.getInt("attackRange");
-				double hpRegen = results.getDouble("hpRegen");
-				double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
-				double mpRegen = results.getDouble("mpRegen");
-				double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
-				double attackDamage = results.getDouble("attackDamage");
-				double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
-				double attackSpeed = results.getDouble("attackSpeed");
-				double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
-				String passiveName = results.getString("passiveName");
-				String passiveDescription = results.getString("passiveDescription");
-				
-				Champions champion = new Champions(resultID, name, title, lore, championRole1,
-				 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
-				 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
-				 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription);
-				
-				return champion;
+				return parseChampionFromResult(results);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -217,6 +207,110 @@ public class ChampionsDao {
 			}
 		}
 		return null;
+	}
+	
+	private Champions parseChampionFromResult(ResultSet results) throws SQLException {
+		int resultID = results.getInt("championId");
+		String name = results.getString("name");
+		String title = results.getString("title");
+		String lore = results.getString("lore");
+		String championRole = results.getString("championRole1");
+		Champions.championRole championRole1 = Champions.championRole.NONE;
+		if (championRole != null && !championRole.trim().isEmpty()) {
+			championRole1 = Champions.championRole.valueOf(
+					championRole);
+		}
+		
+		Champions.championRole championRole2 = Champions.championRole.NONE;
+		championRole = results.getString("championRole2");
+		if (championRole != null && !championRole.trim().isEmpty()) {
+			championRole2 = Champions.championRole.valueOf(
+					championRole);
+		}
+		int attack = results.getInt("attack");
+		int minAttack = results.getInt("minAttack");
+		int maxAttack = results.getInt("maxAttack");
+		int defense = results.getInt("defense");
+		int minDefense = results.getInt("minDefense");
+		int maxDefense = results.getInt("maxDefense");
+		int magic = results.getInt("magic");
+		int minMagic = results.getInt("minMagic");
+		int maxMagic = results.getInt("maxMagic");
+		int difficulty = results.getInt("difficulty");
+		int minDifficulty = results.getInt("minDifficulty");
+		int maxDifficulty = results.getInt("maxDifficulty");
+		double hp = results.getDouble("hp");
+		double minHp = results.getDouble("minHp");
+		double maxHp = results.getDouble("maxHp");
+		double hpPerLevel = results.getDouble("hpPerLevel");
+		double minHpPerLevel = results.getDouble("minHpPerLevel");
+		double maxHpPerLevel = results.getDouble("maxHpPerLevel");
+		double mp = results.getDouble("mp");
+		double minMp = results.getDouble("minMp");
+		double maxMp = results.getDouble("maxMp");
+		double mpPerLevel = results.getDouble("mpPerLevel");
+		double minMpPerLevel = results.getDouble("minMpPerLevel");
+		double maxMpPerLevel = results.getDouble("maxMpPerLevel");
+		int moveSpeed = results.getInt("moveSpeed");
+		int minMoveSpeed = results.getInt("minMoveSpeed");
+		int maxMoveSpeed = results.getInt("maxMoveSpeed");
+		double armor = results.getDouble("armor");
+		double minArmor = results.getDouble("minArmor");
+		double maxArmor = results.getDouble("maxArmor");
+		double armorPerLevel = results.getDouble("armorPerLevel");
+		double minArmorPerLevel = results.getDouble("minArmorPerLevel");
+		double maxArmorPerLevel = results.getDouble("maxArmorPerLevel");
+		double spellBlock = results.getDouble("spellBlock");
+		double minSpellBlock = results.getDouble("minSpellBlock");
+		double maxSpellBlock = results.getDouble("maxSpellBlock");
+		double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
+		double minSpellBlockPerLevel = results.getDouble("minSpellBlockPerLevel");
+		double maxSpellBlockPerLevel = results.getDouble("maxSpellBlockPerLevel");
+		int attackRange = results.getInt("attackRange");
+		int minAttackRange = results.getInt("minAttackRange");
+		int maxAttackRange = results.getInt("maxAttackRange");
+		double hpRegen = results.getDouble("hpRegen");
+		double minHpRegen = results.getDouble("minHpRegen");
+		double maxHpRegen = results.getDouble("maxHpRegen");
+		double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
+		double minHpRegenPerLevel = results.getDouble("minHpRegenPerLevel");
+		double maxHpRegenPerLevel = results.getDouble("maxHpRegenPerLevel");
+		double mpRegen = results.getDouble("mpRegen");
+		double minMpRegen = results.getDouble("minMpRegen");
+		double maxMpRegen = results.getDouble("maxMpRegen");
+		double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
+		double minMpRegenPerLevel = results.getDouble("minMpRegenPerLevel");
+		double maxMpRegenPerLevel = results.getDouble("maxMpRegenPerLevel");
+		double attackDamage = results.getDouble("attackDamage");
+		double minAttackDamage = results.getDouble("minAttackDamage");
+		double maxAttackDamage = results.getDouble("maxAttackDamage");
+		double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
+		double minAttackDamagePerLevel = results.getDouble("minAttackDamagePerLevel");
+		double maxAttackDamagePerLevel = results.getDouble("maxAttackDamagePerLevel");
+		double attackSpeed = results.getDouble("attackSpeed");
+		double minAttackSpeed = results.getDouble("minAttackSpeed");
+		double maxAttackSpeed = results.getDouble("maxAttackSpeed");
+		double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
+		double minAttackSpeedPerLevel = results.getDouble("minAttackSpeedPerLevel");
+		double maxAttackSpeedPerLevel = results.getDouble("maxAttackSpeedPerLevel");
+		String passiveName = results.getString("passiveName");
+		String passiveDescription = results.getString("passiveDescription");
+		String imageFile = results.getString("imageFile");
+		
+		Champions champion = new Champions(resultID, name, title, lore, championRole1,
+		 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
+		 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
+		 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription, imageFile);
+		
+		champion.setMinMaxFields(minAttack, maxAttack, minDefense, maxDefense, minMagic, maxMagic, minDifficulty, maxDifficulty, 
+				minHp, maxHp, minHpPerLevel, maxHpPerLevel, minMp, maxMp, minMpPerLevel, maxMpPerLevel, 
+				minMoveSpeed, maxMoveSpeed, minArmor, maxArmor, minArmorPerLevel, maxArmorPerLevel, minSpellBlock, maxSpellBlock, 
+				minSpellBlockPerLevel, maxSpellBlockPerLevel, minAttackRange, maxAttackRange, minHpRegen, maxHpRegen, 
+				minHpRegenPerLevel, maxHpRegenPerLevel, minMpRegen, maxMpRegen, minMpRegenPerLevel, maxMpRegenPerLevel,
+				minAttackDamage, maxAttackDamage, minAttackDamagePerLevel, 
+				maxAttackDamagePerLevel, minAttackSpeed, maxAttackSpeed, minAttackSpeedPerLevel, maxAttackSpeedPerLevel);
+		
+		return champion;
 	}
 	
 	public List<Champions> getChampionsFromMatchOutcome(boolean isWin, int seasonId) throws SQLException {
@@ -251,45 +345,77 @@ public class ChampionsDao {
 			selectStmt.setInt(2, seasonId);
 			results = selectStmt.executeQuery();
 			while(results.next()) {
-				int resultID = results.getInt("championId");
-				String name = results.getString("name");
-				String title = results.getString("title");
-				String lore = results.getString("lore");
-				Champions.championRole championRole1 = Champions.championRole.valueOf(
-						results.getString("championRole1"));
-				Champions.championRole championRole2 = Champions.championRole.valueOf(
-						results.getString("championRole2"));
-				int attack = results.getInt("attack");
-				int defense = results.getInt("defense");
-				int magic = results.getInt("magic");
-				int difficulty = results.getInt("difficulty");
-				double hp = results.getDouble("hp");
-				double hpPerLevel = results.getDouble("hpPerLevel");
-				double mp = results.getDouble("mp");
-				double mpPerLevel = results.getDouble("mpPerLevel");
-				int moveSpeed = results.getInt("moveSpeed");
-				double armor = results.getDouble("armor");
-				double armorPerLevel = results.getDouble("armorPerLevel");
-				double spellBlock = results.getDouble("spellBlock");
-				double spellBlockPerLevel = results.getDouble("spellBlockPerLevel");
-				int attackRange = results.getInt("attackRange");
-				double hpRegen = results.getDouble("hpRegen");
-				double hpRegenPerLevel = results.getDouble("hpRegenPerLevel");
-				double mpRegen = results.getDouble("mpRegen");
-				double mpRegenPerLevel = results.getDouble("mpRegenPerLevel");
-				double attackDamage = results.getDouble("attackDamage");
-				double attackDamagePerLevel = results.getDouble("attackDamagePerLevel");
-				double attackSpeed = results.getDouble("attackSpeed");
-				double attackSpeedPerLevel = results.getDouble("attackSpeedPerLevel");
-				String passiveName = results.getString("passiveName");
-				String passiveDescription = results.getString("passiveDescription");
-				
-				Champions champion = new Champions(resultID, name, title, lore, championRole1,
-				 championRole2, attack, defense, magic, difficulty, hp, hpPerLevel, mp, mpPerLevel, moveSpeed, armor, armorPerLevel,
-				 spellBlock, spellBlockPerLevel, attackRange, hpRegen, hpRegenPerLevel, mpRegen, mpRegenPerLevel, attackDamage, attackDamagePerLevel,
-				 attackSpeedPerLevel, attackSpeed, passiveName, passiveDescription);
-				
-				championList.add(champion);
+				championList.add(parseChampionFromResult(results));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
+	}
+	
+	public List<Champions> getChampionsFromName(String championName) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// gets the winning/losing champions for a particular season
+		String selectChampion =
+				"SELECT championId,name,title,lore,championRole1,championRole2,attack,t.minAttack, t.maxAttack,defense,t.minDefense,t.maxDefense,"
+						+ "magic,t.minMagic, t.maxMagic,difficulty,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
+						+ "hpPerLevel,t.minHpPerLevel, t.maxHpPerLevel,mp,t.minMp, t.maxMp,mpPerLevel,t.minMpPerLevel, t.maxMpPerLevel,"
+						+ "moveSpeed,t.minMoveSpeed, t.maxMoveSpeed,armor,t.minArmor, t.maxArmor,armorPerLevel,t.minArmorPerLevel, "
+						+ "t.maxArmorPerLevel,spellBlock,t.minSpellBlock, t.maxSpellBlock,spellBlockPerLevel,t.minSpellBlockPerLevel, "
+						+ "t.maxSpellBlockPerLevel,attackRange,t.minAttackRange, t.maxAttackRange,hpRegen,t.minHpRegen, t.maxHpRegen,"
+						+ "hpRegenPerLevel,t.minHpRegenPerLevel, t.maxHpRegenPerLevel,mpRegen,t.minMpRegen, t.maxMpRegen,"
+						+ "mpRegenPerLevel,t.minMpRegenPerLevel, t.maxMpRegenPerLevel,attackDamage,t.minAttackDamage, t.maxAttackDamage,"
+						+ "attackDamagePerLevel,t.minAttackDamagePerLevel, t.maxAttackDamagePerLevel,attackSpeed,t.minAttackSpeed, "
+						+ "t.maxAttackSpeed,attackSpeedPerLevel,t.minAttackSpeedPerLevel, t.maxAttackSpeedPerLevel,"
+						+ "passiveName,passiveDescription,imageFile "
+						+ "FROM ("
+						+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+						+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+						+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+						+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+						+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+						+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+						+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+						+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+						+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+						+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+						+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+						+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+						+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+						+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+						+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+						+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+						+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+						+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+						+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+						+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+						+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+						+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+						+ "FROM Champions) AS t "
+						+ "CROSS JOIN Champions WHERE name LIKE ?;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			selectStmt.setString(1, "%" + championName + "%");
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				championList.add(parseChampionFromResult(results));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
