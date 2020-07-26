@@ -57,14 +57,16 @@ public class SummonerStats {
 	private int objectivePlayerScore;
 	private int totalPlayerScore;
 	private int totalScoreRank;
+	private int perk0;
+	private int perk1;
+	private int perk2;
+	private int perk3;
+	private int perk4;
+	private int perk5;
+	private long perkPrimaryStyle;
+	private long perkSubStyle;
 	private String role;
 	private String lane;
-	private int runeId0;
-	private int runeId1;
-	private int runeId2;
-	private int runeId3;
-	private int runeId4;
-	private int runeId5;
 	private String highestAchievedSeasonTier;
 	private Summoner summoner;
 	
@@ -85,8 +87,8 @@ public class SummonerStats {
 											 boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
 											 boolean firstTowerAssist, boolean firstInhibitorKill, boolean firstInhibitorAssist,
 											 int combatPlayerScore, int objectivePlayerScore, int totalPlayerScore,
-											 int totalScoreRank, String role, String lane, int runeId0, int runeId1,
-											 int runeId2, int runeId3, int runeId4, int runeId5,
+											 int totalScoreRank, int perk0, int perk1, int perk2, int perk3, int perk4, 
+											 int perk5, long perkPrimaryStyle, long perkSubStyle, String role, String lane, 
 											 String highestAchievedSeasonTier, Summoner summoner) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
@@ -145,14 +147,16 @@ public class SummonerStats {
 		this.objectivePlayerScore = objectivePlayerScore;
 		this.totalPlayerScore = totalPlayerScore;
 		this.totalScoreRank = totalScoreRank;
+		this.perk0 = perk0;
+		this.perk1 = perk1;
+		this.perk2 = perk2;
+		this.perk3 = perk3;
+		this.perk4 = perk4;
+		this.perk5 = perk5;
+		this.perkPrimaryStyle = perkPrimaryStyle;
+		this.perkSubStyle = perkSubStyle;
 		this.role = role;
 		this.lane = lane;
-		this.runeId0 = runeId0;
-		this.runeId1 = runeId1;
-		this.runeId2 = runeId2;
-		this.runeId3 = runeId3;
-		this.runeId4 = runeId4;
-		this.runeId5 = runeId5;
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
 		this.summoner = summoner;
 	}
@@ -633,52 +637,68 @@ public class SummonerStats {
 		this.lane = lane;
 	}
 
-	public int getRuneId0() {
-		return runeId0;
+	public int getPerk0() {
+		return perk0;
 	}
 
-	public void setRuneId0(int runeId0) {
-		this.runeId0 = runeId0;
+	public void setPerk0(int perk0) {
+		this.perk0 = perk0;
 	}
 
-	public int getRuneId1() {
-		return runeId1;
+	public int getPerk1() {
+		return perk1;
 	}
 
-	public void setRuneId1(int runeId1) {
-		this.runeId1 = runeId1;
+	public void setPerk1(int perk1) {
+		this.perk1 = perk1;
 	}
 
-	public int getRuneId2() {
-		return runeId2;
+	public int getPerk2() {
+		return perk2;
 	}
 
-	public void setRuneId2(int runeId2) {
-		this.runeId2 = runeId2;
+	public void setPerk2(int perk2) {
+		this.perk2 = perk2;
 	}
 
-	public int getRuneId3() {
-		return runeId3;
+	public int getPerk3() {
+		return perk3;
 	}
 
-	public void setRuneId3(int runeId3) {
-		this.runeId3 = runeId3;
+	public void setPerk3(int perk3) {
+		this.perk3 = perk3;
 	}
 
-	public int getRuneId4() {
-		return runeId4;
+	public int getPerk4() {
+		return perk4;
 	}
 
-	public void setRuneId4(int runeId4) {
-		this.runeId4 = runeId4;
+	public void setPerk4(int perk4) {
+		this.perk4 = perk4;
 	}
 
-	public int getRuneId5() {
-		return runeId5;
+	public int getPerk5() {
+		return perk5;
 	}
 
-	public void setRuneId5(int runeId5) {
-		this.runeId5 = runeId5;
+	public void setPerk5(int perk5) {
+		this.perk5 = perk5;
+	}
+	
+	public long getPerkPrimaryStyle() {
+		return perkPrimaryStyle;
+	}
+
+	public void setPerkPrimaryStyle(long perkPrimaryStyle) {
+		this.perkPrimaryStyle = perkPrimaryStyle;
+	}
+
+	public long getPerkSubStyle() {
+		return perkSubStyle;
+	}
+
+	public void setPerkSubStyle(long perkSubStyle) {
+		this.perkSubStyle = perkSubStyle;
 	}
 
 	public String getHighestAchievedSeasonTier() {
