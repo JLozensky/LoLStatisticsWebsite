@@ -40,11 +40,12 @@ public class SummonerStatsDao {
             "neutralMinionsKilled, neutralMinionsKilledTeamJungle, neutralMinionsKilledEnemyJungle, " +
             "totalTimeCrowdControlDealt, champLevel, visionWardsBoughtInGame, sightWardsBoughtInGame, " +
             "wardsPlaced, wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill," +
-            "firstTowerAssist, firstInHibitorKill, firstInHibitorAssist, combatPlayerScore, " +
-            "objectivePlayerScore, totalPlayerScore, totalScoreRank, role, lane, runeId0, runeId1, " +
-            "runeId2, runeId3, runeId4, runeId5, highestAchievedSeasonTier, summonerName) VALUES(" +
-            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            "firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore, " +
+            "objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3," +
+            "perk4, perk5,perkPrimaryStyle, perkSubStyle,role, lane, " +
+            "highestAchievedSeasonTier, summonerName) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
@@ -102,22 +103,24 @@ public class SummonerStatsDao {
       insertStmt.setBoolean(49, summonerStats.isFirstBloodAssist());
       insertStmt.setBoolean(50, summonerStats.isFirstTowerKill());
       insertStmt.setBoolean(51, summonerStats.isFirstTowerAssist());
-      insertStmt.setBoolean(52, summonerStats.isFirstBloodKill());
-      insertStmt.setBoolean(53, summonerStats.isFirstBloodAssist());
+      insertStmt.setBoolean(52, summonerStats.isFirstInhibitorKill());
+      insertStmt.setBoolean(53, summonerStats.isFirstInhibitorAssist());
       insertStmt.setInt(54, summonerStats.getCombatPlayerScore());
       insertStmt.setInt(55, summonerStats.getObjectivePlayerScore());
       insertStmt.setInt(56, summonerStats.getTotalPlayerScore());
       insertStmt.setInt(57, summonerStats.getTotalScoreRank());
-      insertStmt.setString(58, summonerStats.getRole());
-      insertStmt.setString(59, summonerStats.getLane());
-      insertStmt.setInt(60, summonerStats.getRuneId0());
-      insertStmt.setInt(61, summonerStats.getRuneId1());
-      insertStmt.setInt(62, summonerStats.getRuneId2());
-      insertStmt.setInt(63, summonerStats.getRuneId3());
-      insertStmt.setInt(64, summonerStats.getRuneId4());
-      insertStmt.setInt(65, summonerStats.getRuneId5());
-      insertStmt.setString(66, summonerStats.getHighestAchievedSeasonTier());
-      insertStmt.setString(67, summonerStats.getSummoner().getSummonerName());
+      insertStmt.setInt(58, summonerStats.getPerk0());
+      insertStmt.setInt(59, summonerStats.getPerk1());
+      insertStmt.setInt(60, summonerStats.getPerk2());
+      insertStmt.setInt(61, summonerStats.getPerk3());
+      insertStmt.setInt(62, summonerStats.getPerk4());
+      insertStmt.setInt(63, summonerStats.getPerk5());
+      insertStmt.setLong(64, summonerStats.getPerkPrimaryStyle());
+      insertStmt.setLong(65, summonerStats.getPerkSubStyle());
+      insertStmt.setString(66, summonerStats.getRole());
+      insertStmt.setString(67, summonerStats.getLane());
+      insertStmt.setString(68, summonerStats.getHighestAchievedSeasonTier());
+      insertStmt.setString(69, summonerStats.getSummoner().getSummonerName());
       insertStmt.executeUpdate();
       
       return summonerStats;
@@ -178,10 +181,10 @@ public class SummonerStatsDao {
             "neutralMinionsKilled, neutralMinionsKilledTeamJungle, neutralMinionsKilledEnemyJungle, " +
             "totalTimeCrowdControlDealt, champLevel, visionWardsBoughtInGame, sightWardsBoughtInGamel, " +
             "wardsPlaced, wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill," +
-            "firstTowerAssist, firstInHibitorKill, firstInHibitorAssist, combatPlayerScore, " +
-            "objectivePlayerScore, totalPlayerScore, totalScoreRank, role, lane, runeId0, runeId1, " +
-            "runeId2, runeId3, runeId4, runeId5, highestAchievedSeasonTier, summonerName) " +
-            "FROM SummonerStats WHERE summonerStatsId=?;";
+            "firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore, " +
+            "objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, " +
+            "perk2, perk3, perk4, perk5, perkSubStyle, perkPrimaryStyle, role, lane, highestAchievedSeasonTier, " +
+            "summonerName) FROM SummonerStats WHERE summonerStatsId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -224,12 +227,12 @@ public class SummonerStatsDao {
         long visionScore = results.getLong("visionScore");
         long timeCCingOthers = results.getLong("timeCCingOthers");
         long totalDamageTaken = results.getLong("totalDamageTaken");
-        long magicDamageTaken = results.getLong("magicDamageTaken");
+        long magicalDamageTaken = results.getLong("magicalDamageTaken");
         long physicalDamageTaken = results.getLong("physicalDamageTaken");
         long trueDamageTaken = results.getLong("trueDamageTaken");
         long goldEarned = results.getLong("goldEarned");
         long goldSpent = results.getLong("goldSpent");
-        int turrentKills = results.getInt("turrentKills");
+        int turretKills = results.getInt("turretKills");
         long totalMinionsKilled = results.getLong("totalMinionsKilled");
         long neutralMinionsKilled = results.getLong("neutralMinionsKilled");
         long neutralMinionsKilledTeamJungle = results.getLong("neutralMinionsKilledTeamJungle");
@@ -243,39 +246,42 @@ public class SummonerStatsDao {
         boolean firstBloodKill = results.getBoolean("firstBloodKill");
         boolean firstBloodAssist = results.getBoolean("firstBloodAssist");
         boolean firstTowerKill = results.getBoolean("firstTowerKill");
-        boolean firstTowerKillAssist = results.getBoolean("firstTowerKillAssist");
-        boolean firstInHibitor = results.getBoolean("firstInHibitor");
-        boolean firstInHibitorAssist = results.getBoolean("firstInHibitorAssist");
+        boolean firstTowerAssist = results.getBoolean("firstTowerAssist");
+        boolean firstInhibitorKill = results.getBoolean("firstInhibitorKill");
+        boolean firstInhibitorAssist = results.getBoolean("firstInhibitorAssist");
         int combatPlayerScore = results.getInt("combatPlayerScore");
         int objectivePlayerScore = results.getInt("objectivePlayerScore");
         int totalPlayerScore = results.getInt("totalPlayerScore");
         int totalScoreRank = results.getInt("totalScoreRank");
+        int perk0 = results.getInt("perk0");
+        int perk1 = results.getInt("perk1");
+        int perk2 = results.getInt("perk2");
+        int perk3 = results.getInt("perk3");
+        int perk4 = results.getInt("perk4");
+        int perk5 = results.getInt("perk5");
+        long perkPrimaryStyle = results.getLong("perkPrimaryStyle");
+        long perkSubStyle =results.getLong("perkSubStyle");
         String role = results.getString("role");
         String lane = results.getString("lane");
-        int runeId0 = results.getInt("runeId0");
-        int runeId1 = results.getInt("runeId1");
-        int runeId2 = results.getInt("runeId2");
-        int runeId3 = results.getInt("runeId3");
-        int runeId4 = results.getInt("runeId4");
-        int runeId5 = results.getInt("runeId5");
         String highestAchievedSeasonTier = results.getString("highestAchievedSeasonTier");
         String summonerName = results.getString("summonerName");
         Summoner summoner = summonerDao.getSummonerFromSummonerName(summonerName);
                 
-        return new SummonerStats(resultSummonerStatsId, championId, spell1Id, spell2Id, itemId0, itemId1, 
-                itemId2, itemId3, itemId4, itemId5, itemId6, kills, deaths, assists, totalDamageDealt, 
-                magicDamageDealt, physicalDamageDealt, trueDamageDealt, largestCriticalStrike, 
-                totalDamageDealtToChampions, magicDamageDealtToChampions, physicalDamageDealtToChampions, 
-                trueDamageDealtToChampions, totalHeal, totalUnitsHealed, damageSelfMitigated, 
-                damageDealtToObjectives, damageDealtToTurrets, visionScore, timeCCingOthers, 
-                totalDamageTaken, magicDamageTaken, physicalDamageTaken,trueDamageTaken, goldEarned, 
-                goldSpent, turrentKills, totalMinionsKilled, neutralMinionsKilled, 
-                neutralMinionsKilledTeamJungle, neutralMinionsKilledEnemyJungle, totalTimeCrowdControlDealt, 
-                champLevel, visionWardsBoughtInGame, sightWardsBoughtInGame, wardsPlaced, wardsKilled, 
-                firstBloodKill, firstBloodAssist, firstTowerKill, firstTowerKillAssist, firstInHibitor, 
-                firstInHibitorAssist, combatPlayerScore, objectivePlayerScore, totalPlayerScore, 
-                totalScoreRank, role, lane, runeId0, runeId1, runeId2, runeId3, runeId4, runeId5,
-                highestAchievedSeasonTier, summoner);
+        return new SummonerStats(resultSummonerStatsId, championId, spell1Id, spell2Id,
+                itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6, kills, deaths, assists,
+                totalDamageDealt, magicDamageDealt, physicalDamageDealt, trueDamageDealt,
+                largestCriticalStrike, totalDamageDealtToChampions, magicDamageDealtToChampions,
+                physicalDamageDealtToChampions, trueDamageDealtToChampions, totalHeal, totalUnitsHealed,
+                damageSelfMitigated, damageDealtToObjectives, damageDealtToTurrets, visionScore,
+                timeCCingOthers, totalDamageTaken, magicalDamageTaken, physicalDamageTaken,
+                trueDamageTaken, goldEarned, goldSpent, turretKills, totalMinionsKilled,
+                neutralMinionsKilled, neutralMinionsKilledTeamJungle,  neutralMinionsKilledEnemyJungle,
+                totalTimeCrowdControlDealt, champLevel, visionWardsBoughtInGame, sightWardsBoughtInGame,
+                wardsPlaced, wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill,
+                firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore,
+                objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3,
+                perk4, perk5, perkPrimaryStyle, perkSubStyle, role, lane, highestAchievedSeasonTier,  
+                summoner);
       }
     } catch (SQLException e) {
       e.printStackTrace();
