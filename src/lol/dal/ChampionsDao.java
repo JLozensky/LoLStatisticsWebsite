@@ -434,4 +434,264 @@ public class ChampionsDao {
 		
 		return championList;
 	}
+	
+	/**
+	 * Gets the top 10 best champions for the specified user to fight against
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Champions> getBestChampionsToFightAgainst(Users user) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// TODO insert actual query
+		String selectChampion = "SELECT * FROM ("
+				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+				+ "FROM Champions) as t "
+				+ "CROSS JOIN Champions LIMIT 10;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			// TODO uncomment when there's a parameter in the query to filter against
+			// selectStmt.setString(1, user.getUsername());
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				championList.add(parseChampionFromResult(results));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
+	}
+	
+	/**
+	 * Gets the top 10 best champions for the specified user to fight against
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Champions> getWorstChampionsToFightAgainst(Users user) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// TODO insert actual query
+		String selectChampion = "SELECT * FROM ("
+				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+				+ "FROM Champions) as t "
+				+ "CROSS JOIN Champions ORDER BY name DESC LIMIT 10;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			// TODO uncomment when there's a parameter in the query to filter against
+			// selectStmt.setString(1, user.getUsername());
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				championList.add(parseChampionFromResult(results));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
+	}
+	
+	/**
+	 * Gets the top 10 best champions for the specified champion to fight against
+	 * @param champion
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Champions> getBestChampionsToFightAgainst(Champions champion) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// TODO insert actual query
+		String selectChampion = "SELECT * FROM ("
+				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+				+ "FROM Champions) as t "
+				+ "CROSS JOIN Champions LIMIT 10;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			// TODO uncomment when there's a parameter in the query to filter against
+			// selectStmt.setString(1, champion.getChampionId());
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				championList.add(parseChampionFromResult(results));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
+	}
+	
+	/**
+	 * Gets the top 10 worst champions for the specified champion to fight against
+	 * @param champion
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Champions> getWorstChampionsToFightAgainst(Champions champion) throws SQLException {
+		List<Champions> championList = new ArrayList<Champions>();
+		
+		// TODO insert actual query
+		String selectChampion = "SELECT * FROM ("
+				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
+				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
+				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
+				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
+				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
+				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
+				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
+				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
+				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
+				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
+				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
+				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
+				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
+				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
+				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
+				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
+				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
+				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
+				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
+				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
+				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
+				+ "FROM Champions) as t "
+				+ "CROSS JOIN Champions ORDER BY name DESC LIMIT 10;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectChampion);
+			// TODO uncomment when there's a parameter in the query to filter against
+			// selectStmt.setString(1, champion.getChampionId());
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				championList.add(parseChampionFromResult(results));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		
+		return championList;
+	}
 }

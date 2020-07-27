@@ -34,7 +34,7 @@ public class FindUsers extends HttpServlet {
         req.setAttribute("messages", messages);
 
         Users user = null;
-        
+        /*
 
         String sn = req.getParameter("summonername");
         if (sn == null || sn.trim().isEmpty()) {
@@ -48,7 +48,7 @@ public class FindUsers extends HttpServlet {
             }
         	messages.put("success", "Displaying results with " + sn);
 
-        }
+        }*/
         req.setAttribute("user", user);
         
         req.getRequestDispatcher("/FindUser.jsp").forward(req, resp);
@@ -63,7 +63,7 @@ public class FindUsers extends HttpServlet {
 
         Users user = null;
         Summoner summoner = null;
-        
+        /*
         String sn = req.getParameter("summonername");
         if (sn == null || sn.trim().isEmpty()) {
             messages.put("success", "Please enter a valid summoner name.");
@@ -80,7 +80,7 @@ public class FindUsers extends HttpServlet {
     			e.printStackTrace();
     			throw new IOException(e);
             }
-        }
+        }*/
         req.setAttribute("user", summoner);
         
         req.getRequestDispatcher("/FindUser.jsp").forward(req, resp);

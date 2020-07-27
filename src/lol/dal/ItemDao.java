@@ -1,6 +1,9 @@
 package lol.dal;
 
+import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
+
 import lol.model.*;
 
 /**
@@ -126,11 +129,11 @@ public class ItemDao {
 	 */
 	public Item getItemFromID(int id) throws SQLException {
 		String selectItem =
-				"SELECT Item.ItemId as ItemId,Name,Description,PlainTextDesc,BaseCost,Purchasable,"
-				+ "TotalCost,SellPrice,Tags,Map11,Map12,Map22,Depth,MaxStack,Consumed,InStore,RequiredChampion,"
-				+ "RequiredAlly FROM Item WHERE Item.itemId=?;";
+				"SELECT * FROM Item WHERE Item.itemId=?;";
+		String selectTags = "SELECT * FROM Item WHERE Item.itemId=?;";
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
+			PreparedStatement selectTagsStmt = null;
 			ResultSet results = null;
 			try {
 				connection = connectionManager.getConnection();
@@ -138,28 +141,81 @@ public class ItemDao {
 				selectStmt.setInt(1, id);
 				results = selectStmt.executeQuery();
 				if(results.next()) {
-					int itemId = results.getInt("ItemId");
-					String name = results.getString("Name");
-					String description = results.getString("Description");
-					String plainTextDesc = results.getString("PlainTextDesc");
-					String baseCost = results.getString("BaseCost");
-					boolean purchasable = results.getBoolean("Purchasable");
-					int totalCost = results.getInt("TotalCost");
-					int sellPrice = results.getInt("SellPrice");
-					String tags = results.getString("Tags");
-					boolean map11 = results.getBoolean("Map11");
-					boolean map12 = results.getBoolean("Map12");
-					boolean map22 = results.getBoolean("Map22");
-					int depth = results.getInt("Depth");
-					int maxStack = results.getInt("MaxStack");
-					boolean consumed = results.getBoolean("Consumed");
-					boolean inStore = results.getBoolean("InStore");
-					String requiredChampion = results.getString("RequiredChampion");
-					String requiredAlly = results.getString("RequiredAlly");
-					Item item = new Item(itemId, name, description, plainTextDesc, baseCost, purchasable, totalCost,
-							sellPrice, tags, map11, map12, map22, depth, maxStack, consumed, inStore,
-							requiredChampion, requiredAlly);
+					Item item = parseItemFromResults(results);
+					selectTagsStmt = connection.prepareStatement(selectTags);
+					selectTagsStmt.setInt(1, id);
+					results = selectTagsStmt.executeQuery();
+					List<String> tagList = new ArrayList<String>();
+					while(results.next()) {
+						String tag = results.getString("tags");
+						tagList.add(tag);
+					}
+					item.setTagList(tagList);
 					return item;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if (selectTagsStmt != null) {
+					selectTagsStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return null;
+	}
+	
+	
+	
+	private Item parseItemFromResults(ResultSet results) throws SQLException {
+		int itemId = results.getInt("ItemId");
+		String name = results.getString("Name");
+		String description = results.getString("Description");
+		String plainTextDesc = results.getString("PlainTextDesc");
+		String baseCost = results.getString("BaseCost");
+		boolean purchasable = results.getBoolean("Purchasable");
+		int totalCost = results.getInt("TotalCost");
+		int sellPrice = results.getInt("SellPrice");
+		String tags = results.getString("Tags");
+		boolean map11 = results.getBoolean("Map11");
+		boolean map12 = results.getBoolean("Map12");
+		boolean map22 = results.getBoolean("Map22");
+		int depth = results.getInt("Depth");
+		int maxStack = results.getInt("MaxStack");
+		boolean consumed = results.getBoolean("Consumed");
+		boolean inStore = results.getBoolean("InStore");
+		String requiredChampion = results.getString("RequiredChampion");
+		String requiredAlly = results.getString("RequiredAlly");
+		String imageFile = results.getString("imageFile");
+		Item item = new Item(itemId, name, description, plainTextDesc, baseCost, purchasable, totalCost,
+				sellPrice, tags, map11, map12, map22, depth, maxStack, consumed, inStore,
+				requiredChampion, requiredAlly);
+		item.setImageFile(imageFile);
+		return item;
+	}
+	
+	public List<Item> getItemsFromName(String itemName) throws SQLException {
+		List<Item> items = new ArrayList<Item>();
+		String selectItem ="SELECT * FROM Item WHERE name LIKE ?";
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectItem);
+				selectStmt.setString(1, "%" + itemName + "%");
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					Item item = parseItemFromResults(results);
+					items.add(item);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -175,6 +231,106 @@ public class ItemDao {
 					results.close();
 				}
 			}
-			return null;
+			return items;
+	}
+	
+	public List<Item> getBestItemsToUse(Champions champion) throws SQLException {
+		List<Item> items = new ArrayList<Item>();
+		// TODO replace with actual query
+		String selectItem ="SELECT * FROM Item LIMIT 10";
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectItem);
+				// TODO replace with filter when query is put in
+				//selectStmt.setInt(1, id);
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					Item item = parseItemFromResults(results);
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return items;
+	}
+	
+	public List<Item> getBestItemsToUse(Users user) throws SQLException {
+		List<Item> items = new ArrayList<Item>();
+		// TODO replace with actual query
+		String selectItem ="SELECT * FROM Item LIMIT 10;";
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectItem);
+				// TODO replace with filter when query is put in
+				//selectStmt.setInt(1, id);
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					Item item = parseItemFromResults(results);
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return items;
+	}
+	
+	public List<Item> getDistinctItems(String itemName) throws SQLException {
+		List<Item> items = new ArrayList<Item>();
+		String selectItem ="SELECT * FROM Item WHERE name LIKE ? GROUP BY name;";
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectItem);
+				selectStmt.setString(1, "%" + itemName + "%");
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					Item item = parseItemFromResults(results);
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return items;
 	}
 }

@@ -22,10 +22,14 @@
       <h3 class="masthead-brand">LolDB</h3>
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link" href="findchampions">Find Champions</a>
-        <a class="nav-link" href="findplayers">Find Players</a>
-        <a class="nav-link" href="playercreate">Create</a>
-        <a class="nav-link" href="playerdelete">Delete</a>
-        <a class="nav-link" href="playerupdate">Update</a>
+                <a class="nav-link active" href="finditems">Find Items</a>
+        
+        <c:if test="${messages.loggedIn}">
+        	<a class="nav-link" href="userprofile">My Profile</a>
+        </c:if>
+        <c:if test="${!messages.loggedIn}">
+        	<a class="nav-link" href="userlogin">Login</a>
+        </c:if>
       </nav>
     </div>
   </header>
@@ -385,24 +389,26 @@
    <div class="alert alert-info">
    		<h3>Champion Advice</h3>
    </div>
-   <div class="row">
+   <div class="row" id="championAdviceRow">
  		<div class="col-md-3">
  			<div class="list-group">
 				<div class="list-group-item">
 					<h5 class=list-group-item-heading>Top 10 best champions to fight against</h5>
 					
 				</div>
+				<c:forEach items="${top10BestChampions}" var="bestChampion" >
 				<div class="list-group-item">
 					<p class="list-group-item-text">
-						<a href="championprofile?id=<c:out value="${champion.getChampionId()}"/>">
-	                		<img src="img/champion/<c:out value="${champion.getImageFile()}"/>" class="img-thumbnail" 
+						<a href="championprofile?id=<c:out value="${bestChampion.getChampionId()}"/>">
+	                		<img src="img/champion/<c:out value="${bestChampion.getImageFile()}"/>" class="img-thumbnail" 
 	                		alt="100x100" style="width: 100px; height: 100px;" />
 	                	</a>
-						<a href="championprofile?id=<c:out value="${champion.getChampionId()}"/>">
-							${champion.getName()}
+						<a href="championprofile?id=<c:out value="${bestChampion.getChampionId()}"/>">
+							${bestChampion.getName()}
 						</a>
 					</p>
 				</div>
+				</c:forEach>
 			</div>
  		</div>
  		<div class="col-md-3">
@@ -411,9 +417,19 @@
 					<h5 class=list-group-item-heading>Top 10 worst champions to fight against</h5>
 					
 				</div>
+				<c:forEach items="${top10WorstChampions}" var="worstChampion" >
 				<div class="list-group-item">
-					<p class="list-group-item-text">${champion.getPassiveDescription()}</p>
+					<p class="list-group-item-text">
+						<a href="championprofile?id=<c:out value="${worstChampion.getChampionId()}"/>">
+	                		<img src="img/champion/<c:out value="${worstChampion.getImageFile()}"/>" class="img-thumbnail" 
+	                		alt="100x100" style="width: 100px; height: 100px;" />
+	                	</a>
+						<a href="championprofile?id=<c:out value="${worstChampion.getChampionId()}"/>">
+							${worstChampion.getName()}
+						</a>
+					</p>
 				</div>
+				</c:forEach>
 			</div>
  		</div>
  		<div class="col-md-3">
@@ -422,9 +438,19 @@
 					<h5 class=list-group-item-heading>Best Items to use</h5>
 					
 				</div>
+				<c:forEach items="${bestItems}" var="item" >
 				<div class="list-group-item">
-					<p class="list-group-item-text">${champion.getPassiveDescription()}</p>
+					<p class="list-group-item-text">
+						<a href="itemprofile?id=<c:out value="${item.getItemId()}"/>&tags=<c:out value="${item.getTags()}"/>">
+	                		<img src="img/item/<c:out value="${item.getImageFile()}"/>" class="img-thumbnail" 
+	                		alt="100x100" style="width: 100px; height: 100px;" />
+	                	</a>
+						<a href="itemprofile?id=<c:out value="${item.getItemId()}"/>&tags=<c:out value="${item.getTags()}"/>">
+							${item.getName()}
+						</a>
+					</p>
 				</div>
+				</c:forEach>
 			</div>
  		</div>
  		<div class="col-md-3">
@@ -433,12 +459,22 @@
 					<h5 class=list-group-item-heading>Best Summoner Spells to use</h5>
 					
 				</div>
+				<c:forEach items="${bestSpells}" var="spell" >
 				<div class="list-group-item">
-					<p class="list-group-item-text">${champion.getPassiveDescription()}</p>
+					<p class="list-group-item-text">
+						<a href="spellprofile?id=<c:out value="${spell.getSummonerSpellId()}"/>">
+	                		<img src="img/spell/<c:out value="${spell.getImageFile()}"/>" class="img-thumbnail" 
+	                		alt="100x100" style="width: 100px; height: 100px;" />
+	                	</a>
+						<a href="itemprofile?id=<c:out value="${spell.getSummonerSpellId()}"/>">
+							${spell.getName()}
+						</a>
+					</p>
 				</div>
+				</c:forEach>
 			</div>
  		</div>
- 	</div>
+ 	</div> <!-- end champion advice row -->
  </div>
  
 

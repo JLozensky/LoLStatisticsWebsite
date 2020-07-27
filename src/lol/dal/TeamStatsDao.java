@@ -100,7 +100,7 @@ public class TeamStatsDao {
   }
   
   public TeamStats getTeamStatsFromStatsId(String teamStatsId) throws SQLException {
-    String selectTeamStats = "SELECT statsId FROM teamStats WHERE statsId=?;";
+    String selectTeamStats = "SELECT * FROM teamStats WHERE teamStatsId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -113,7 +113,7 @@ public class TeamStatsDao {
       GameDao gameDao = GameDao.getInstance();
       
       if (results.next()) {
-        String resultTeamStatsId = results.getString("statsId");
+        String resultTeamStatsId = results.getString("teamStatsId");
         String win = results.getString("win");
         boolean firstBlood = results.getBoolean("firstBlood");
         boolean firstTower = results.getBoolean("firstTower");

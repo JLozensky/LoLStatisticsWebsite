@@ -17,17 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/championprofile")
-public class ChampionProfile extends HttpServlet {
-	protected ChampionsDao championsDao;
+@WebServlet("/itemprofile")
+public class ItemProfile extends HttpServlet {
 	protected ItemDao itemDao;
-	protected SummonerSpellsDao summonerSpellsDao;
 	
 	@Override
 	public void init() throws ServletException {
-		championsDao = ChampionsDao.getInstance();
 		itemDao = ItemDao.getInstance();
-		summonerSpellsDao = SummonerSpellsDao.getInstance();
 	}
 	
 	@Override
@@ -45,35 +41,23 @@ public class ChampionProfile extends HttpServlet {
         	messages.put("loggedIn", "true");
         }
         
-        Champions champion;
-        String stringChampionID = req.getParameter("id");
-        if (stringChampionID == null || stringChampionID.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid champion ID.");
+        String itemIdString = req.getParameter("id");
+        if (itemIdString == null || itemIdString.trim().isEmpty()) {
+            messages.put("success", "Please enter a valid item ID.");
         } else {
-            int championID = Integer.parseInt(stringChampionID);
+            int itemId = Integer.parseInt(itemIdString);
 
         	// Retrieve , and store as a message.
         	try {
-            	champion = championsDao.getChampionFromID(championID);
-            	
-            	List<Champions> top10BestChampions = championsDao.getBestChampionsToFightAgainst(champion);
-            	List<Champions> top10WorstChampions = championsDao.getWorstChampionsToFightAgainst(champion);
-            	List<Item> bestItems = itemDao.getBestItemsToUse(champion);
-            	List<SummonerSpells> bestSpells = summonerSpellsDao.getBestSummonerSpells(champion);
-            	
-            	req.setAttribute("top10BestChampions", top10BestChampions);
-            	req.setAttribute("top10WorstChampions", top10WorstChampions);
-            	req.setAttribute("bestItems", bestItems);
-            	req.setAttribute("bestSpells", bestSpells);
-
-            	req.setAttribute("champion", champion);
+            	Item item = itemDao.getItemFromID(itemId);
+            	req.setAttribute("item", item);
             } catch (SQLException e) {
     			e.printStackTrace();
     			throw new IOException(e);
             }
         }
         
-        req.getRequestDispatcher("/ChampionProfile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/ItemProfile.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -83,6 +67,6 @@ public class ChampionProfile extends HttpServlet {
 		Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.   
-        req.getRequestDispatcher("/ChampionProfile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/ItemProfile.jsp").forward(req, resp);
 	}
 }

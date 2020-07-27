@@ -2,32 +2,31 @@ package lol.model;
 
 public class Users {
 	
-	private String summonerName;
+	private Summoner summoner;
+	private String username;
+	private String password;
+	private String email;
 	private String firstName;
 	private String lastName;
 	
 	
-	public Users(String summonerName, String firstName, String lastName) {
-		this.summonerName = summonerName;
+	public Users(Summoner summoner, String username, String password, String firstName, String lastName, String email) {
+		this.summoner = summoner;
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-
-	
-
-	public Users(String summonerName) {
-		this.summonerName = summonerName;
+		this.username = username;
+		this.password = password;
+		this.email = email;
 	}
 
 
-
-	public String getSummonerName() {
-		return summonerName;
+	public Summoner getSummoner() {
+		return summoner;
 	}
 
 
-	public void setSummonerName(String summonerName) {
-		this.summonerName = summonerName;
+	public void setSummoner(Summoner summoner) {
+		this.summoner = summoner;
 	}
 
 
@@ -49,9 +48,40 @@ public class Users {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	
-	
-	
 
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

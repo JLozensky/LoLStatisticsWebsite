@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/findchampions")
-public class FindChampions extends HttpServlet {
-	protected ChampionsDao championsDao;
+@WebServlet("/finditems")
+public class FindItems extends HttpServlet {
+	protected ItemDao itemDao;
 	
 	@Override
 	public void init() throws ServletException {
-		championsDao = ChampionsDao.getInstance();
+		itemDao = ItemDao.getInstance();
 	}
 	
 	@Override
@@ -34,9 +34,8 @@ public class FindChampions extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        List<Champions> champions = new ArrayList<Champions>();
-        
-        String championName = req.getParameter("championName");
+        List<Item> items = new ArrayList<Item>();    
+        String itemName = req.getParameter("itemName");
 
         HttpSession session = req.getSession();
         String username = (String) session.getAttribute("username");
@@ -48,21 +47,25 @@ public class FindChampions extends HttpServlet {
         
     	// Retrieve , and store as a message.
     	try {
-        	champions = championsDao.getChampionsFromName(championName);
+    		items = itemDao.getDistinctItems(itemName);
+            req.setAttribute("items", items);
+
         } catch (SQLException e) {
 			e.printStackTrace();
 			throw new IOException(e);
         }
         
-    	if (championName == null || championName.trim().isEmpty()) {
-        	messages.put("success", "Displaying all champions");
+    	if (itemName == null || itemName.trim().isEmpty()) {
+        	messages.put("success", "Displaying all items");
+        	items.clear();
     	} else {
-        	messages.put("success", "Displaying results for champion name '" + championName + "'");
+        	messages.put("success", "Displaying results for item name '" + itemName + "'");
     	}
+    	
+    	messages.put("noresults", "false");
         
-        req.setAttribute("champions", champions);
         
-        req.getRequestDispatcher("/FindChampions.jsp").forward(req, resp);
+        req.getRequestDispatcher("/FindItems.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -71,8 +74,6 @@ public class FindChampions extends HttpServlet {
         // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-
-        List<Champions> champions = new ArrayList<Champions>();
         
         HttpSession session = req.getSession();
         String username = (String) session.getAttribute("username");
@@ -82,28 +83,28 @@ public class FindChampions extends HttpServlet {
         	messages.put("loggedIn", "true");
         }
         
-        // Retrieve and validate seasonId.
-        // isWin and seasonId are retrieved from the form POST submission. By default, it
-        // is populated by the URL query string (in FindChampions.jsp).
-        String championName = req.getParameter("championName");
+        String itemName = req.getParameter("itemName");
+        List<Item> items = new ArrayList<Item>();
+
     	try {
-        	champions = championsDao.getChampionsFromName(championName);
+    		items = itemDao.getDistinctItems(itemName);
+    		if (items.size() == 0) {
+        		messages.put("noresults", "true");
+        	}
+            req.setAttribute("items", items);
+
         } catch (SQLException e) {
 			e.printStackTrace();
 			throw new IOException(e);
         }
         
-    	if (championName == null || championName.trim().isEmpty()) {
-        	messages.put("success", "Displaying all champions");
+    	if (itemName == null || itemName.trim().isEmpty()) {
+        	messages.put("success", "Displaying all items");
     	} else {
-        	messages.put("success", "Displaying results for champion name '" + championName + "'");
+        	messages.put("success", "Displaying results for item name '" + itemName + "'");
     	}
-    	
-    	if (champions.size() == 0) {
-    		messages.put("noresults", "true");
-    	}
-        req.setAttribute("champions", champions);
         
-        req.getRequestDispatcher("/FindChampions.jsp").forward(req, resp);
+        req.getRequestDispatcher("/FindItems.jsp").forward(req, resp);
+    	
     }
 }

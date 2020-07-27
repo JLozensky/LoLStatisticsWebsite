@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<title>Find Champions</title>
+<title>Find Items</title>
 </head>
 <body>
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
@@ -18,9 +18,8 @@
     <div class="inner">
       <h3 class="masthead-brand">LolDB</h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="findchampions">Find Champions</a>
-                <a class="nav-link active" href="finditems">Find Items</a>
-        
+        <a class="nav-link" href="findchampions">Find Champions</a>
+        <a class="nav-link active" href="finditems">Find Items</a>
         <c:if test="${messages.loggedIn}">
         	<a class="nav-link" href="userprofile">My Profile</a>
         </c:if>
@@ -34,15 +33,15 @@
   <div>
   <div class="inner-cover d-flex p-3 mx-auto flex-column w-50 justify-content-center">
   <div class="text-center">
-	<h1 class="cover-heading">Search for champions</h1>
-	<p class="lead">Use this page to search for champions by name</p>
+	<h1 class="cover-heading">Search for items</h1>
+	<p class="lead">Use this page to search for items by name</p>
 	</div>
-    <form action="findchampions" method="post">
+    <form action="finditems" method="post">
 		
 		<div class="form-group row">
-			<label class="col-sm-3 col-form-label" for="championName">Champion Name</label>
+			<label class="col-sm-3 col-form-label" for="itemName">Item Name</label>
 			<div class="col-sm-9">
-				<input class="form-control" id="championName" name="championName" value="${fn:escapeXml(param.championName)}">
+				<input class="form-control" id="itemName" name="itemName" value="${fn:escapeXml(param.itemName)}">
 			</div>
 		</div>
 		<div class="lead text-center">
@@ -51,47 +50,33 @@
 	</form>
 	<br>
 	<br>
-	<div <c:if test="${champions.size() > 0}">style="display:none"</c:if>>
-		<p class="lead">No matching champions</p>
-	</div>
+
   </div>
   </div>
 	<br/>
 	<br/>
 	<div class="text-center cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
 	<c:choose>
-		<c:when test="${champions.size() > 0}">
+		<c:when test="${items.size() > 0}">
 			<h1>${messages.success}</h1>
 		    <table class="lead" border="1">
 		        <tr>
-		            <th>Champion</th>
+		            <th>Item</th>
 		            <th>Name</th>
-		            <th>Title</th>
-		            <th>Attack</th>
-		            <th>Defense</th>
-		            <th>Magic</th>
-		            <th>Difficulty</th>
-		            <th>HP</th>
-		            <th>MP</th>
+		            <th>Description</th>
 		        </tr>
-		        <c:forEach items="${champions}" var="champion" >
+		        <c:forEach items="${items}" var="item" >
 		            <tr>
 		            
 		                <td>
-		                	<a href="championprofile?id=<c:out value="${champion.getChampionId()}"/>">
-		                		<img src="img/champion/<c:out value="${champion.getImageFile()}"/>" class="img-thumbnail" 
+		                	<a href="itemprofile?id=<c:out value="${item.getItemId()}"/>">
+		                		<img src="img/item/<c:out value="${item.getImageFile()}"/>" class="img-thumbnail" 
 		                		alt="100x100" style="width: 100px; height: 100px;" />
 		                	</a>
 		                	
 		                </td>
-		                <td><a href="championprofile?id=<c:out value="${champion.getChampionId()}"/>">${champion.getName()}</a></td>
-		                <td><c:out value="${champion.getTitle()}" /></td>
-		                <td><c:out value="${champion.getAttack()}" /></td>
-		                <td><c:out value="${champion.getDefense()}"/></td>
-		                <td><c:out value="${champion.getMagic()}"/></td>
-		                <td><c:out value="${champion.getDifficulty()}"/></td>
-		                <td><c:out value="${champion.getHp()}"/></td>
-		                <td><c:out value="${champion.getMp()}"/></td>
+		                <td><a href="itemprofile?id=<c:out value="${item.getItemId()}"/>">${item.getName()}</a></td>
+		                <td><c:out value="${item.getPlainTextDesc()}" /></td>
 		            </tr>
 		        </c:forEach>
 		   </table>

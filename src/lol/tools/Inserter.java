@@ -129,11 +129,11 @@ public class Inserter {
           if (index < 5) {
             // assign teamStats0 to summoner 1 - 5
             summoner = new Summoner(accountId, summonerName, currentPlatformId, matchHistoryUri,
-                    profileIcon, teamStatsList.get(0));
+                    profileIcon);
           } else { 
             // assign teamStats1 to summoner 6 - 10
             summoner = new Summoner(accountId, summonerName, currentPlatformId, matchHistoryUri,
-                    profileIcon, teamStatsList.get(1));
+                    profileIcon);
           }
           summoner = summonerDao.create(summoner);
           summonerList.add(summoner);
