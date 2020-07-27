@@ -6,16 +6,14 @@ public class Summoner {
 	private String currentPlatformId;
 	private String matchHistoryUri;
 	private int profileIcon;
-	private TeamStats teamStats;
 	
 	public Summoner(String accountId, String summonerName, String currentPlatformId, String matchHistoryUri, 
-									int profileIcon, TeamStats teamStats) {
+									int profileIcon) {
 		this.accountId = accountId;
 		this.summonerName = summonerName;
 		this.currentPlatformId = currentPlatformId;
 		this.matchHistoryUri = matchHistoryUri;
 		this.profileIcon = profileIcon;
-		this.teamStats = teamStats;
 	}
 	
 	public String getAccountId() {
@@ -57,12 +55,5 @@ public class Summoner {
 	public void setProfileIcon(int profileIcon) {
 		this.profileIcon = profileIcon;
 	}
-
-	public TeamStats getTeamStats() {
-		return teamStats;
-	}
-
-	public void setTeamStats(TeamStats teamStats) {
-		this.teamStats = teamStats;
-	}
+	
 }

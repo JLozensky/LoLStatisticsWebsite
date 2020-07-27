@@ -4,10 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lol.model.*;
 
@@ -212,7 +208,6 @@ public class UserDao {
 			selectStmt = connection.prepareStatement(selectUser);
 			selectStmt.setString(1, summonerName);
 			results = selectStmt.executeQuery();
-			TeamStatsDao teamStatsDao = TeamStatsDao.getInstance();
 			
 			if(results.next()) {
 				String id = results.getString("accountId");
@@ -220,11 +215,10 @@ public class UserDao {
 				String currentPlatformId = results.getString("currentPlatformId");
 				String matchHistoryUri = results.getString("matchHistoryUri");
 				int profileIcon = results.getInt("profileIcon");
-				String teamStatsId = results.getString("teamStatsId");
-				TeamStats teamStats = teamStatsDao.getTeamStatsFromStatsId(teamStatsId);
+
 
 				return new Summoner(id, resultSummonerName, currentPlatformId, 
-						matchHistoryUri, profileIcon, teamStats);
+						matchHistoryUri, profileIcon);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

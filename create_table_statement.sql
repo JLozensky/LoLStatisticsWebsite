@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS SummonerStats;
 DROP TABLE IF EXISTS Summoner;
 DROP TABLE IF EXISTS ChampionAdvice;
 DROP TABLE IF EXISTS Champions;
-DROP TABLE IF EXISTS TeamStats;
+DROP TABLE IF EXISTS Team;
 DROP TABLE IF EXISTS RuneData;
 DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS SummonerSpells;
@@ -74,8 +74,8 @@ CREATE TABLE Game (
  CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId)
 );
 
-CREATE TABLE TeamStats (
- teamStatsId VARCHAR(225),
+CREATE TABLE Team (
+ teamId VARCHAR(225),
  win VARCHAR(255),
  firstBlood BOOLEAN,
  firstTower BOOLEAN,
@@ -96,8 +96,8 @@ CREATE TABLE TeamStats (
  banFour INT,
  banFive INT,
  gameId VARCHAR(255),
- CONSTRAINT pk_TeamStats PRIMARY KEY (teamStatsId),
- CONSTRAINT pk_TeamStats FOREIGN KEY (gameId)
+ CONSTRAINT pk_Team_teamId PRIMARY KEY (teamId),
+ CONSTRAINT pk_Team_gameId FOREIGN KEY (gameId)
  REFERENCES Game(gameId)
 );
 
@@ -147,6 +147,7 @@ CREATE TABLE ChampionAdvice (
   REFERENCES Champions (championId)
   ON UPDATE CASCADE ON DELETE SET NULL
 );
+
 CREATE TABLE Summoner (
  accountId VARCHAR(255),
  summonerName VARCHAR(255),
@@ -154,10 +155,7 @@ CREATE TABLE Summoner (
  summonerId VARCHAR(255),
  matchHistoryUri VARCHAR(255),
  profileIcon BIGINT,
- teamStatsId VARCHAR(255),
- CONSTRAINT pk_Summoner_accountId PRIMARY KEY (summonerName),
- CONSTRAINT fk_Summoner_teamStatsId FOREIGN KEY (teamStatsId)
- REFERENCES TeamStats(teamStatsId)
+ CONSTRAINT pk_Summoner_accountId PRIMARY KEY (accountId)
 );
 
 CREATE TABLE SummonerStats (
@@ -229,10 +227,16 @@ CREATE TABLE SummonerStats (
  role VARCHAR(255),
  lane VARCHAR(255),
  highestAchievedSeasonTier VARCHAR(255),
- summonerName VARCHAR(255),
+ gameId VARCHAR(255),
+ teamId VARCHAR(255),
+ accountId VARCHAR(255),
  CONSTRAINT pk_summonerStats_summonerStatsId PRIMARY KEY (summonerStatsId),
- CONSTRAINT fk_summonerStats_summonerName FOREIGN KEY (summonerName)
- REFERENCES Summoner(summonerName)
+ CONSTRAINT fk_summonerStats_gameId FOREIGN KEY (gameId)
+ REFERENCES Game(gameId),
+  CONSTRAINT fk_summonerStats_teamId FOREIGN KEY (teamId)
+ REFERENCES Team(teamId),
+ CONSTRAINT fk_summonerStats_accountId FOREIGN KEY (accountId)
+ REFERENCES Summoner(accountId)
 );
 
 

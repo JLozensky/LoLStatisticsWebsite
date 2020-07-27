@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import lol.model.Summoner;
-import lol.model.TeamStats;
 
 
 public class SummonerDao {
@@ -27,8 +26,8 @@ public class SummonerDao {
 
   public Summoner create(Summoner summoner) throws SQLException {
     String insertSummoner = "INSERT IGNORE INTO Summoner(accountId, " +
-            "summonerName, currentPlatformId, matchHistoryUri, profileIcon, teamStatsId) " +
-            "VALUES(?,?,?,?,?,?);";
+            "summonerName, currentPlatformId, matchHistoryUri, profileIcon) " +
+            "VALUES(?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
@@ -39,7 +38,6 @@ public class SummonerDao {
       insertStmt.setString(3, summoner.getCurrentPlatformId());
       insertStmt.setString(4, summoner.getMatchHistoryUri());
       insertStmt.setInt(5, summoner.getProfileIcon());
-      insertStmt.setString(6, summoner.getTeamStats().getTeamStatsId());
       
       insertStmt.executeUpdate();
       
@@ -123,7 +121,7 @@ public class SummonerDao {
       selectStmt = connection.prepareStatement(selectSummoner);
       selectStmt.setString(1, SummonerName);
       results = selectStmt.executeQuery();
-      TeamStatsDao teamStatsDao = TeamStatsDao.getInstance();
+      TeamDao teamDao = TeamDao.getInstance();
       
       if (results.next()) {
         String accountId = results.getString("accountId");
@@ -131,11 +129,9 @@ public class SummonerDao {
         String currentPlatformId = results.getString("currentPlatformId");
         String matchHistoryUri = results.getString("matchHistoryUri");
         int profileIcon = results.getInt("profileIcon");
-        String teamStatsId = results.getString("teamStatsId");
-        TeamStats teamStats = teamStatsDao.getTeamStatsFromStatsId(teamStatsId);
         
         return new Summoner(accountId, ResultSummonerName, currentPlatformId, matchHistoryUri, 
-                profileIcon, teamStats);
+                profileIcon);
       }
     } catch (SQLException e) {
       e.printStackTrace();
