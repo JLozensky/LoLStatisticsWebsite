@@ -258,7 +258,9 @@ public class Inserter {
                   objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3, 
                   perk4, perk5, perkPrimaryStyle, perkSubStyle, role, lane, highestAchievedSeasonTier, 
                   summonerList.get(index));
-          System.out.println(summonerStats.getSummoner().getSummonerName());
+          if (summonerStats.getSummoner().getSummonerName() == "YHMagicConch") {
+            System.out.println(summonerStats.getSummoner().getSummonerName());
+          }
           summonerStats = summonerStatsDao.create(summonerStats);
           index++;
         }
