@@ -50,7 +50,7 @@ public class ChampionsDao {
 	public Champions create(Champions champion) throws SQLException {
 
 		String insertChampions = "INSERT INTO Champions(championId,name,title,lore,"
-				+ "championRole1,championRole2,attack,defense,magic,difficulty,hp,"
+				+ "championRole1,championRole2,attack,defense,magic,difficult,hp,"
 				+ "hpPerLevel,mp,mpPerLevel,moveSpeed,armor,armorPerLevel,spellBlock,"
 				+ "spellBlockPerLevel,attackRange,hpRegen,hpRegenPerLevel,mpRegen,"
 				+ "mpRegenPerLevel,attackDamage,attackDamagePerLevel,"
@@ -146,7 +146,7 @@ public class ChampionsDao {
 	public Champions getChampionFromID(int id) throws SQLException {
 		String selectChampion =	
 				"SELECT championId,name,title,lore,championRole1,championRole2,attack,t.minAttack, t.maxAttack,defense,t.minDefense,t.maxDefense,"
-				+ "magic,t.minMagic, t.maxMagic,difficulty,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
+				+ "magic,t.minMagic, t.maxMagic,difficult,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
 				+ "hpPerLevel,t.minHpPerLevel, t.maxHpPerLevel,mp,t.minMp, t.maxMp,mpPerLevel,t.minMpPerLevel, t.maxMpPerLevel,"
 				+ "moveSpeed,t.minMoveSpeed, t.maxMoveSpeed,armor,t.minArmor, t.maxArmor,armorPerLevel,t.minArmorPerLevel, "
 				+ "t.maxArmorPerLevel,spellBlock,t.minSpellBlock, t.maxSpellBlock,spellBlockPerLevel,t.minSpellBlockPerLevel, "
@@ -160,7 +160,7 @@ public class ChampionsDao {
 				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
 				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
 				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+				+ "MIN(difficult) as minDifficulty, MAX(difficult) as maxDifficulty,"
 				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
 				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
 				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
@@ -236,9 +236,9 @@ public class ChampionsDao {
 		int magic = results.getInt("magic");
 		int minMagic = results.getInt("minMagic");
 		int maxMagic = results.getInt("maxMagic");
-		int difficulty = results.getInt("difficulty");
-		int minDifficulty = results.getInt("minDifficulty");
-		int maxDifficulty = results.getInt("maxDifficulty");
+		int difficulty = results.getInt("difficult");
+		int minDifficulty = results.getInt("minDifficult");
+		int maxDifficulty = results.getInt("maxDifficult");
 		double hp = results.getDouble("hp");
 		double minHp = results.getDouble("minHp");
 		double maxHp = results.getDouble("maxHp");
@@ -319,7 +319,7 @@ public class ChampionsDao {
 		// gets the winning/losing champions for a particular season
 		String selectChampion =
 				"SELECT Champions.championId as championId,name,title,lore,"
-				+ "championRole1,championRole2,attack,defense,magic,difficulty,hp,"
+				+ "championRole1,championRole2,attack,defense,magic,difficult,hp,"
 				+ "hpPerLevel,mp,mpPerLevel,moveSpeed,armor,armorPerLevel,spellBlock,"
 				+ "spellBlockPerLevel,attackRange,hpRegen,hpRegenPerLevel,mpRegen,"
 				+ "mpRegenPerLevel,attackDamage,attackDamagePerLevel,"
@@ -371,7 +371,7 @@ public class ChampionsDao {
 		// gets the winning/losing champions for a particular season
 		String selectChampion =
 				"SELECT championId,name,title,lore,championRole1,championRole2,attack,t.minAttack, t.maxAttack,defense,t.minDefense,t.maxDefense,"
-						+ "magic,t.minMagic, t.maxMagic,difficulty,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
+						+ "magic,t.minMagic, t.maxMagic,difficult,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
 						+ "hpPerLevel,t.minHpPerLevel, t.maxHpPerLevel,mp,t.minMp, t.maxMp,mpPerLevel,t.minMpPerLevel, t.maxMpPerLevel,"
 						+ "moveSpeed,t.minMoveSpeed, t.maxMoveSpeed,armor,t.minArmor, t.maxArmor,armorPerLevel,t.minArmorPerLevel, "
 						+ "t.maxArmorPerLevel,spellBlock,t.minSpellBlock, t.maxSpellBlock,spellBlockPerLevel,t.minSpellBlockPerLevel, "
@@ -385,7 +385,7 @@ public class ChampionsDao {
 						+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
 						+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
 						+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-						+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
+						+ "MIN(difficult) as minDifficulty, MAX(difficult) as maxDifficulty,"
 						+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
 						+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
 						+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
@@ -445,39 +445,28 @@ public class ChampionsDao {
 		List<Champions> championList = new ArrayList<Champions>();
 		
 		// TODO insert actual query
-		String selectChampion = "SELECT * FROM ("
-				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
-				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
-				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
-				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
-				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
-				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
-				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
-				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
-				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
-				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
-				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
-				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
-				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
-				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
-				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
-				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
-				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
-				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
-				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
-				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
-				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
-				+ "FROM Champions) as t "
-				+ "CROSS JOIN Champions LIMIT 10;";
+		String selectChampion = "SET @UserInput = ?" + 
+				"SELECT champions.name AS CHAMP_NAME, WIN_CNT" + 
+				"FROM champions INNER JOIN(" + 
+				"	SELECT summonerStats.championId, COUNT(*) AS WIN_CNT" + 
+				"	FROM summonerStats INNER JOIN(" + 
+				"		SELECT summonerStats.summonerStatsId, team.teamId, lane" + 
+				"		FROM summonerStats INNER JOIN team" + 
+				"		ON summonerStats.teamId = team.teamId" + 
+				"		WHERE team.win = \"Win\" AND summonerStats.accountId = @UserInput) AS W" + 
+				"	ON summonerStats.teamId = W.teamId AND summonerStats.lane = W.lane" + 
+				"	WHERE summonerStats.summonerStatsId <> W.summonerStatsId" + 
+				"	GROUP BY summonerStats.championId" + 
+				"	ORDER BY WIN_CNT DESC" + 
+				"	LIMIT 10) AS R" + 
+				"ON champions.championId = R.championId;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectChampion);
-			// TODO uncomment when there's a parameter in the query to filter against
-			// selectStmt.setString(1, user.getUsername());
+			selectStmt.setString(1, user.getSummoner().getAccountId);
 			results = selectStmt.executeQuery();
 			while(results.next()) {
 				championList.add(parseChampionFromResult(results));
@@ -501,7 +490,7 @@ public class ChampionsDao {
 	}
 	
 	/**
-	 * Gets the top 10 best champions for the specified user to fight against
+	 * Gets the top 10 worst champions for the specified user to fight against
 	 * @param user
 	 * @return
 	 * @throws SQLException
@@ -510,39 +499,28 @@ public class ChampionsDao {
 		List<Champions> championList = new ArrayList<Champions>();
 		
 		// TODO insert actual query
-		String selectChampion = "SELECT * FROM ("
-				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
-				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
-				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
-				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
-				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
-				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
-				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
-				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
-				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
-				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
-				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
-				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
-				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
-				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
-				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
-				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
-				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
-				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
-				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
-				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
-				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
-				+ "FROM Champions) as t "
-				+ "CROSS JOIN Champions ORDER BY name DESC LIMIT 10;";
+		String selectChampion = "SET @UserInput = ?;" + 
+				"SELECT champions.name AS CHAMP_NAME, LOSS_CNT" + 
+				"FROM champions INNER JOIN(" + 
+				"	SELECT summonerStats.championId, COUNT(*) AS LOSS_CNT" + 
+				"	FROM summonerStats INNER JOIN(" + 
+				"		SELECT summonerStats.summonerStatsId, team.teamId, lane, team.gameId" + 
+				"		FROM summonerStats INNER JOIN team" + 
+				"		ON summonerStats.teamId = team.teamId" + 
+				"		WHERE summonerStats.accountId = @UserInput AND team.win = \"Fail\" ) AS W" + 
+				"	ON summonerStats.teamId != W.teamId AND summonerStats.gameId = W.gameId AND summonerStats.lane = W.lane" + 
+				"	WHERE summonerStats.summonerStatsId <> W.summonerStatsId" + 
+				"	GROUP BY summonerStats.championId" + 
+				"	ORDER BY LOSS_CNT DESC" + 
+				"	LIMIT 10) AS R" + 
+				"ON champions.championId = R.championId;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectChampion);
-			// TODO uncomment when there's a parameter in the query to filter against
-			// selectStmt.setString(1, user.getUsername());
+			selectStmt.setString(1, user.getSummoner().getAccountId);
 			results = selectStmt.executeQuery();
 			while(results.next()) {
 				championList.add(parseChampionFromResult(results));
@@ -575,39 +553,36 @@ public class ChampionsDao {
 		List<Champions> championList = new ArrayList<Champions>();
 		
 		// TODO insert actual query
-		String selectChampion = "SELECT * FROM ("
-				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
-				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
-				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
-				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
-				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
-				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
-				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
-				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
-				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
-				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
-				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
-				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
-				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
-				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
-				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
-				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
-				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
-				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
-				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
-				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
-				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
-				+ "FROM Champions) as t "
-				+ "CROSS JOIN Champions LIMIT 10;";
+		String selectChampion = "SET @TARGET_CHAMPID = ?;" + 
+				"SELECT FAILTEAMS.TARGET_CHAMPID, champions.name AS ENERMY_CHAMP, COUNT(*) AS CNT" + 
+				"FROM Champions INNER JOIN(" + 
+				"	SELECT SAMEGAMES.TARGET_CHAMPID, SummonerStats.championId" + 
+				"	FROM summonerstats INNER JOIN(" + 
+				"		#Step 2 WIN CHAMPS names" + 
+				"		SELECT champions.name AS TARGET_CHAMPID, WINTEAMS.lane, WINTEAMS.gameId" + 
+				"		FROM champions INNER JOIN(" + 
+				"			#Step 1 Find win champs, and its lane" + 
+				"			SELECT SummonerStats.championId, SummonerStats.lane, team.gameId" + 
+				"			FROM SummonerStats INNER JOIN Team" + 
+				"			ON SummonerStats.teamId = Team.teamId" + 
+				"			WHERE Team.win = \"Win\" AND championId = @TARGET_CHAMPID) AS WINTEAMS" + 
+				"		ON WINTEAMS.championId = champions.championId) AS SAMEGAMES" + 
+				"	ON SAMEGAMES.gameId = summonerstats.gameId AND SAMEGAMES.lane = summonerstats.lane" + 
+				"	INNER JOIN Team" + 
+				"	ON summonerstats.teamId = Team.teamId " + 
+				"	WHERE Team.win = \"Fail\") AS FAILTEAMS" + 
+				"ON champions.championId = FAILTEAMS.championId" + 
+				"WHERE TARGET_CHAMPID <> champions.name" + 
+				"group by TARGET_CHAMPID, ENERMY_CHAMP" + 
+				"ORDER BY CNT desc" + 
+				"LIMIT 10;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectChampion);
-			// TODO uncomment when there's a parameter in the query to filter against
-			// selectStmt.setString(1, champion.getChampionId());
+			selectStmt.setString(1, champion.getChampionId());
 			results = selectStmt.executeQuery();
 			while(results.next()) {
 				championList.add(parseChampionFromResult(results));
@@ -640,39 +615,37 @@ public class ChampionsDao {
 		List<Champions> championList = new ArrayList<Champions>();
 		
 		// TODO insert actual query
-		String selectChampion = "SELECT * FROM ("
-				+ "SELECT MIN(attack) as minAttack, MAX(attack) as maxAttack,"
-				+ "MIN(defense) as minDefense, MAX(defense) as maxDefense,"
-				+ "MIN(magic) as minMagic, MAX(magic) as maxMagic,"
-				+ "MIN(difficulty) as minDifficulty, MAX(difficulty) as maxDifficulty,"
-				+ "MIN(hp) as minHp, MAX(hp) as maxHp,"
-				+ "MIN(hpPerLevel) as minHpPerLevel, MAX(hpPerLevel) as maxHpPerLevel,"
-				+ "MIN(mp) as minMp, MAX(mp) as maxMp,"
-				+ "MIN(mpPerLevel) as minMpPerLevel, MAX(mpPerLevel) as maxMpPerLevel,"
-				+ "MIN(moveSpeed) as minMoveSpeed, MAX(moveSpeed) as maxMoveSpeed,"
-				+ "MIN(armor) as minArmor, MAX(armor) as maxArmor,"
-				+ "MIN(armorPerLevel) as minArmorPerLevel, MAX(armorPerLevel) as maxArmorPerLevel,"
-				+ "MIN(spellBlock) as minSpellBlock, MAX(spellBlock) as maxSpellBlock,"
-				+ "MIN(spellBlockPerLevel) as minSpellBlockPerLevel, MAX(spellBlockPerLevel) as maxSpellBlockPerLevel,"
-				+ "MIN(attackRange) as minAttackRange, MAX(attackRange) as maxAttackRange,"
-				+ "MIN(hpRegen) as minHpRegen, MAX(hpRegen) as maxHpRegen,"
-				+ "MIN(hpRegenPerLevel) as minHpRegenPerLevel, MAX(hpRegenPerLevel) as maxHpRegenPerLevel,"
-				+ "MIN(mpRegen) as minMpRegen, MAX(mpRegen) as maxMpRegen,"
-				+ "MIN(mpRegenPerLevel) as minMpRegenPerLevel, MAX(mpRegenPerLevel) as maxMpRegenPerLevel,"
-				+ "MIN(attackDamage) as minAttackDamage, MAX(attackDamage) as maxAttackDamage,"
-				+ "MIN(attackDamagePerLevel) as minAttackDamagePerLevel, MAX(attackDamagePerLevel) as maxAttackDamagePerLevel,"
-				+ "MIN(attackSpeed) as minAttackSpeed, MAX(attackSpeed) as maxAttackSpeed,"
-				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
-				+ "FROM Champions) as t "
-				+ "CROSS JOIN Champions ORDER BY name DESC LIMIT 10;";
+		String selectChampion = "#Step 3 Find enemy players" + 
+				"SET @TARGET_CHAMPID = ?;" + 
+				"SELECT @TARGET_CHAMPID, champions.name AS ENERMY_CHAMP, COUNT(*) AS CNT" + 
+				"FROM Champions INNER JOIN(" + 
+				"	SELECT SAMEGAMES.TARGET_CHAMPID, SummonerStats.championId" + 
+				"	FROM summonerstats INNER JOIN(" + 
+				"		#Step 2 Losing champ by nam" + 
+				"		SELECT champions.name AS TARGET_CHAMPID, LOSETEAMS.lane, LOSETEAMS.gameId" + 
+				"		FROM champions INNER JOIN(" + 
+				"			#Step 1 Find teams where given champ lost" + 
+				"			SELECT SummonerStats.championId, SummonerStats.lane, team.gameId" + 
+				"			FROM SummonerStats INNER JOIN Team" + 
+				"			ON SummonerStats.teamId = Team.teamId" + 
+				"			WHERE Team.win = \"Fail\" AND championId = @TARGET_CHAMPID) AS LOSETEAMS" + 
+				"		ON LOSETEAMS.championId = champions.championId) AS SAMEGAMES" + 
+				"	ON SAMEGAMES.gameId = summonerstats.gameId AND SAMEGAMES.lane = summonerstats.lane" + 
+				"	INNER JOIN Team" + 
+				"	ON summonerstats.teamId = Team.teamId " + 
+				"	WHERE Team.win = \"Win\") AS WINTEAMS" + 
+				"ON champions.championId = WINTEAMS.championId" + 
+				"WHERE TARGET_CHAMPID <> champions.name" + 
+				"group by TARGET_CHAMPID, ENERMY_CHAMP" + 
+				"ORDER BY CNT desc" + 
+				"LIMIT 10";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectChampion);
-			// TODO uncomment when there's a parameter in the query to filter against
-			// selectStmt.setString(1, champion.getChampionId());
+			selectStmt.setString(1, champion.getChampionId());
 			results = selectStmt.executeQuery();
 			while(results.next()) {
 				championList.add(parseChampionFromResult(results));

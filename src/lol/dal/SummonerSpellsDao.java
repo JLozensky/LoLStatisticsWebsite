@@ -160,7 +160,17 @@ public class SummonerSpellsDao {
 	public List<SummonerSpells> getBestSummonerSpells(Champions champion) throws SQLException {
 		List<SummonerSpells> summonerSpellsList = new ArrayList<SummonerSpells>();
 		// TODO replace with query
-		String selectSummonerSpells ="SELECT * FROM SummonerSpells LIMIT 10;";
+		String selectSummonerSpells ="SET @TARGET_CHAMPID = 222;" + 
+				"SELECT summonerSpells.*" + 
+				"FROM summonerSpells INNER JOIN(" + 
+				"	SELECT SummonerStats.championId, spell1Id, spell2Id, COUNT(*) AS CNT" + 
+				"	FROM SummonerStats INNER JOIN Team" + 
+				"	ON SummonerStats.teamId = Team.teamId" + 
+				"	WHERE Team.win = \"Win\" AND championId = @TARGET_CHAMPID" + 
+				"	GROUP BY spell1Id, spell2Id" + 
+				"	ORDER BY CNT desc" + 
+				"	LIMIT 1) AS S" + 
+				"ON summonerSpells.summonerSpellId = S.spell1ID OR summonerSpells.summonerSpellId = S.spell2ID;";
 
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
@@ -202,7 +212,6 @@ public class SummonerSpellsDao {
 			try {
 				connection = connectionManager.getConnection();
 				selectStmt = connection.prepareStatement(selectSummonerSpells);
-				// TODO replace with filter
 				//selectStmt.setInt(1, id);
 				results = selectStmt.executeQuery();
 				while (results.next()) {
