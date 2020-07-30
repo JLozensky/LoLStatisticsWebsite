@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,24 +21,43 @@ import lol.model.TeamStats;
 import lol.dal.*;
 
 public class Inserter {
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, SQLException {
     // DAO instances
     GameDao gameDao = GameDao.getInstance();
     TeamStatsDao teamStatsDao = TeamStatsDao.getInstance();
     SummonerDao summonerDao = SummonerDao.getInstance();
     SummonerStatsDao summonerStatsDao = SummonerStatsDao.getInstance();
+    ConnectionManager connectionMgr1 = new ConnectionManager();
+    Connection connection1 = null;
+    ConnectionManager connectionMgr2 = new ConnectionManager();
+    Connection connection2 = null;
+    ConnectionManager connectionMgr3 = new ConnectionManager();
+    Connection connection3 = null;    
+    ConnectionManager connectionMgr4 = new ConnectionManager();
+    Connection connection4 = null;    
     
+<<<<<<< Updated upstream
     List<TeamStats> teamStatsList = new ArrayList<>();
     List<Summoner> summonerList = new ArrayList<>();
     String path = "/Users/calvinyin/Documents/CS5200/match_json";
+=======
+    
+    
+    
+    String path = "C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json";
+>>>>>>> Stashed changes
     PathReader fr = new PathReader();
     // Obtain a list of file path
     List<File> fileList = fr.pathReader(path);
     JSONParser jsonParser = new JSONParser();
     
     try {
+      connection1 = connectionMgr1.getConnection();
+      connection2 = connectionMgr2.getConnection();
+      connection3 = connectionMgr3.getConnection();
+      connection4 = connectionMgr4.getConnection();
       for (File f : fileList) {
-        if(f.getPath().equals("/Users/calvinyin/Documents/CS5200/match_json/.DS_Store")) {
+        if(f.getPath().equals("C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json\\.DS_Store")) {
           continue;
         }
         int counter = 0;
@@ -47,6 +67,7 @@ public class Inserter {
         /*
         Game insertion
          */
+<<<<<<< Updated upstream
         String gameId = String.valueOf(matchObject.get("gameId"));
         String date = String.valueOf(matchObject.get("date"));
         int gameDuration = ((Long) matchObject.get("gameDuration")).intValue();
@@ -56,14 +77,26 @@ public class Inserter {
         String gameVersion = String.valueOf(matchObject.get("gameVersion"));
         String gameMode = String.valueOf(matchObject.get("gameMode"));
         String gameType = String.valueOf(matchObject.get("gameType"));
+=======
+        String gameId = matchObject.get("gameId") == null ? null : String.valueOf(matchObject.get("gameId"));
+        String date = matchObject.get("gameCreation") == null ? null : String.valueOf(matchObject.get("gameCreation"));
+        System.out.println(date);
+        int gameDuration = matchObject.get("gameDuration") == null ? null : ((Long) matchObject.get("gameDuration")).intValue();
+        int queueId = matchObject.get("queueId") == null ? 0 : ((Long) matchObject.get("queueId")).intValue();
+        int mapId = matchObject.get("mapId") == null ? 0 : ((Long) matchObject.get("mapId")).intValue();
+        int seasonId = matchObject.get("seasonId") == null ? 0 : ((Long) matchObject.get("seasonId")).intValue();
+        String gameVersion = matchObject.get("gameVersion") == null ? null : String.valueOf(matchObject.get("gameVersion"));
+        String gameMode = matchObject.get("gameMode") == null ? null : String.valueOf(matchObject.get("gameMode"));
+        String gameType = matchObject.get("gameType") == null ? null : String.valueOf(matchObject.get("gameType"));
+>>>>>>> Stashed changes
 
         Game game = new Game(gameId, date, gameDuration, queueId, mapId, seasonId, gameVersion,
                 gameMode, gameType);
-        game = gameDao.create(game);
+        game = gameDao.create(game, connection1);
         
         
         /*
-        TeamStats insertion
+        Team insertion
          */
         JSONArray teams = (JSONArray) matchObject.get("teams");
         /* Use a iterator to parse JSONArray */
@@ -103,9 +136,15 @@ public class Inserter {
                   firstBaron, firstDragon, firstRiftHerald, towerKills, inhibitorKills, baronKills,
                   dragonKills, vilemawKills, riftHeraldKills, dominionVictoryScore, banOne, banTwo,
                   banThree, banFour, banFive, game);
+<<<<<<< Updated upstream
           teamStats = teamStatsDao.create(teamStats);
           // store teamStats of team0 and team1 in a list for future use
           teamStatsList.add(teamStats);     
+=======
+          teamStats = teamDao.create(teamStats, connection2);
+          // store teamStats of team0 and team1 in a list
+          teamList.add(teamStats);     
+>>>>>>> Stashed changes
         }
         
         
@@ -119,6 +158,7 @@ public class Inserter {
         while (summonerIterator.hasNext()) {
           Summoner summoner;
           JSONObject player = (JSONObject) summonerIterator.next().get("player");
+<<<<<<< Updated upstream
           String accountId = String.valueOf(player.get("accountId"));
           String summonerName = String.valueOf(player.get("summonerName"));
           String currentPlatformId = String.valueOf(player.get("currentPlatformId"));
@@ -134,6 +174,18 @@ public class Inserter {
                     profileIcon, teamStatsList.get(1));
           }
           summoner = summonerDao.create(summoner);
+=======
+          String accountId = player.get("accountId") == null ? null : String.valueOf(player.get("accountId"));
+          String summonerName = player.get("summonerName") == null ? null : String.valueOf(player.get("summonerName"));
+          String currentPlatformId = player.get("currentPlatformId") == null ? null : String.valueOf(player.get("currentPlatformId"));
+          String summonerId = player.get("summonerId") == null ? null : String.valueOf(player.get("summonerId"));
+          String matchHistoryUri = player.get("matchHistoryUri") == null ? null : String.valueOf(player.get("matchHistoryUri"));
+          int profileIcon = player.get("profileIcon") == null ? 0 : ((Long) player.get("profileIcon")).intValue();
+
+          summoner = new Summoner(accountId, summonerName, currentPlatformId, summonerId, matchHistoryUri, 
+                  profileIcon);
+          summoner = summonerDao.create(summoner, connection3);
+>>>>>>> Stashed changes
           summonerList.add(summoner);
           index++;
         }
@@ -221,6 +273,7 @@ public class Inserter {
             runeId4 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
             runeId5 = rune.hasNext() ? ((Long) rune.next().get("runeId")).intValue() : 0;
           }
+<<<<<<< Updated upstream
            
           String highestAchievedSeasonTier = String.valueOf(participant.get("highestAchievedSeasonTier"));
           
@@ -239,13 +292,33 @@ public class Inserter {
                   objectivePlayerScore, totalPlayerScore, totalScoreRank, role, lane, runeId0, 
                   runeId1, runeId2, runeId3, runeId4, runeId5, highestAchievedSeasonTier, summonerList.get(index));
           summonerStats = summonerStatsDao.create(summonerStats);
+=======
+          summonerStats = summonerStatsDao.create(summonerStats, connection4);
+>>>>>>> Stashed changes
           index++;
         }
         counter++;
+<<<<<<< Updated upstream
         System.out.println(100 * counter / fileList.size() + "%");
+=======
+        System.out.println((double) counter / fileList.size() * 100 + "%\n" + counter); 
+>>>>>>> Stashed changes
       }
     } catch (ParseException | IOException | SQLException e) {
       e.printStackTrace();
+    } finally {
+    	if (connection1 != null) {
+	        connection1.close();
+	      }
+    	if (connection2 != null) {
+	        connection2.close();
+	      }
+    	if (connection3 != null) {
+	        connection3.close();
+	      }
+    	if (connection4 != null) {
+	        connection4.close();
+	      }
     }
   }
 }
