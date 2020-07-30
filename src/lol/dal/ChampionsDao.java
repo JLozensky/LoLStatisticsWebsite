@@ -146,7 +146,7 @@ public class ChampionsDao {
 	public Champions getChampionFromID(int id) throws SQLException {
 		String selectChampion =
 				"SELECT Champions.championId as championId,name,title,lore,"
-				+ "championRole1,championRole2,attack,defense,magic,difficulty,hp,"
+				+ "championRole1,championRole2,attack,defense,magic,difficult,hp,"
 				+ "hpPerLevel,mp,mpPerLevel,moveSpeed,armor,armorPerLevel,spellBlock,"
 				+ "spellBlockPerLevel,attackRange,hpRegen,hpRegenPerLevel,mpRegen,"
 				+ "mpRegenPerLevel,attackDamage,attackDamagePerLevel,"
