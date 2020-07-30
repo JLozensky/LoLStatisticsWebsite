@@ -1,13 +1,13 @@
 package lol.model;
 
-public class RuneData {
+public class Rune {
 
 	private int runeId;
 	private String name;
 	private String pathName;
 	private String longDesc;
 	
-	public RuneData(int runeId, String name, String pathName, String longDesc) {
+	public Rune(int runeId, String name, String pathName, String longDesc) {
 		this.runeId = runeId;
 		this.name = name;
 		this.pathName = pathName;
@@ -45,7 +45,5 @@ public class RuneData {
 	public void setLongDesc(String longDesc) {
 		this.longDesc = longDesc;
 	}
-
-
 	
 }

@@ -74,12 +74,6 @@ public class SummonerSpellsDao {
 		}
 	}
 
-	/**
-	 * DELETE the SummonerSpells instance in the database schema.
-	 * @param item Item to delete
-	 * @return null
-	 * @throws SQLException 
-	 */
 	public SummonerSpells delete(SummonerSpells summonerSpells) throws SQLException {
 		String deleteSummonerSpells = "DELETE FROM SummonerSpells WHERE SummonerSpellId=?;";
 		Connection connection = null;

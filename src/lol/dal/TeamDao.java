@@ -6,60 +6,61 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-import lol.model.TeamStats;
+import lol.model.Game;
+import lol.model.Team;
 
-public class TeamStatsDao {
+public class TeamDao {
   protected ConnectionManager connectionManager;
   
-  private static TeamStatsDao instance = null;
+  private static TeamDao instance = null;
   
-  protected TeamStatsDao() { 
+  protected TeamDao() { 
     connectionManager = new ConnectionManager(); 
   }
   
-  public static TeamStatsDao getInstance() {
+  public static TeamDao getInstance() {
     if (instance == null) {
-      instance = new TeamStatsDao();
+      instance = new TeamDao();
     }
     return instance;
   }
   
-  public TeamStats create(TeamStats teamStats) throws SQLException {
-    String insertTeamStats = "INSERT INTO TeamStats(statsId, win, firstBlood, firstTower, " +
+  public Team create(Team team) throws SQLException {
+    String insertTeamStats = "INSERT IGNORE INTO Team(teamId, win, firstBlood, firstTower, " +
             "firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, " +
             "inhibitorKills, baronKills, dragonKills, vilemawKills, riftHeraldKills, " +
-            "dominionVictoryScore, banOne, banTwo, banThree, banFour, banFive) VALUES(?,?,?,?,?," +
-            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            "dominionVictoryScore, banOne, banTwo, banThree, banFour, banFive, gameId) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertTeamStats);
       
-      insertStmt.setString(1, teamStats.getTeamStatsId());
-      insertStmt.setString(2, teamStats.getWin());
-      insertStmt.setBoolean(3, teamStats.isFirstBlood());
-      insertStmt.setBoolean(4, teamStats.isFirstTower());
-      insertStmt.setBoolean(5, teamStats.isFirstInhibitor());
-      insertStmt.setBoolean(6, teamStats.isFirstBaron());
-      insertStmt.setBoolean(7, teamStats.isFirstDragon());
-      insertStmt.setBoolean(8, teamStats.isFirstRiftHerald());
-      insertStmt.setInt(9, teamStats.getTowerKills());
-      insertStmt.setInt(10, teamStats.getInhibitorKills());
-      insertStmt.setInt(11, teamStats.getBaronKills());
-      insertStmt.setInt(12, teamStats.getDragonKills());
-      insertStmt.setInt(13, teamStats.getVilemawKills());
-      insertStmt.setInt(14, teamStats.getRiftHeraldKills());
-      insertStmt.setInt(15, teamStats.getDominionVictoryScore());
-      insertStmt.setInt(16, teamStats.getBanOne());
-      insertStmt.setInt(17, teamStats.getBanTwo());
-      insertStmt.setInt(18, teamStats.getBanThree());
-      insertStmt.setInt(19, teamStats.getBanFour());
-      insertStmt.setInt(20, teamStats.getBanFive());
-
+      insertStmt.setString(1, team.getTeamId());
+      insertStmt.setString(2, team.getWin());
+      insertStmt.setBoolean(3, team.isFirstBlood());
+      insertStmt.setBoolean(4, team.isFirstTower());
+      insertStmt.setBoolean(5, team.isFirstInhibitor());
+      insertStmt.setBoolean(6, team.isFirstBaron());
+      insertStmt.setBoolean(7, team.isFirstDragon());
+      insertStmt.setBoolean(8, team.isFirstRiftHerald());
+      insertStmt.setInt(9, team.getTowerKills());
+      insertStmt.setInt(10, team.getInhibitorKills());
+      insertStmt.setInt(11, team.getBaronKills());
+      insertStmt.setInt(12, team.getDragonKills());
+      insertStmt.setInt(13, team.getVilemawKills());
+      insertStmt.setInt(14, team.getRiftHeraldKills());
+      insertStmt.setInt(15, team.getDominionVictoryScore());
+      insertStmt.setInt(16, team.getBanOne());
+      insertStmt.setInt(17, team.getBanTwo());
+      insertStmt.setInt(18, team.getBanThree());
+      insertStmt.setInt(19, team.getBanFour());
+      insertStmt.setInt(20, team.getBanFive());
+      insertStmt.setString(21, team.getGame().getGameId());
       insertStmt.executeUpdate();
       
-      return teamStats;
+      return team;
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;
@@ -73,14 +74,14 @@ public class TeamStatsDao {
     }
   }
   
-  public TeamStats delete(TeamStats teamStats) throws SQLException {
+  public Team delete(Team team) throws SQLException {
     String deleteTeamStats = "DELETE FROM teamStats WHERE statsId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
       connection = connectionManager.getConnection();
       deleteStmt = connection.prepareStatement(deleteTeamStats);
-      deleteStmt.setString(1, teamStats.getTeamStatsId());
+      deleteStmt.setString(1, team.getTeamId());
       deleteStmt.executeUpdate();
       
       return null;
@@ -97,19 +98,24 @@ public class TeamStatsDao {
     }
   }
   
-  public TeamStats getTeamStatsFromStatsId(String teamStatsId) throws SQLException {
-    String selectTeamStats = "SELECT statsId FROM teamStats WHERE statsId=?;";
+  public Team getTeamFromTeamId(String teamId) throws SQLException {
+    String selectTeamStats = "SELECT teamId,win,firstBlood,firstTower,firstInhibitor,firstBaron," +
+            "firstDragon,firstRiftHerald,towerKills,inhibitorKills,baronKills,dragonKills," +
+            "vilemawKills,riftHeraldKills,dominionVictoryScore,banOne,banTwo,banThree,banFour,banFive," +
+            "gameId) FROM team WHERE teamId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
+    
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectTeamStats);
-      selectStmt.setString(1, teamStatsId);
+      selectStmt.setString(1, teamId);
       results = selectStmt.executeQuery();
+      GameDao gameDao = GameDao.getInstance();
       
       if (results.next()) {
-        String resultTeamStatsId = results.getString("statsId");
+        String resultTeamId = results.getString("teamId");
         String win = results.getString("win");
         boolean firstBlood = results.getBoolean("firstBlood");
         boolean firstTower = results.getBoolean("firstTower");
@@ -129,10 +135,13 @@ public class TeamStatsDao {
         int banThree = results.getInt("banThree");
         int banFour = results.getInt("banFour");
         int banFive = results.getInt("banFive");
-        return new TeamStats(resultTeamStatsId, win, firstBlood, firstTower,
+        String gameId = results.getString("gameId");
+        Game game = gameDao.getGameById(gameId);
+        
+        return new Team(resultTeamId, win, firstBlood, firstTower,
                 firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, inhibitorKills,
                 baronKills, dragonKills, vilemawKills, riftHeraldKills, dominionVictoryScore, 
-                banOne, banTwo, banThree, banFour, banFive);
+                banOne, banTwo, banThree, banFour, banFive, game);
       }
     } catch (SQLException e) {
       e.printStackTrace();

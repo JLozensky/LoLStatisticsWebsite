@@ -1,7 +1,6 @@
 package lol.model;
 
 public class Game {
-
 	
 	private String gameId;
 	private String date;
@@ -9,15 +8,12 @@ public class Game {
 	private int queueId;
 	private int mapId;
 	private int seasonId;
-	private int gameVersion;
-	private int gameMode;
-	private int gameType;
-	private int team1;
-	private int team2;
+	private String gameVersion;
+	private String gameMode;
+	private String gameType;
 	
-	
-	public Game(String gameId, String date, int gameDuration, int queueId, int mapId, int seasonId, int gameVersion,
-			int gameMode, int gameType, int team1, int team2) {
+	public Game(String gameId, String date, int gameDuration, int queueId, int mapId, int seasonId, 
+							String gameVersion, String gameMode, String gameType) {
 		this.gameId = gameId;
 		this.date = date;
 		this.gameDuration = gameDuration;
@@ -27,16 +23,8 @@ public class Game {
 		this.gameVersion = gameVersion;
 		this.gameMode = gameMode;
 		this.gameType = gameType;
-		this.team1 = team1;
-		this.team2 = team2;
 	}
-
-
-	public Game(String gameId2, String date2, int gameDuration2, int queueId2, int mapId2, int seasonId2,
-			String gameVersion2, String gameMode2, String gameType2) {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 
 	public String getGameId() {
 		return gameId;
@@ -98,58 +86,34 @@ public class Game {
 	}
 
 
-	public int getGameVersion() {
+	public String getGameVersion() {
 		return gameVersion;
 	}
 
 
-	public void setGameVersion(int gameVersion) {
+	public void setGameVersion(String gameVersion) {
 		this.gameVersion = gameVersion;
 	}
 
 
-	public int getGameMode() {
+	public String getGameMode() {
 		return gameMode;
 	}
 
 
-	public void setGameMode(int gameMode) {
+	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
 	}
 
 
-	public int getGameType() {
+	public String getGameType() {
 		return gameType;
 	}
 
 
-	public void setGameType(int gameType) {
+	public void setGameType(String gameType) {
 		this.gameType = gameType;
 	}
-
-
-	public int getTeam1() {
-		return team1;
-	}
-
-
-	public void setTeam1(int team1) {
-		this.team1 = team1;
-	}
-
-
-	public int getTeam2() {
-		return team2;
-	}
-
-
-	public void setTeam2(int team2) {
-		this.team2 = team2;
-	}
-	
-	
-	
-	
 	
 	
 }
