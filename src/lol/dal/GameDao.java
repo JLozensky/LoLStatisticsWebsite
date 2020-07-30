@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 import lol.model.Game;
 
@@ -60,6 +64,40 @@ public class GameDao {
     }
   }
   
+  public Game create(Game game, Connection connection)
+          throws SQLException {
+    String insertGame = "INSERT IGNORE INTO Game(gameId, date, gameDuration, queueId, mapId, seasonId, " +
+            "gameVersion, gameMode, gameType) " +
+            "VALUES (?,?,?,?,?,?,?,?,?);";
+    PreparedStatement insertStmt = null;
+    Date date = new Date(Long.parseLong(game.getDate()));
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    try {
+      insertStmt = connection.prepareStatement(insertGame);
+      insertStmt.setString(1, game.getGameId());
+      insertStmt.setString(2, format.format(date));
+      System.out.println(format.format(date));
+      insertStmt.setInt(3, game.getGameDuration());
+      insertStmt.setInt(4, game.getQueueId());
+      insertStmt.setInt(5, game.getMapId());
+      insertStmt.setInt(6, game.getSeasonId());
+      insertStmt.setString(7, game.getGameVersion());
+      insertStmt.setString(8, game.getGameMode());
+      insertStmt.setString(9, game.getGameType());
+      insertStmt.setString(9, game.getGameType());
+      
+      insertStmt.executeUpdate();
+
+      return game;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (insertStmt != null) {
+        insertStmt.close();
+      }
+    }
+  }
   
   public Game delete(Game game) throws SQLException {
     String deleteGame = "DELETE FROM Game WHERE gameId=?;";
@@ -128,6 +166,5 @@ public class GameDao {
     }
     return null;
   }
-  
 }
 

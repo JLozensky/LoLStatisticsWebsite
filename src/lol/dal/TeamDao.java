@@ -73,8 +73,59 @@ public class TeamDao {
     }
   }
   
+  
+  // Overridden for the inserter so we don't need to create a new connection for every row
   public Team delete(Team team) throws SQLException {
-    String deleteTeamStats = "DELETE FROM teamStats WHERE statsId=?;";
+
+  
+  
+  public Team create(Team team, Connection connection) throws SQLException {
+	    String insertTeamStats = "INSERT IGNORE INTO Team(teamId, win, firstBlood, firstTower, " +
+	            "firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, " +
+	            "inhibitorKills, baronKills, dragonKills, vilemawKills, riftHeraldKills, " +
+	            "dominionVictoryScore, banOne, banTwo, banThree, banFour, banFive, gameId) " +
+	            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	    PreparedStatement insertStmt = null;
+	    try {
+	      insertStmt = connection.prepareStatement(insertTeamStats);
+	      
+	      insertStmt.setString(1, team.getTeamId());
+	      insertStmt.setString(2, team.getWin());
+	      insertStmt.setBoolean(3, team.isFirstBlood());
+	      insertStmt.setBoolean(4, team.isFirstTower());
+	      insertStmt.setBoolean(5, team.isFirstInhibitor());
+	      insertStmt.setBoolean(6, team.isFirstBaron());
+	      insertStmt.setBoolean(7, team.isFirstDragon());
+	      insertStmt.setBoolean(8, team.isFirstRiftHerald());
+	      insertStmt.setInt(9, team.getTowerKills());
+	      insertStmt.setInt(10, team.getInhibitorKills());
+	      insertStmt.setInt(11, team.getBaronKills());
+	      insertStmt.setInt(12, team.getDragonKills());
+	      insertStmt.setInt(13, team.getVilemawKills());
+	      insertStmt.setInt(14, team.getRiftHeraldKills());
+	      insertStmt.setInt(15, team.getDominionVictoryScore());
+	      insertStmt.setInt(16, team.getBanOne());
+	      insertStmt.setInt(17, team.getBanTwo());
+	      insertStmt.setInt(18, team.getBanThree());
+	      insertStmt.setInt(19, team.getBanFour());
+	      insertStmt.setInt(20, team.getBanFive());
+	      insertStmt.setString(21, team.getGame().getGameId());
+	      insertStmt.executeUpdate();
+	      
+	      return team;
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      throw e;
+	    } finally {
+	      if (insertStmt != null) {
+	        insertStmt.close();
+	      }
+	    }
+	  }
+  
+  
+  public Team delete(Team team) throws SQLException {
+    String deleteTeamStats = "DELETE FROM Team WHERE teamId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
