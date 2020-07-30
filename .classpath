@@ -16,11 +16,14 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.20.jar"/>
 	<classpathentry kind="lib" path="C:/Users/exant/Desktop/NE_Docs/5200_DBMS/Jars/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/exant/Desktop/NE_Docs/5200_DBMS/Jars/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/exant/Desktop/NE_Docs/5200_DBMS/Jars/taglibs-standard-spec-1.2.5.jar"/>
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 	<classpathentry kind="lib" path="C:/Users/exant/Desktop/NE_Docs/5200_DBMS/Jars/mysql-connector-java-8.0.20.jar"/>
@@ -43,6 +46,9 @@
 		</attributes>
 	</classpathentry>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

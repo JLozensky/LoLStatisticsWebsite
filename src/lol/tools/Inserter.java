@@ -251,7 +251,6 @@ public class Inserter {
         }
         counter++;
         System.out.println((double) counter / fileList.size() * 100 + "%\n" + counter); 
-
       }
     } catch (ParseException | IOException | SQLException e) {
       e.printStackTrace();

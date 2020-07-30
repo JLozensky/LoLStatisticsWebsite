@@ -76,6 +76,7 @@ public class TeamDao {
   
   
   // Overridden for the inserter so we don't need to create a new connection for every row
+
   public Team create(Team team, Connection connection) throws SQLException {
 	    String insertTeamStats = "INSERT IGNORE INTO Team(teamId, win, firstBlood, firstTower, " +
 	            "firstInhibitor, firstBaron, firstDragon, firstRiftHerald, towerKills, " +
@@ -120,6 +121,7 @@ public class TeamDao {
 	    }
 	  }
   
+
   public Team delete(Team team) throws SQLException {
     String deleteTeamStats = "DELETE FROM Team WHERE teamId=?;";
     Connection connection = null;
