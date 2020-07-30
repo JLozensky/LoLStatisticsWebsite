@@ -55,7 +55,34 @@ public class SummonerDao {
     }
   }
 
-
+  public Summoner create(Summoner summoner, Connection connection) throws SQLException {
+	    String insertSummoner = "INSERT IGNORE INTO Summoner(accountId, " +
+	            "summonerName, currentPlatformId, summonerId, matchHistoryUri, profileIcon) " +
+	            "VALUES(?,?,?,?,?,?);";
+	    PreparedStatement insertStmt = null;
+	    try {
+	      insertStmt = connection.prepareStatement(insertSummoner);
+	      insertStmt.setString(1, summoner.getAccountId());
+	      insertStmt.setString(2, summoner.getSummonerName());
+	      insertStmt.setString(3, summoner.getCurrentPlatformId());
+	      insertStmt.setString(4, summoner.getSummonerId());
+	      insertStmt.setString(5, summoner.getMatchHistoryUri());
+	      insertStmt.setInt(6, summoner.getProfileIcon());
+	      
+	      insertStmt.executeUpdate();
+	      
+	      return summoner;
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      throw e;
+	    } finally {
+	      if (insertStmt != null) {
+	        insertStmt.close();
+	      }
+	    }
+	  }
+  
+  
   public Summoner updateSummonerName(Summoner summoner, String newSummonerName) throws SQLException {
     String updateSummoner = "UPDATE Summoner SET summonerName=? WHERE summonerName=?;";
     Connection connection = null;
@@ -111,7 +138,8 @@ public class SummonerDao {
   
   public Summoner getSummonerFromSummonerName(String SummonerName) throws SQLException {
     String selectSummoner = "SELECT accountId, summonerName, currentPlatformId, matchHistoryUri, " +
-            "profileIcon, teamStatsId FROM Summoner WHERE summonerName=?;";
+            "profileIcon, teamId FROM Summoner WHERE summonerName=?;";
+    
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;

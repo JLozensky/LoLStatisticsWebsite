@@ -34,9 +34,9 @@ import java.util.Properties;
 public class ConnectionManager {
 
 	// User to connect to your database instance. By default, this is "root2".
-	private final String user = "root";
+	private final String user = "Druid";
 	// Password for the user.
-	private final String password = "yhnj1991";
+	private final String password = "R00tMaster";
 	// URI to your database server. If running on the same machine, then this is "localhost".
 	private final String hostName = "localhost";
 	// Port to your database server. By default, this is 3306.

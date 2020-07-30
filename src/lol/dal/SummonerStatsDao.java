@@ -139,6 +139,122 @@ public class SummonerStatsDao {
     }
   }
 
+  
+  
+  
+  public SummonerStats create(SummonerStats summonerStats, Connection connection) throws SQLException {
+	    String insertSummonerStats = "INSERT IGNORE INTO SummonerStats(summonerStatsId, championId, " +
+	            "spell1Id, spell2Id, itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6, " +
+	            "kills, deaths, assists, totalDamageDealt, magicDamageDealt, physicalDamageDealt, " +
+	            "trueDamageDealt, largestCriticalStrike, totalDamageDealtToChampions, " +
+	            "magicDamageDealtToChampions, physicalDamageDealtToChampions, trueDamageDealtToChampions, " +
+	            "totalHeal, totalUnitsHealed, damageSelfMitigated, damageDealtToObjectives, " +
+	            "damageDealtToTurrets, visionScore, timeCCingOthers, totalDamageTaken, magicalDamageTaken, " +
+	            "physicalDamageTaken,trueDamageTaken, goldEarned, goldSpent, turretKills, totalMinionsKilled," +
+	            "neutralMinionsKilled, neutralMinionsKilledTeamJungle, neutralMinionsKilledEnemyJungle, " +
+	            "totalTimeCrowdControlDealt, champLevel, visionWardsBoughtInGame, sightWardsBoughtInGame, " +
+	            "wardsPlaced, wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill," +
+	            "firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore, " +
+	            "objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3," +
+	            "perk4, perk5,perkPrimaryStyle, perkSubStyle,role, lane, " +
+	            "highestAchievedSeasonTier, gameId, teamId, accountId) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+	            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+	            "?,?,?,?,?,?,?);";
+	    PreparedStatement insertStmt = null;
+	    try {
+	      insertStmt = connection.prepareStatement(insertSummonerStats);
+	      insertStmt.setString(1, summonerStats.getSummonerStatsId());
+	      insertStmt.setInt(2, summonerStats.getChampionId());
+	      insertStmt.setInt(3, summonerStats.getSpell1Id());
+	      insertStmt.setInt(4, summonerStats.getSpell2Id());
+	      insertStmt.setInt(5, summonerStats.getItemId0());
+	      insertStmt.setInt(6, summonerStats.getItemId1());
+	      insertStmt.setInt(7, summonerStats.getItemId2());
+	      insertStmt.setInt(8, summonerStats.getItemId3());
+	      insertStmt.setInt(9, summonerStats.getItemId4());
+	      insertStmt.setInt(10, summonerStats.getItemId5());
+	      insertStmt.setInt(11, summonerStats.getItemId6());
+	      insertStmt.setInt(12, summonerStats.getKills());
+	      insertStmt.setInt(13, summonerStats.getDeaths());
+	      insertStmt.setInt(14, summonerStats.getAssists());
+	      insertStmt.setLong(15, summonerStats.getTotalDamageDealt());
+	      insertStmt.setLong(16, summonerStats.getMagicDamageDealt());
+	      insertStmt.setLong(17, summonerStats.getPhysicalDamageDealt());
+	      insertStmt.setLong(18, summonerStats.getTrueDamageDealt());
+	      insertStmt.setLong(19, summonerStats.getLargestCriticalStrike());
+	      insertStmt.setLong(20, summonerStats.getTotalDamageDealtToChampions());
+	      insertStmt.setLong(21, summonerStats.getMagicDamageDealtToChampions());
+	      insertStmt.setLong(22, summonerStats.getPhysicalDamageDealtToChampions());
+	      insertStmt.setLong(23, summonerStats.getTrueDamageDealtToChampions());
+	      insertStmt.setLong(24, summonerStats.getTotalHeal());
+	      insertStmt.setLong(25, summonerStats.getTotalUnitsHealed());
+	      insertStmt.setLong(26, summonerStats.getDamageSelfMitigated());
+	      insertStmt.setLong(27, summonerStats.getDamageDealtToObjectives());
+	      insertStmt.setLong(28, summonerStats.getDamageDealtToTurrets());
+	      insertStmt.setLong(29, summonerStats.getVisionScore());
+	      insertStmt.setLong(30, summonerStats.getTimeCCingOthers());
+	      insertStmt.setLong(31, summonerStats.getTotalDamageTaken());
+	      insertStmt.setLong(32, summonerStats.getMagicalDamageTaken());
+	      insertStmt.setLong(33, summonerStats.getPhysicalDamageTaken());
+	      insertStmt.setLong(34, summonerStats.getTrueDamageTaken());
+	      insertStmt.setLong(35, summonerStats.getGoldEarned());
+	      insertStmt.setLong(36, summonerStats.getGoldSpent());
+	      insertStmt.setLong(37, summonerStats.getTurretKills());
+	      insertStmt.setLong(38, summonerStats.getTotalMinionsKilled());
+	      insertStmt.setLong(39, summonerStats.getNeutralMinionsKilled());
+	      insertStmt.setLong(40, summonerStats.getNeutralMinionsKilledTeamJungle());
+	      insertStmt.setLong(41, summonerStats.getNeutralMinionsKilledEnemyJungle());
+	      insertStmt.setLong(42, summonerStats.getTotalTimeCrowdControlDealt());
+	      insertStmt.setInt(43, summonerStats.getChampLevel());
+	      insertStmt.setInt(44, summonerStats.getVisionWardsBoughtInGame());
+	      insertStmt.setInt(45, summonerStats.getSightWardsBoughtInGame());
+	      insertStmt.setInt(46, summonerStats.getWardsPlaced());
+	      insertStmt.setInt(47, summonerStats.getWardsKilled());
+	      insertStmt.setBoolean(48, summonerStats.isFirstBloodKill());
+	      insertStmt.setBoolean(49, summonerStats.isFirstBloodAssist());
+	      insertStmt.setBoolean(50, summonerStats.isFirstTowerKill());
+	      insertStmt.setBoolean(51, summonerStats.isFirstTowerAssist());
+	      insertStmt.setBoolean(52, summonerStats.isFirstInhibitorKill());
+	      insertStmt.setBoolean(53, summonerStats.isFirstInhibitorAssist());
+	      insertStmt.setInt(54, summonerStats.getCombatPlayerScore());
+	      insertStmt.setInt(55, summonerStats.getObjectivePlayerScore());
+	      insertStmt.setInt(56, summonerStats.getTotalPlayerScore());
+	      insertStmt.setInt(57, summonerStats.getTotalScoreRank());
+	      insertStmt.setInt(58, summonerStats.getPerk0());
+	      insertStmt.setInt(59, summonerStats.getPerk1());
+	      insertStmt.setInt(60, summonerStats.getPerk2());
+	      insertStmt.setInt(61, summonerStats.getPerk3());
+	      insertStmt.setInt(62, summonerStats.getPerk4());
+	      insertStmt.setInt(63, summonerStats.getPerk5());
+	      insertStmt.setLong(64, summonerStats.getPerkPrimaryStyle());
+	      insertStmt.setLong(65, summonerStats.getPerkSubStyle());
+	      insertStmt.setString(66, summonerStats.getRole());
+	      insertStmt.setString(67, summonerStats.getLane());
+	      insertStmt.setString(68, summonerStats.getHighestAchievedSeasonTier());
+	      insertStmt.setString(69, summonerStats.getGame().getGameId());
+	      insertStmt.setString(70, summonerStats.getTeam().getTeamId());
+	      insertStmt.setString(71, summonerStats.getSummoner().getAccountId());
+	      insertStmt.executeUpdate();
+	      
+	      return summonerStats;
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      throw e;
+	    } finally {
+	      if (insertStmt != null) {
+	        insertStmt.close();
+	      }
+	    }
+	  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   /**
    * Delete the SummonerStats instance.
