@@ -237,15 +237,27 @@ public class ItemDao {
 	public List<Item> getBestItemsToUse(Champions champion) throws SQLException {
 		List<Item> items = new ArrayList<Item>();
 		// TODO replace with actual query
-		String selectItem ="SELECT * FROM Item LIMIT 10";
+		String selectItem ="SET @TARGET_CHAMPID = ?;" + 
+				"SELECT Item.*" + 
+				"FROM Item INNER JOIN(" + 
+				"	SELECT SummonerStats.championId, itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, COUNT(*) AS CNT" + 
+				"	FROM SummonerStats INNER JOIN Team" + 
+				"	ON SummonerStats.teamId = Team.teamId" + 
+				"	WHERE Team.win = \"Win\" AND championId = @TARGET_CHAMPID" + 
+				"	GROUP BY itemId0, itemId1, itemId2, itemId3, itemId4, itemId5" + 
+				"    ORDER BY CNT Desc" + 
+				"    LIMIT 6) AS I" + 
+				"ON Item.itemId = I.itemId0 OR Item.itemId = I.itemId1 OR Item.itemId = I.itemId2 OR Item.itemId = I.itemId3 OR Item.itemId = I.itemId4 OR Item.itemId = I.itemId5" + 
+				"GROUP BY Item.itemId" + 
+				"ORDER BY I.CNT Desc" + 
+				"LIMIT 6";
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
 			ResultSet results = null;
 			try {
 				connection = connectionManager.getConnection();
 				selectStmt = connection.prepareStatement(selectItem);
-				// TODO replace with filter when query is put in
-				//selectStmt.setInt(1, id);
+				selectStmt.setInt(1, id);
 				results = selectStmt.executeQuery();
 				while (results.next()) {
 					Item item = parseItemFromResults(results);
