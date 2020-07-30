@@ -43,9 +43,9 @@ public class SummonerStatsDao {
             "firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore, " +
             "objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3," +
             "perk4, perk5,perkPrimaryStyle, perkSubStyle,role, lane, " +
-            "highestAchievedSeasonTier, summonerName) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "highestAchievedSeasonTier, gameId, teamId, accountId) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
             "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-            "?,?,?,?,?);";
+            "?,?,?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
@@ -120,7 +120,9 @@ public class SummonerStatsDao {
       insertStmt.setString(66, summonerStats.getRole());
       insertStmt.setString(67, summonerStats.getLane());
       insertStmt.setString(68, summonerStats.getHighestAchievedSeasonTier());
-      insertStmt.setString(69, summonerStats.getSummoner().getSummonerName());
+      insertStmt.setString(69, summonerStats.getGame().getGameId());
+      insertStmt.setString(70, summonerStats.getTeam().getTeamId());
+      insertStmt.setString(71, summonerStats.getSummoner().getAccountId());
       insertStmt.executeUpdate();
       
       return summonerStats;
@@ -184,7 +186,7 @@ public class SummonerStatsDao {
             "firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore, " +
             "objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, " +
             "perk2, perk3, perk4, perk5, perkSubStyle, perkPrimaryStyle, role, lane, highestAchievedSeasonTier, " +
-            "summonerName) FROM SummonerStats WHERE summonerStatsId=?;";
+            "gameId, teamId, accountId) FROM SummonerStats WHERE summonerStatsId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -193,6 +195,8 @@ public class SummonerStatsDao {
       selectStmt = connection.prepareStatement(selectSummonerStats);
       selectStmt.setString(1, summonerStatsId);
       results = selectStmt.executeQuery();
+      GameDao gameDao = GameDao.getInstance();
+      TeamDao teamDao = TeamDao.getInstance();
       SummonerDao summonerDao = SummonerDao.getInstance();
       
       if(results.next()) {
@@ -264,7 +268,11 @@ public class SummonerStatsDao {
         String role = results.getString("role");
         String lane = results.getString("lane");
         String highestAchievedSeasonTier = results.getString("highestAchievedSeasonTier");
+        String gameId = results.getString("gameId");
+        String teamId =results.getString("teamId");
         String summonerName = results.getString("summonerName");
+        Game game = gameDao.getGameById(gameId);
+        Team team = teamDao.getTeamFromTeamId(teamId);
         Summoner summoner = summonerDao.getSummonerFromSummonerName(summonerName);
                 
         return new SummonerStats(resultSummonerStatsId, championId, spell1Id, spell2Id,
@@ -280,8 +288,8 @@ public class SummonerStatsDao {
                 wardsPlaced, wardsKilled, firstBloodKill, firstBloodAssist, firstTowerKill,
                 firstTowerAssist, firstInhibitorKill, firstInhibitorAssist, combatPlayerScore,
                 objectivePlayerScore, totalPlayerScore, totalScoreRank, perk0, perk1, perk2, perk3,
-                perk4, perk5, perkPrimaryStyle, perkSubStyle, role, lane, highestAchievedSeasonTier,  
-                summoner);
+                perk4, perk5, perkPrimaryStyle, perkSubStyle, role, lane, highestAchievedSeasonTier,
+                game, team, summoner);
       }
     } catch (SQLException e) {
       e.printStackTrace();

@@ -16,20 +16,20 @@ DROP TABLE IF EXISTS Game;
 CREATE TABLE ItemStats (
  itemStatsId INT AUTO_INCREMENT,
  itemId INT,
- statName VARCHAR(225),
+ statName VARCHAR(255),
  value DECIMAL(8,4),
  CONSTRAINT pk_ItemStats_itemStatsId PRIMARY KEY (itemStatsId)
 );
 CREATE TABLE SummonerSpells (
  summonerSpellId INT AUTO_INCREMENT,
- name VARCHAR(225),
+ name VARCHAR(255),
  description LONGTEXT,
  spellRange INT,
  cooldown INT,
  summonerLevel INT,
- modesAvailable VARCHAR(225),
+ modesAvailable VARCHAR(255),
  imageFile VARCHAR(255),
- spriteFile VARCHAR(255), 
+ spriteFile VARCHAR(255),
  spriteGroup VARCHAR(255),
  spriteX INT,
  spriteY INT,
@@ -39,14 +39,14 @@ CREATE TABLE SummonerSpells (
 );
 CREATE TABLE Item (
  itemId INT,
- name VARCHAR(225),
+ name VARCHAR(255),
  description LONGTEXT,
  plaintextDesc LONGTEXT,
  baseCost INT,
  purchasable BOOLEAN,
  totalCost INT,
  sellPrice INT,
- tags VARCHAR(225),
+ tags VARCHAR(255),
  map11 BOOLEAN,
  map12 BOOLEAN,
  map22 BOOLEAN,
@@ -54,17 +54,26 @@ CREATE TABLE Item (
  maxStack INT,
  consumed BOOLEAN,
  inStore BOOLEAN,
- requiredChampion VARCHAR(225),
- requiredAlly VARCHAR(225),
+ requiredChampion VARCHAR(255),
+ requiredAlly VARCHAR(255),
+ imageFile VARCHAR(255),
+ spriteFile VARCHAR(255),
+ spriteGroup VARCHAR(255),
+ spriteX INT,
+ spriteY INT,
+ spriteW INT,
+ spriteH INT,
  CONSTRAINT pk_Item_itemId_tags PRIMARY KEY (itemId, tags)
 );
 CREATE TABLE RuneData (
  runeId INT,
- name VARCHAR(225),
- pathName VARCHAR(225),
+ name VARCHAR(255),
+ pathName VARCHAR(255),
  longDesc LONGTEXT,
+ imagePath VARCHAR(255),
  CONSTRAINT pk_RuneData_runeId PRIMARY KEY (runeId)
 );
+
 CREATE TABLE Game (
  gameId VARCHAR(225),
  date VARCHAR(225),
@@ -77,6 +86,7 @@ CREATE TABLE Game (
  gameType VARCHAR(225),
  CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId)
 );
+
 CREATE TABLE TeamStats (
  teamStatsId VARCHAR(225),
  win VARCHAR(255),
@@ -102,11 +112,12 @@ CREATE TABLE TeamStats (
  CONSTRAINT pk_TeamStats PRIMARY KEY (teamStatsId),
  CONSTRAINT pk_TeamStats FOREIGN KEY (gameId)
  REFERENCES Game(gameId)
- );
+);
+
 CREATE TABLE Champions (
  championId INT,
- name VARCHAR(225),
- title VARCHAR(225),
+ name VARCHAR(255),
+ title VARCHAR(255),
  lore LONGTEXT,
  championRole1 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
  championRole2 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT', '') DEFAULT NULL,
@@ -135,6 +146,12 @@ CREATE TABLE Champions (
  passiveName VARCHAR(255),
  passiveDescription LONGTEXT,
  imageFile VARCHAR(255),
+ spriteFile VARCHAR(255),
+ spriteGroup VARCHAR(255),
+ spriteX INT,
+ spriteY INT,
+ spriteW INT,
+ spriteH INT,
  CONSTRAINT pk_Champions_championId PRIMARY KEY (championId)
 );
 CREATE TABLE ChampionAdvice (
@@ -147,6 +164,7 @@ CREATE TABLE ChampionAdvice (
   REFERENCES Champions (championId)
   ON UPDATE CASCADE ON DELETE SET NULL
 );
+
 CREATE TABLE Summoner (
  accountId VARCHAR(255),
  summonerName VARCHAR(255),
@@ -159,6 +177,7 @@ CREATE TABLE Summoner (
  CONSTRAINT fk_Summoner_teamStatsId FOREIGN KEY (teamStatsId)
  REFERENCES TeamStats(teamStatsId)
 );
+
 CREATE TABLE SummonerStats (
  summonerStatsId VARCHAR(255),
  championId INT,

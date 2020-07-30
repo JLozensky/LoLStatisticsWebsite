@@ -309,7 +309,6 @@ public class UserDao {
 			selectStmt = connection.prepareStatement(selectUser);
 			selectStmt.setString(1, summonerName);
 			results = selectStmt.executeQuery();
-			TeamStatsDao teamStatsDao = TeamStatsDao.getInstance();
 			
 			if(results.next()) {
 				String id = results.getString("accountId");

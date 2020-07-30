@@ -68,6 +68,8 @@ public class SummonerStats {
 	private String role;
 	private String lane;
 	private String highestAchievedSeasonTier;
+	private Game game;
+	private Team team;
 	private Summoner summoner;
 	
 	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0,
@@ -89,7 +91,7 @@ public class SummonerStats {
 											 int combatPlayerScore, int objectivePlayerScore, int totalPlayerScore,
 											 int totalScoreRank, int perk0, int perk1, int perk2, int perk3, int perk4, 
 											 int perk5, long perkPrimaryStyle, long perkSubStyle, String role, String lane, 
-											 String highestAchievedSeasonTier, Summoner summoner) {
+											 String highestAchievedSeasonTier, Game game, Team team, Summoner summoner) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
 		this.spell1Id = spell1Id;
@@ -158,6 +160,8 @@ public class SummonerStats {
 		this.role = role;
 		this.lane = lane;
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+		this.game = game;
+		this.team = team;
 		this.summoner = summoner;
 	}
 
@@ -708,7 +712,23 @@ public class SummonerStats {
 	public void setHighestAchievedSeasonTier(String highestAchievedSeasonTier) {
 		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
 	}
+	
+	public Game getGame() {
+		return game;
+	}
 
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	
 	public Summoner getSummoner() {
 		return summoner;
 	}

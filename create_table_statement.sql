@@ -88,6 +88,7 @@ CREATE TABLE Game (
  gameType VARCHAR(255),
  CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId)
 );
+
 CREATE TABLE Team (
  teamId VARCHAR(255),
  win VARCHAR(255),
@@ -164,6 +165,7 @@ CREATE TABLE ChampionAdvice (
   REFERENCES Champions (championId)
   ON UPDATE CASCADE ON DELETE SET NULL
 );
+
 CREATE TABLE Summoner (
  accountId VARCHAR(255),
  summonerName VARCHAR(255),

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import lol.model.Summoner;
-import lol.model.TeamStats;
 
 
 public class SummonerDao {
@@ -122,6 +121,8 @@ public class SummonerDao {
       selectStmt = connection.prepareStatement(selectSummoner);
       selectStmt.setString(1, SummonerName);
       results = selectStmt.executeQuery();
+
+      TeamDao teamDao = TeamDao.getInstance();
       
       if (results.next()) {
         String accountId = results.getString("accountId");
