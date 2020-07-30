@@ -1,11 +1,15 @@
-
 package lol.servlet;
+
 
 import lol.dal.*;
 import lol.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/playerdelete")
-public class PlayerDelete extends HttpServlet {
+@WebServlet("/usercreate") 
+public class UserCreate extends HttpServlet {
 	
-	protected ParticipantsDao pid;
+	protected UserDao userDao;
 	
 	@Override
 	public void init() throws ServletException {
-		pid = ParticipantsDao.getInstance();
+		userDao = UserDao.getInstance();
 	}
 	
 	@Override
@@ -32,8 +36,9 @@ public class PlayerDelete extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.   
-        req.getRequestDispatcher("/PlayerDelete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
 	}
+
 	
 	@Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -43,31 +48,27 @@ public class PlayerDelete extends HttpServlet {
         req.setAttribute("messages", messages);
 
         // Retrieve and validate name.
-        String id = req.getParameter("accountId");
+        String id = req.getParameter("summonername");
         if (id == null || id.trim().isEmpty()) {
-            messages.put("title", "Invalid accountId");
-            messages.put("disableSubmit", "true");
+            messages.put("success", "Invalid summonername");
         } else {
-        	String accountId = id;
-        	// Delete the BlogUser.
-	        ParticipantIdentity player = new ParticipantIdentity(accountId);
-	        try {
-	        	player = pid.delete(player);
-	        	// Update the message.
-		        if (player == null) {
-		            messages.put("title", "Successfully deleted " + accountId);
-		            messages.put("disableSubmit", "true");
-		        } else {
-		        	messages.put("title", "Failed to delete " + accountId);
-		        	messages.put("disableSubmit", "false");
-		        }
+        	// Create the Player.
+        	String firstName = req.getParameter("firstname");
+        	String lastName = req.getParameter("lastname");
+        	String summonerName = req.getParameter("summonername");
+        	
+        	try {
+        		Users user = new Users(summonerName, firstName, lastName);
+        		user = userDao.create(user);
+        		messages.put("success", "Successfully created " + summonerName);
+        		
 	        } catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
 	        }
+          
+        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
         }
-        
-        req.getRequestDispatcher("/PlayerDelete.jsp").forward(req, resp);
-    }
+	}
 
 }

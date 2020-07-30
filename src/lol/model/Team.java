@@ -1,8 +1,8 @@
 package lol.model;
 
-public class TeamStats {
+public class Team {
 	
-	private String teamStatsId;
+	private String teamId;
 	private String win;
 	private boolean firstBlood;
 	private boolean firstTower;
@@ -22,12 +22,13 @@ public class TeamStats {
 	private int banThree;
 	private int banFour;
 	private int banFive;
+	private Game game;
 	
-	public TeamStats(String teamStatsId, String win, boolean firstBlood, boolean firstTower, boolean firstInhibitor,
-			boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills, int inhibitorKills,
-			int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills, int dominionVictoryScore,
-			int banOne, int banTwo, int banThree, int banFour, int banFive) {
-		this.teamStatsId = teamStatsId;
+	public Team(String teamId, String win, boolean firstBlood, boolean firstTower, boolean firstInhibitor,
+							boolean firstBaron, boolean firstDragon, boolean firstRiftHerald, int towerKills, int inhibitorKills,
+							int baronKills, int dragonKills, int vilemawKills, int riftHeraldKills, int dominionVictoryScore,
+							int banOne, int banTwo, int banThree, int banFour, int banFive, Game game) {
+		this.teamId = teamId;
 		this.win = win;
 		this.firstBlood = firstBlood;
 		this.firstTower = firstTower;
@@ -47,14 +48,15 @@ public class TeamStats {
 		this.banThree = banThree;
 		this.banFour = banFour;
 		this.banFive = banFive;
+		this.game = game;
 	}
 	
-	public String  getTeamStatsId() {
-		return teamStatsId;
+	public String getTeamId() {
+		return teamId;
 	}
 
-	public void setTeamStatsId(String teamStatsId) {
-		this.teamStatsId = teamStatsId;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 
 	public String getWin() {
@@ -69,10 +71,10 @@ public class TeamStats {
 		return firstBlood;
 	}
 
-	public void setFirstBoolean(boolean firstBoolean) {
-		this.firstBlood = firstBoolean;
+	public void setFirstBlood(boolean firstBlood) {
+		this.firstBlood = firstBlood;
 	}
-	
+
 	public boolean isFirstTower() {
 		return firstTower;
 	}
@@ -209,4 +211,11 @@ public class TeamStats {
 		this.banFive = banFive;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+	
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }

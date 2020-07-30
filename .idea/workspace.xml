@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9583bc3b-1ab4-4bcb-80c0-ec01b1cdd97a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_table_statement.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create_table_statement.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/dal/SummonerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/dal/SummonerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/dal/SummonerStatsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/dal/SummonerStatsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/dal/TeamStatsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/dal/TeamDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/dal/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/dal/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/model/Summoner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/model/Summoner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/model/SummonerStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/model/SummonerStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/model/TeamStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/model/Team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lol/tools/Inserter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lol/tools/Inserter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lol/tools/Inserter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lol/tools/Inserter.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1evn7Buj4HuLlF0m8rY5ynOW8ee" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Inserter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lol.tools.Inserter" />
+      <module name="LolData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lol.tools.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Inserter" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9583bc3b-1ab4-4bcb-80c0-ec01b1cdd97a" name="Default Changelist" comment="" />
+      <created>1595210765004</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595210765004</updated>
+      <workItem from="1595210767279" duration="1083000" />
+      <workItem from="1595277214886" duration="4367000" />
+      <workItem from="1595287119674" duration="4491000" />
+      <workItem from="1595292720823" duration="10000" />
+      <workItem from="1595293902280" duration="12585000" />
+      <workItem from="1595314750543" duration="307000" />
+      <workItem from="1595355483592" duration="24545000" />
+      <workItem from="1595393363047" duration="4140000" />
+      <workItem from="1595398456883" duration="4250000" />
+      <workItem from="1595443834526" duration="10284000" />
+      <workItem from="1595556716574" duration="301000" />
+      <workItem from="1595713168716" duration="19820000" />
+      <workItem from="1595801831766" duration="2764000" />
+      <workItem from="1595809570192" duration="6376000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="746" y="255" key="#com.intellij.ide.util.MemberChooser" timestamp="1595814359051">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state x="653" y="225" key="#com.intellij.ide.util.MemberChooser/0.23.1680.959@0.23.1680.959" timestamp="1595383918801" />
+    <state x="746" y="255" key="#com.intellij.ide.util.MemberChooser/0.23.1920.1101@0.23.1920.1101" timestamp="1595814359051" />
+    <state x="995" y="305" key="#com.intellij.ide.util.MemberChooser/0.23.2560.1340@0.23.2560.1340" timestamp="1595386366463" />
+    <state x="361" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595814637059">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state x="316" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.959@0.23.1680.959" timestamp="1595210874217" />
+    <state x="361" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1920.1101@0.23.1920.1101" timestamp="1595814637058" />
+    <state x="481" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.2560.1340@0.23.2560.1340" timestamp="1595399230821" />
+    <state x="1178" y="327" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595288357436">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state x="1178" y="327" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1920.1101@0.23.1920.1101" timestamp="1595288357436" />
+    <state x="1060" y="123" width="760" height="900" key="DiffContextDialog" timestamp="1595286156004">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state x="1060" y="123" width="760" height="900" key="DiffContextDialog/0.23.1920.1101@0.23.1920.1101" timestamp="1595286156004" />
+    <state width="918" height="153" key="GridCell.Tab.0.bottom" timestamp="1595817010374">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.0.bottom/0.23.1680.959@0.23.1680.959" timestamp="1595394511150" />
+    <state width="1638" height="209" key="GridCell.Tab.0.bottom/0.23.1680.961@0.23.1680.961" timestamp="1595397770550" />
+    <state width="918" height="153" key="GridCell.Tab.0.bottom/0.23.1920.1101@0.23.1920.1101" timestamp="1595817010374" />
+    <state width="918" height="154" key="GridCell.Tab.0.bottom/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364584" />
+    <state width="918" height="154" key="GridCell.Tab.0.bottom/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179588" />
+    <state width="918" height="154" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.0.bottom/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007960" />
+    <state width="918" height="153" key="GridCell.Tab.0.center" timestamp="1595817010372">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.0.center/0.23.1680.959@0.23.1680.959" timestamp="1595394511149" />
+    <state width="1638" height="209" key="GridCell.Tab.0.center/0.23.1680.961@0.23.1680.961" timestamp="1595397770549" />
+    <state width="918" height="153" key="GridCell.Tab.0.center/0.23.1920.1101@0.23.1920.1101" timestamp="1595817010372" />
+    <state width="918" height="154" key="GridCell.Tab.0.center/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364583" />
+    <state width="918" height="154" key="GridCell.Tab.0.center/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179587" />
+    <state width="918" height="154" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.0.center/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007959" />
+    <state width="918" height="153" key="GridCell.Tab.0.left" timestamp="1595817010366">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.0.left/0.23.1680.959@0.23.1680.959" timestamp="1595394511149" />
+    <state width="1638" height="209" key="GridCell.Tab.0.left/0.23.1680.961@0.23.1680.961" timestamp="1595397770549" />
+    <state width="918" height="153" key="GridCell.Tab.0.left/0.23.1920.1101@0.23.1920.1101" timestamp="1595817010366" />
+    <state width="918" height="154" key="GridCell.Tab.0.left/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364583" />
+    <state width="918" height="154" key="GridCell.Tab.0.left/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179587" />
+    <state width="918" height="154" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255266" />
+    <state width="1238" height="314" key="GridCell.Tab.0.left/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007958" />
+    <state width="918" height="153" key="GridCell.Tab.0.right" timestamp="1595817010373">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.0.right/0.23.1680.959@0.23.1680.959" timestamp="1595394511150" />
+    <state width="1638" height="209" key="GridCell.Tab.0.right/0.23.1680.961@0.23.1680.961" timestamp="1595397770550" />
+    <state width="918" height="153" key="GridCell.Tab.0.right/0.23.1920.1101@0.23.1920.1101" timestamp="1595817010373" />
+    <state width="918" height="154" key="GridCell.Tab.0.right/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364584" />
+    <state width="918" height="154" key="GridCell.Tab.0.right/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179588" />
+    <state width="918" height="154" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.0.right/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007959" />
+    <state width="918" height="153" key="GridCell.Tab.1.bottom" timestamp="1595809452886">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.1.bottom/0.23.1680.959@0.23.1680.959" timestamp="1595394511048" />
+    <state width="1638" height="209" key="GridCell.Tab.1.bottom/0.23.1680.961@0.23.1680.961" timestamp="1595397770441" />
+    <state width="918" height="153" key="GridCell.Tab.1.bottom/0.23.1920.1101@0.23.1920.1101" timestamp="1595809452886" />
+    <state width="918" height="154" key="GridCell.Tab.1.bottom/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364421" />
+    <state width="918" height="154" key="GridCell.Tab.1.bottom/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179463" />
+    <state width="918" height="154" key="GridCell.Tab.1.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255268" />
+    <state width="1238" height="314" key="GridCell.Tab.1.bottom/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007858" />
+    <state width="918" height="153" key="GridCell.Tab.1.center" timestamp="1595809452885">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.1.center/0.23.1680.959@0.23.1680.959" timestamp="1595394511047" />
+    <state width="1638" height="209" key="GridCell.Tab.1.center/0.23.1680.961@0.23.1680.961" timestamp="1595397770441" />
+    <state width="918" height="153" key="GridCell.Tab.1.center/0.23.1920.1101@0.23.1920.1101" timestamp="1595809452885" />
+    <state width="918" height="154" key="GridCell.Tab.1.center/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364420" />
+    <state width="918" height="154" key="GridCell.Tab.1.center/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179462" />
+    <state width="918" height="154" key="GridCell.Tab.1.center/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.1.center/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007857" />
+    <state width="918" height="153" key="GridCell.Tab.1.left" timestamp="1595809452885">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.1.left/0.23.1680.959@0.23.1680.959" timestamp="1595394511047" />
+    <state width="1638" height="209" key="GridCell.Tab.1.left/0.23.1680.961@0.23.1680.961" timestamp="1595397770440" />
+    <state width="918" height="153" key="GridCell.Tab.1.left/0.23.1920.1101@0.23.1920.1101" timestamp="1595809452885" />
+    <state width="918" height="154" key="GridCell.Tab.1.left/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364419" />
+    <state width="918" height="154" key="GridCell.Tab.1.left/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179462" />
+    <state width="918" height="154" key="GridCell.Tab.1.left/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.1.left/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007857" />
+    <state width="918" height="153" key="GridCell.Tab.1.right" timestamp="1595809452885">
+      <screen x="0" y="23" width="1920" height="1101" />
+    </state>
+    <state width="1323" height="311" key="GridCell.Tab.1.right/0.23.1680.959@0.23.1680.959" timestamp="1595394511048" />
+    <state width="1638" height="209" key="GridCell.Tab.1.right/0.23.1680.961@0.23.1680.961" timestamp="1595397770441" />
+    <state width="918" height="153" key="GridCell.Tab.1.right/0.23.1920.1101@0.23.1920.1101" timestamp="1595809452885" />
+    <state width="918" height="154" key="GridCell.Tab.1.right/0.23.1920.1103@0.23.1920.1103" timestamp="1595745364420" />
+    <state width="918" height="154" key="GridCell.Tab.1.right/0.23.1920.1105@0.23.1920.1105" timestamp="1595741179462" />
+    <state width="918" height="154" key="GridCell.Tab.1.right/0.23.1920.1107@0.23.1920.1107" timestamp="1595748255267" />
+    <state width="1238" height="314" key="GridCell.Tab.1.right/0.23.2560.1340@0.23.2560.1340" timestamp="1595401007857" />
+    <state x="458" y="86" key="SettingsEditor" timestamp="1595393698158">
+      <screen x="0" y="23" width="1680" height="959" />
+    </state>
+    <state x="458" y="86" key="SettingsEditor/0.23.1680.959@0.23.1680.959" timestamp="1595393698158" />
+    <state x="0" y="23" width="960" height="951" key="dock-window-1" timestamp="1595817652247">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="0" y="23" width="960" height="951" key="dock-window-1/0.0.1680.1050@0.0.1680.1050" timestamp="1595817652247" />
+    <state x="0" y="23" width="840" height="955" key="dock-window-1/0.23.1680.959@0.23.1680.959" timestamp="1595802129806" />
+    <state x="0" y="23" width="960" height="1100" key="dock-window-1/0.23.1920.1101@0.23.1920.1101" timestamp="1595815213195" />
+    <state x="960" y="23" width="960" height="1100" key="dock-window-1/0.23.1920.1103@0.23.1920.1103" timestamp="1595810582063" />
+    <state x="-1" y="23" width="960" height="1100" key="dock-window-1/0.23.1920.1105@0.23.1920.1105" timestamp="1595740251661" />
+    <state x="0" y="23" width="786" height="939" key="dock-window-2" timestamp="1595383958652">
+      <screen x="0" y="23" width="1680" height="959" />
+    </state>
+    <state x="0" y="23" width="786" height="939" key="dock-window-2/0.23.1680.959@0.23.1680.959" timestamp="1595383958652" />
+    <state x="29" y="23" width="688" height="939" key="dock-window-3" timestamp="1595393751163">
+      <screen x="0" y="23" width="1680" height="959" />
+    </state>
+    <state x="29" y="23" width="688" height="939" key="dock-window-3/0.23.1680.959@0.23.1680.959" timestamp="1595393751163" />
+    <state x="0" y="23" width="1280" height="1339" key="dock-window-3/0.23.2560.1340@0.23.2560.1340" timestamp="1595389296659" />
+    <state x="0" y="23" width="840" height="958" key="dock-window-4" timestamp="1595393016196">
+      <screen x="0" y="23" width="1680" height="959" />
+    </state>
+    <state x="0" y="23" width="840" height="958" key="dock-window-4/0.23.1680.959@0.23.1680.959" timestamp="1595393016196" />
+    <state x="0" y="23" width="1280" height="1339" key="dock-window-4/0.23.2560.1340@0.23.2560.1340" timestamp="1595388092258" />
+    <state x="305" y="329" width="670" height="676" key="search.everywhere.popup" timestamp="1595399445225">
+      <screen x="0" y="23" width="2560" height="1340" />
+    </state>
+    <state x="305" y="329" width="670" height="676" key="search.everywhere.popup/0.23.2560.1340@0.23.2560.1340" timestamp="1595399445225" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/LolData$Inserter.ic" NAME="Inserter Coverage Results" MODIFIED="1595491117293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>lol.tools.*</FILTER>
+    </SUITE>
+  </component>
+</project>

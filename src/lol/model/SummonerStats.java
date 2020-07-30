@@ -1,8 +1,6 @@
 package lol.model;
-
 public class SummonerStats {
-	
-	private int summonerStatsId;
+	private String summonerStatsId;
 	private int championId;
 	private int spell1Id;
 	private int spell2Id;
@@ -16,105 +14,84 @@ public class SummonerStats {
 	private int kills;
 	private int deaths;
 	private int assists;
-	private int totalDamageDealt;
-	private int magicDamageDealt;
-	private int physicalDamageDealt;
-	private int trueDamageDealt;
-	private int largestCriticalStrike;
-	private int totalDamageDealtToChampions;
-	private int magicDamageDealtToChampions;
-	private int physicalDamageDealtToChampions;
-	private int trueDamageDealtToChampions;
-	private int totalHeal;
-	private int totalUnitHealed;
-	private int damageSelfMitigated;
-	private int damageDealtToObjectives;
-	private int damageDealtToTurrets;
-	private int visionScore;
-	private int timeCCingOthers;
-	private int totalDamageTaken;
-	private int magicDamageTaken;
-	private int physicalDamageTaken;
-	private int trueDamageTaken;
-	private int goldEarned;
-	private int goldSpent;
+	private long totalDamageDealt;
+	private long magicDamageDealt;
+	private long physicalDamageDealt;
+	private long trueDamageDealt;
+	private long largestCriticalStrike;
+	private long totalDamageDealtToChampions;
+	private long magicDamageDealtToChampions;
+	private long physicalDamageDealtToChampions;
+	private long trueDamageDealtToChampions;
+	private long totalHeal;
+	private long totalUnitsHealed;
+	private long damageSelfMitigated;
+	private long damageDealtToObjectives;
+	private long damageDealtToTurrets;
+	private long visionScore;
+	private long timeCCingOthers;
+	private long totalDamageTaken;
+	private long magicalDamageTaken;
+	private long physicalDamageTaken;
+	private long trueDamageTaken;
+	private long goldEarned;
+	private long goldSpent;
 	private int turretKills;
-	private int totalMinionsKilled;
-	private int neutralMinionsKilled;
-	private int neutralMinionsKilledTeamJungle;
-	private int neutralMinionsKilledEnemyJungle;
-	private int totalTimeCrowdControlDealt;
+	private long totalMinionsKilled;
+	private long neutralMinionsKilled;
+	private long neutralMinionsKilledTeamJungle;
+	private long neutralMinionsKilledEnemyJungle;
+	private long totalTimeCrowdControlDealt;
 	private int champLevel;
 	private int visionWardsBoughtInGame;
-	private int sightWardsBoughtInGamel;
+	private int sightWardsBoughtInGame;
 	private int wardsPlaced;
 	private int wardsKilled;
 	private boolean firstBloodKill;
 	private boolean firstBloodAssist;
 	private boolean firstTowerKill;
-	private boolean firstTowerKillAssist;
-	private boolean firstInHibitor;
-	private boolean firstInHibitorAssist;
+	private boolean firstTowerAssist;
+	private boolean firstInhibitorKill;
+	private boolean firstInhibitorAssist;
 	private int combatPlayerScore;
 	private int objectivePlayerScore;
 	private int totalPlayerScore;
 	private int totalScoreRank;
-	private Role role;
-	private Lane lane;
 	private int perk0;
-	private int perk0Var1;
-	private int perk0Var2;
-	private int perk0Var3;
 	private int perk1;
-	private int perk1Var1;
-	private int perk1Var2;
-	private int perk1Var3;
 	private int perk2;
-	private int perk2Var1;
-	private int perk2Var2;
-	private int perk2Var3;
 	private int perk3;
-	private int perk3Var1;
-	private int perk3Var2;
-	private int perk3Var3;
 	private int perk4;
-	private int perk4Var1;
-	private int perk4Var2;
-	private int perk4Var3;
 	private int perk5;
-	private int perk5Var1;
-	private int perk50Var2;
-	private int perk5Var3;
-	private int perkPrimaryStyle;
-	private int perkSubStyle;
-	private int accountId;
+	private long perkPrimaryStyle;
+	private long perkSubStyle;
+	private String role;
+	private String lane;
+	private String highestAchievedSeasonTier;
+	private Game game;
+	private Team team;
+	private Summoner summoner;
 	
-	
-	public enum Role {
-		FIGHTER, MAGE, ASSASSIN, TANK, MARKSMAN, SUPPORT
-	}
-	
-	public enum Lane {
-		TOP, MIDDLE, BOTTOM, SUPPORT
-	}
-
-	public SummonerStats(int summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0, int itemId1,
-			int itemId2, int itemId3, int itemId4, int itemId5, int itemId6, int kills, int deaths, int assists,
-			int totalDamageDealt, int magicDamageDealt, int physicalDamageDealt, int trueDamageDealt,
-			int largestCriticalStrike, int totalDamageDealtToChampions, int magicDamageDealtToChampions,
-			int physicalDamageDealtToChampions, int trueDamageDealtToChampions, int totalHeal, int totalUnitHealed,
-			int damageSelfMitigated, int damageDealtToObjectives, int damageDealtToTurrets, int visionScore,
-			int timeCCingOthers, int totalDamageTaken, int magicDamageTaken, int physicalDamageTaken,
-			int trueDamageTaken, int goldEarned, int goldSpent, int turretKills, int totalMinionsKilled,
-			int neutralMinionsKilled, int neutralMinionsKilledTeamJungle, int neutralMinionsKilledEnemyJungle,
-			int totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame, int sightWardsBoughtInGamel,
-			int wardsPlaced, int wardsKilled, boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
-			boolean firstTowerKillAssist, boolean firstInHibitor, boolean firstInHibitorAssist, int combatPlayerScore,
-			int objectivePlayerScore, int totalPlayerScore, int totalScoreRank, Role role, Lane lane, int perk0,
-			int perk0Var1, int perk0Var2, int perk0Var3, int perk1, int perk1Var1, int perk1Var2, int perk1Var3,
-			int perk2, int perk2Var1, int perk2Var2, int perk2Var3, int perk3, int perk3Var1, int perk3Var2,
-			int perk3Var3, int perk4, int perk4Var1, int perk4Var2, int perk4Var3, int perk5, int perk5Var1,
-			int perk50Var2, int perk5Var3, int perkPrimaryStyle, int perkSubStyle, int accountId) {
+	public SummonerStats(String summonerStatsId, int championId, int spell1Id, int spell2Id, int itemId0,
+											 int itemId1, int itemId2, int itemId3, int itemId4, int itemId5, int itemId6,
+											 int kills, int deaths, int assists, long totalDamageDealt, long magicDamageDealt,
+											 long physicalDamageDealt, long trueDamageDealt, long largestCriticalStrike,
+											 long totalDamageDealtToChampions, long magicDamageDealtToChampions,
+											 long physicalDamageDealtToChampions, long trueDamageDealtToChampions,
+											 long totalHeal, long totalUnitsHealed, long damageSelfMitigated,
+											 long damageDealtToObjectives, long damageDealtToTurrets, long visionScore,
+											 long timeCCingOthers, long totalDamageTaken, long magicalDamageTaken,
+											 long physicalDamageTaken, long trueDamageTaken, long goldEarned, long goldSpent,
+											 int turretKills, long totalMinionsKilled, long neutralMinionsKilled,
+											 long neutralMinionsKilledTeamJungle, long neutralMinionsKilledEnemyJungle,
+											 long totalTimeCrowdControlDealt, int champLevel, int visionWardsBoughtInGame,
+											 int sightWardsBoughtInGame, int wardsPlaced, int wardsKilled,
+											 boolean firstBloodKill, boolean firstBloodAssist, boolean firstTowerKill,
+											 boolean firstTowerAssist, boolean firstInhibitorKill, boolean firstInhibitorAssist,
+											 int combatPlayerScore, int objectivePlayerScore, int totalPlayerScore,
+											 int totalScoreRank, int perk0, int perk1, int perk2, int perk3, int perk4, 
+											 int perk5, long perkPrimaryStyle, long perkSubStyle, String role, String lane, 
+											 String highestAchievedSeasonTier, Game game, Team team, Summoner summoner) {
 		this.summonerStatsId = summonerStatsId;
 		this.championId = championId;
 		this.spell1Id = spell1Id;
@@ -139,14 +116,14 @@ public class SummonerStats {
 		this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
 		this.trueDamageDealtToChampions = trueDamageDealtToChampions;
 		this.totalHeal = totalHeal;
-		this.totalUnitHealed = totalUnitHealed;
+		this.totalUnitsHealed = totalUnitsHealed;
 		this.damageSelfMitigated = damageSelfMitigated;
 		this.damageDealtToObjectives = damageDealtToObjectives;
 		this.damageDealtToTurrets = damageDealtToTurrets;
 		this.visionScore = visionScore;
 		this.timeCCingOthers = timeCCingOthers;
 		this.totalDamageTaken = totalDamageTaken;
-		this.magicDamageTaken = magicDamageTaken;
+		this.magicalDamageTaken = magicalDamageTaken;
 		this.physicalDamageTaken = physicalDamageTaken;
 		this.trueDamageTaken = trueDamageTaken;
 		this.goldEarned = goldEarned;
@@ -159,74 +136,44 @@ public class SummonerStats {
 		this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
 		this.champLevel = champLevel;
 		this.visionWardsBoughtInGame = visionWardsBoughtInGame;
-		this.sightWardsBoughtInGamel = sightWardsBoughtInGamel;
+		this.sightWardsBoughtInGame = sightWardsBoughtInGame;
 		this.wardsPlaced = wardsPlaced;
 		this.wardsKilled = wardsKilled;
 		this.firstBloodKill = firstBloodKill;
 		this.firstBloodAssist = firstBloodAssist;
 		this.firstTowerKill = firstTowerKill;
-		this.firstTowerKillAssist = firstTowerKillAssist;
-		this.firstInHibitor = firstInHibitor;
-		this.firstInHibitorAssist = firstInHibitorAssist;
+		this.firstTowerAssist = firstTowerAssist;
+		this.firstInhibitorKill = firstInhibitorKill;
+		this.firstInhibitorAssist = firstInhibitorAssist;
 		this.combatPlayerScore = combatPlayerScore;
 		this.objectivePlayerScore = objectivePlayerScore;
 		this.totalPlayerScore = totalPlayerScore;
 		this.totalScoreRank = totalScoreRank;
-		this.role = role;
-		this.lane = lane;
 		this.perk0 = perk0;
-		this.perk0Var1 = perk0Var1;
-		this.perk0Var2 = perk0Var2;
-		this.perk0Var3 = perk0Var3;
 		this.perk1 = perk1;
-		this.perk1Var1 = perk1Var1;
-		this.perk1Var2 = perk1Var2;
-		this.perk1Var3 = perk1Var3;
 		this.perk2 = perk2;
-		this.perk2Var1 = perk2Var1;
-		this.perk2Var2 = perk2Var2;
-		this.perk2Var3 = perk2Var3;
 		this.perk3 = perk3;
-		this.perk3Var1 = perk3Var1;
-		this.perk3Var2 = perk3Var2;
-		this.perk3Var3 = perk3Var3;
 		this.perk4 = perk4;
-		this.perk4Var1 = perk4Var1;
-		this.perk4Var2 = perk4Var2;
-		this.perk4Var3 = perk4Var3;
 		this.perk5 = perk5;
-		this.perk5Var1 = perk5Var1;
-		this.perk50Var2 = perk50Var2;
-		this.perk5Var3 = perk5Var3;
 		this.perkPrimaryStyle = perkPrimaryStyle;
 		this.perkSubStyle = perkSubStyle;
-		this.accountId = accountId;
+		this.role = role;
+		this.lane = lane;
+		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+		this.game = game;
+		this.team = team;
+		this.summoner = summoner;
 	}
 
-	public SummonerStats(String summonerStatsId2, int championId2, int spell1Id2, int spell2Id2, int itemId02,
-			int itemId12, int itemId22, int itemId32, int itemId42, int itemId52, int itemId62, int kills2, int deaths2,
-			int assists2, long totalDamageDealt2, long magicDamageDealt2, long physicalDamageDealt2,
-			long trueDamageDealt2, long largestCriticalStrike2, long totalDamageDealtToChampions2,
-			long magicDamageDealtToChampions2, long physicalDamageDealtToChampions2, long trueDamageDealtToChampions2,
-			long totalHeal2, long totalUnitHealed2, long damageSelfMitigated2, long damageDealtToObjectives2,
-			long damageDealtToTurrets2, long visionScore2, long timeCCingOthers2, long totalDamageTaken2,
-			long magicDamageTaken2, long physicalDamageTaken2, long trueDamageTaken2, long goldEarned2, long goldSpent2,
-			int turretKills2, long totalMinionsKilled2, long neutralMinionsKilled2,
-			long neutralMinionsKilledTeamJungle2, long neutralMinionsKilledEnemyJungle2,
-			long totalTimeCrowdControlDealt2, int champLevel2, int visionWardsBoughtInGame2, int sightWardsBoughtInGame,
-			int wardsPlaced2, int wardsKilled2, boolean firstBloodKill2, boolean firstBloodAssist2,
-			boolean firstTowerKill2, boolean firstTowerKillAssist2, boolean firstInhibitor2,
-			boolean firstInhibitorAssist2, int combatPlayerScore2, int objectivePlayerScore2, int totalPlayerScore2,
-			int totalScoreRank2, String role2, String lane2, int runeId0, int runeId1, int runeId2, int runeId3,
-			int runeId4, int runeId5, String highestAchievedSeasonTier) {
-		// TODO Auto-generated constructor stub
+	public SummonerStats() {
+
 	}
 
-	public int getSummonerStatsId() {
+	public String getSummonerStatsId() {
 		return summonerStatsId;
 	}
 
-	public void setSummonerStatsId(int summonerStatsId) {
+	public void setSummonerStatsId(String summonerStatsId) {
 		this.summonerStatsId = summonerStatsId;
 	}
 
@@ -334,179 +281,179 @@ public class SummonerStats {
 		this.assists = assists;
 	}
 
-	public int getTotalDamageDealt() {
+	public long getTotalDamageDealt() {
 		return totalDamageDealt;
 	}
 
-	public void setTotalDamageDealt(int totalDamageDealt) {
+	public void setTotalDamageDealt(long totalDamageDealt) {
 		this.totalDamageDealt = totalDamageDealt;
 	}
 
-	public int getMagicDamageDealt() {
+	public long getMagicDamageDealt() {
 		return magicDamageDealt;
 	}
 
-	public void setMagicDamageDealt(int magicDamageDealt) {
+	public void setMagicDamageDealt(long magicDamageDealt) {
 		this.magicDamageDealt = magicDamageDealt;
 	}
 
-	public int getPhysicalDamageDealt() {
+	public long getPhysicalDamageDealt() {
 		return physicalDamageDealt;
 	}
 
-	public void setPhysicalDamageDealt(int physicalDamageDealt) {
+	public void setPhysicalDamageDealt(long physicalDamageDealt) {
 		this.physicalDamageDealt = physicalDamageDealt;
 	}
 
-	public int getTrueDamageDealt() {
+	public long getTrueDamageDealt() {
 		return trueDamageDealt;
 	}
 
-	public void setTrueDamageDealt(int trueDamageDealt) {
+	public void setTrueDamageDealt(long trueDamageDealt) {
 		this.trueDamageDealt = trueDamageDealt;
 	}
 
-	public int getLargestCriticalStrike() {
+	public long getLargestCriticalStrike() {
 		return largestCriticalStrike;
 	}
 
-	public void setLargestCriticalStrike(int largestCriticalStrike) {
+	public void setLargestCriticalStrike(long largestCriticalStrike) {
 		this.largestCriticalStrike = largestCriticalStrike;
 	}
 
-	public int getTotalDamageDealtToChampions() {
+	public long getTotalDamageDealtToChampions() {
 		return totalDamageDealtToChampions;
 	}
 
-	public void setTotalDamageDealtToChampions(int totalDamageDealtToChampions) {
+	public void setTotalDamageDealtToChampions(long totalDamageDealtToChampions) {
 		this.totalDamageDealtToChampions = totalDamageDealtToChampions;
 	}
 
-	public int getMagicDamageDealtToChampions() {
+	public long getMagicDamageDealtToChampions() {
 		return magicDamageDealtToChampions;
 	}
 
-	public void setMagicDamageDealtToChampions(int magicDamageDealtToChampions) {
+	public void setMagicDamageDealtToChampions(long magicDamageDealtToChampions) {
 		this.magicDamageDealtToChampions = magicDamageDealtToChampions;
 	}
 
-	public int getPhysicalDamageDealtToChampions() {
+	public long getPhysicalDamageDealtToChampions() {
 		return physicalDamageDealtToChampions;
 	}
 
-	public void setPhysicalDamageDealtToChampions(int physicalDamageDealtToChampions) {
+	public void setPhysicalDamageDealtToChampions(long physicalDamageDealtToChampions) {
 		this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
 	}
 
-	public int getTrueDamageDealtToChampions() {
+	public long getTrueDamageDealtToChampions() {
 		return trueDamageDealtToChampions;
 	}
 
-	public void setTrueDamageDealtToChampions(int trueDamageDealtToChampions) {
+	public void setTrueDamageDealtToChampions(long trueDamageDealtToChampions) {
 		this.trueDamageDealtToChampions = trueDamageDealtToChampions;
 	}
 
-	public int getTotalHeal() {
+	public long getTotalHeal() {
 		return totalHeal;
 	}
 
-	public void setTotalHeal(int totalHeal) {
+	public void setTotalHeal(long totalHeal) {
 		this.totalHeal = totalHeal;
 	}
 
-	public int getTotalUnitHealed() {
-		return totalUnitHealed;
+	public long getTotalUnitsHealed() {
+		return totalUnitsHealed;
 	}
 
-	public void setTotalUnitHealed(int totalUnitHealed) {
-		this.totalUnitHealed = totalUnitHealed;
+	public void setTotalUnitsHealed(long totalUnitsHealed) {
+		this.totalUnitsHealed = totalUnitsHealed;
 	}
 
-	public int getDamageSelfMitigated() {
+	public long getDamageSelfMitigated() {
 		return damageSelfMitigated;
 	}
 
-	public void setDamageSelfMitigated(int damageSelfMitigated) {
+	public void setDamageSelfMitigated(long damageSelfMitigated) {
 		this.damageSelfMitigated = damageSelfMitigated;
 	}
 
-	public int getDamageDealtToObjectives() {
+	public long getDamageDealtToObjectives() {
 		return damageDealtToObjectives;
 	}
 
-	public void setDamageDealtToObjectives(int damageDealtToObjectives) {
+	public void setDamageDealtToObjectives(long damageDealtToObjectives) {
 		this.damageDealtToObjectives = damageDealtToObjectives;
 	}
 
-	public int getDamageDealtToTurrets() {
+	public long getDamageDealtToTurrets() {
 		return damageDealtToTurrets;
 	}
 
-	public void setDamageDealtToTurrets(int damageDealtToTurrets) {
+	public void setDamageDealtToTurrets(long damageDealtToTurrets) {
 		this.damageDealtToTurrets = damageDealtToTurrets;
 	}
 
-	public int getVisionScore() {
+	public long getVisionScore() {
 		return visionScore;
 	}
 
-	public void setVisionScore(int visionScore) {
+	public void setVisionScore(long visionScore) {
 		this.visionScore = visionScore;
 	}
 
-	public int getTimeCCingOthers() {
+	public long getTimeCCingOthers() {
 		return timeCCingOthers;
 	}
 
-	public void setTimeCCingOthers(int timeCCingOthers) {
+	public void setTimeCCingOthers(long timeCCingOthers) {
 		this.timeCCingOthers = timeCCingOthers;
 	}
 
-	public int getTotalDamageTaken() {
+	public long getTotalDamageTaken() {
 		return totalDamageTaken;
 	}
 
-	public void setTotalDamageTaken(int totalDamageTaken) {
+	public void setTotalDamageTaken(long totalDamageTaken) {
 		this.totalDamageTaken = totalDamageTaken;
 	}
 
-	public int getMagicDamageTaken() {
-		return magicDamageTaken;
+	public long getMagicalDamageTaken() {
+		return magicalDamageTaken;
 	}
 
-	public void setMagicDamageTaken(int magicDamageTaken) {
-		this.magicDamageTaken = magicDamageTaken;
+	public void setMagicalDamageTaken(long magicalDamageTaken) {
+		this.magicalDamageTaken = magicalDamageTaken;
 	}
 
-	public int getPhysicalDamageTaken() {
+	public long getPhysicalDamageTaken() {
 		return physicalDamageTaken;
 	}
 
-	public void setPhysicalDamageTaken(int physicalDamageTaken) {
+	public void setPhysicalDamageTaken(long physicalDamageTaken) {
 		this.physicalDamageTaken = physicalDamageTaken;
 	}
 
-	public int getTrueDamageTaken() {
+	public long getTrueDamageTaken() {
 		return trueDamageTaken;
 	}
 
-	public void setTrueDamageTaken(int trueDamageTaken) {
+	public void setTrueDamageTaken(long trueDamageTaken) {
 		this.trueDamageTaken = trueDamageTaken;
 	}
 
-	public int getGoldEarned() {
+	public long getGoldEarned() {
 		return goldEarned;
 	}
 
-	public void setGoldEarned(int goldEarned) {
+	public void setGoldEarned(long goldEarned) {
 		this.goldEarned = goldEarned;
 	}
 
-	public int getGoldSpent() {
+	public long getGoldSpent() {
 		return goldSpent;
 	}
 
-	public void setGoldSpent(int goldSpent) {
+	public void setGoldSpent(long goldSpent) {
 		this.goldSpent = goldSpent;
 	}
 
@@ -518,43 +465,43 @@ public class SummonerStats {
 		this.turretKills = turretKills;
 	}
 
-	public int getTotalMinionsKilled() {
+	public long getTotalMinionsKilled() {
 		return totalMinionsKilled;
 	}
 
-	public void setTotalMinionsKilled(int totalMinionsKilled) {
+	public void setTotalMinionsKilled(long totalMinionsKilled) {
 		this.totalMinionsKilled = totalMinionsKilled;
 	}
 
-	public int getNeutralMinionsKilled() {
+	public long getNeutralMinionsKilled() {
 		return neutralMinionsKilled;
 	}
 
-	public void setNeutralMinionsKilled(int neutralMinionsKilled) {
+	public void setNeutralMinionsKilled(long neutralMinionsKilled) {
 		this.neutralMinionsKilled = neutralMinionsKilled;
 	}
 
-	public int getNeutralMinionsKilledTeamJungle() {
+	public long getNeutralMinionsKilledTeamJungle() {
 		return neutralMinionsKilledTeamJungle;
 	}
 
-	public void setNeutralMinionsKilledTeamJungle(int neutralMinionsKilledTeamJungle) {
+	public void setNeutralMinionsKilledTeamJungle(long neutralMinionsKilledTeamJungle) {
 		this.neutralMinionsKilledTeamJungle = neutralMinionsKilledTeamJungle;
 	}
 
-	public int getNeutralMinionsKilledEnemyJungle() {
+	public long getNeutralMinionsKilledEnemyJungle() {
 		return neutralMinionsKilledEnemyJungle;
 	}
 
-	public void setNeutralMinionsKilledEnemyJungle(int neutralMinionsKilledEnemyJungle) {
+	public void setNeutralMinionsKilledEnemyJungle(long neutralMinionsKilledEnemyJungle) {
 		this.neutralMinionsKilledEnemyJungle = neutralMinionsKilledEnemyJungle;
 	}
 
-	public int getTotalTimeCrowdControlDealt() {
+	public long getTotalTimeCrowdControlDealt() {
 		return totalTimeCrowdControlDealt;
 	}
 
-	public void setTotalTimeCrowdControlDealt(int totalTimeCrowdControlDealt) {
+	public void setTotalTimeCrowdControlDealt(long totalTimeCrowdControlDealt) {
 		this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
 	}
 
@@ -574,12 +521,12 @@ public class SummonerStats {
 		this.visionWardsBoughtInGame = visionWardsBoughtInGame;
 	}
 
-	public int getSightWardsBoughtInGamel() {
-		return sightWardsBoughtInGamel;
+	public int getSightWardsBoughtInGame() {
+		return sightWardsBoughtInGame;
 	}
 
-	public void setSightWardsBoughtInGamel(int sightWardsBoughtInGamel) {
-		this.sightWardsBoughtInGamel = sightWardsBoughtInGamel;
+	public void setSightWardsBoughtInGame(int sightWardsBoughtInGame) {
+		this.sightWardsBoughtInGame = sightWardsBoughtInGame;
 	}
 
 	public int getWardsPlaced() {
@@ -622,28 +569,28 @@ public class SummonerStats {
 		this.firstTowerKill = firstTowerKill;
 	}
 
-	public boolean isFirstTowerKillAssist() {
-		return firstTowerKillAssist;
+	public boolean isFirstTowerAssist() {
+		return firstTowerAssist;
 	}
 
-	public void setFirstTowerKillAssist(boolean firstTowerKillAssist) {
-		this.firstTowerKillAssist = firstTowerKillAssist;
+	public void setFirstTowerAssist(boolean firstTowerAssist) {
+		this.firstTowerAssist = firstTowerAssist;
 	}
 
-	public boolean isFirstInHibitor() {
-		return firstInHibitor;
+	public boolean isFirstInhibitorKill() {
+		return firstInhibitorKill;
 	}
 
-	public void setFirstInHibitor(boolean firstInHibitor) {
-		this.firstInHibitor = firstInHibitor;
+	public void setFirstInhibitorKill(boolean firstInhibitorKill) {
+		this.firstInhibitorKill = firstInhibitorKill;
 	}
 
-	public boolean isFirstInHibitorAssist() {
-		return firstInHibitorAssist;
+	public boolean isFirstInhibitorAssist() {
+		return firstInhibitorAssist;
 	}
 
-	public void setFirstInHibitorAssist(boolean firstInHibitorAssist) {
-		this.firstInHibitorAssist = firstInHibitorAssist;
+	public void setFirstInhibitorAssist(boolean firstInhibitorAssist) {
+		this.firstInhibitorAssist = firstInhibitorAssist;
 	}
 
 	public int getCombatPlayerScore() {
@@ -677,20 +624,20 @@ public class SummonerStats {
 	public void setTotalScoreRank(int totalScoreRank) {
 		this.totalScoreRank = totalScoreRank;
 	}
-
-	public Role getRole() {
+	
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public Lane getLane() {
+	
+	public String getLane() {
 		return lane;
 	}
 
-	public void setLane(Lane lane) {
+	public void setLane(String lane) {
 		this.lane = lane;
 	}
 
@@ -702,60 +649,12 @@ public class SummonerStats {
 		this.perk0 = perk0;
 	}
 
-	public int getPerk0Var1() {
-		return perk0Var1;
-	}
-
-	public void setPerk0Var1(int perk0Var1) {
-		this.perk0Var1 = perk0Var1;
-	}
-
-	public int getPerk0Var2() {
-		return perk0Var2;
-	}
-
-	public void setPerk0Var2(int perk0Var2) {
-		this.perk0Var2 = perk0Var2;
-	}
-
-	public int getPerk0Var3() {
-		return perk0Var3;
-	}
-
-	public void setPerk0Var3(int perk0Var3) {
-		this.perk0Var3 = perk0Var3;
-	}
-
 	public int getPerk1() {
 		return perk1;
 	}
 
 	public void setPerk1(int perk1) {
 		this.perk1 = perk1;
-	}
-
-	public int getPerk1Var1() {
-		return perk1Var1;
-	}
-
-	public void setPerk1Var1(int perk1Var1) {
-		this.perk1Var1 = perk1Var1;
-	}
-
-	public int getPerk1Var2() {
-		return perk1Var2;
-	}
-
-	public void setPerk1Var2(int perk1Var2) {
-		this.perk1Var2 = perk1Var2;
-	}
-
-	public int getPerk1Var3() {
-		return perk1Var3;
-	}
-
-	public void setPerk1Var3(int perk1Var3) {
-		this.perk1Var3 = perk1Var3;
 	}
 
 	public int getPerk2() {
@@ -766,60 +665,12 @@ public class SummonerStats {
 		this.perk2 = perk2;
 	}
 
-	public int getPerk2Var1() {
-		return perk2Var1;
-	}
-
-	public void setPerk2Var1(int perk2Var1) {
-		this.perk2Var1 = perk2Var1;
-	}
-
-	public int getPerk2Var2() {
-		return perk2Var2;
-	}
-
-	public void setPerk2Var2(int perk2Var2) {
-		this.perk2Var2 = perk2Var2;
-	}
-
-	public int getPerk2Var3() {
-		return perk2Var3;
-	}
-
-	public void setPerk2Var3(int perk2Var3) {
-		this.perk2Var3 = perk2Var3;
-	}
-
 	public int getPerk3() {
 		return perk3;
 	}
 
 	public void setPerk3(int perk3) {
 		this.perk3 = perk3;
-	}
-
-	public int getPerk3Var1() {
-		return perk3Var1;
-	}
-
-	public void setPerk3Var1(int perk3Var1) {
-		this.perk3Var1 = perk3Var1;
-	}
-
-	public int getPerk3Var2() {
-		return perk3Var2;
-	}
-
-	public void setPerk3Var2(int perk3Var2) {
-		this.perk3Var2 = perk3Var2;
-	}
-
-	public int getPerk3Var3() {
-		return perk3Var3;
-	}
-
-	public void setPerk3Var3(int perk3Var3) {
-		this.perk3Var3 = perk3Var3;
 	}
 
 	public int getPerk4() {
@@ -830,30 +681,6 @@ public class SummonerStats {
 		this.perk4 = perk4;
 	}
 
-	public int getPerk4Var1() {
-		return perk4Var1;
-	}
-
-	public void setPerk4Var1(int perk4Var1) {
-		this.perk4Var1 = perk4Var1;
-	}
-
-	public int getPerk4Var2() {
-		return perk4Var2;
-	}
-
-	public void setPerk4Var2(int perk4Var2) {
-		this.perk4Var2 = perk4Var2;
-	}
-
-	public int getPerk4Var3() {
-		return perk4Var3;
-	}
-
-	public void setPerk4Var3(int perk4Var3) {
-		this.perk4Var3 = perk4Var3;
-	}
-
 	public int getPerk5() {
 		return perk5;
 	}
@@ -861,54 +688,52 @@ public class SummonerStats {
 	public void setPerk5(int perk5) {
 		this.perk5 = perk5;
 	}
-
-	public int getPerk5Var1() {
-		return perk5Var1;
-	}
-
-	public void setPerk5Var1(int perk5Var1) {
-		this.perk5Var1 = perk5Var1;
-	}
-
-	public int getPerk50Var2() {
-		return perk50Var2;
-	}
-
-	public void setPerk50Var2(int perk50Var2) {
-		this.perk50Var2 = perk50Var2;
-	}
-
-	public int getPerk5Var3() {
-		return perk5Var3;
-	}
-
-	public void setPerk5Var3(int perk5Var3) {
-		this.perk5Var3 = perk5Var3;
-	}
-
-	public int getPerkPrimaryStyle() {
+	
+	public long getPerkPrimaryStyle() {
 		return perkPrimaryStyle;
 	}
 
-	public void setPerkPrimaryStyle(int perkPrimaryStyle) {
+	public void setPerkPrimaryStyle(long perkPrimaryStyle) {
 		this.perkPrimaryStyle = perkPrimaryStyle;
 	}
 
-	public int getPerkSubStyle() {
+	public long getPerkSubStyle() {
 		return perkSubStyle;
 	}
 
-	public void setPerkSubStyle(int perkSubStyle) {
+	public void setPerkSubStyle(long perkSubStyle) {
 		this.perkSubStyle = perkSubStyle;
 	}
 
-	public int getAccountId() {
-		return accountId;
+	public String getHighestAchievedSeasonTier() {
+		return highestAchievedSeasonTier;
 	}
 
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setHighestAchievedSeasonTier(String highestAchievedSeasonTier) {
+		this.highestAchievedSeasonTier = highestAchievedSeasonTier;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 	
+	public Summoner getSummoner() {
+		return summoner;
+	}
+
+	public void setSummoner(Summoner summoner) {
+		this.summoner = summoner;
+	}
 }

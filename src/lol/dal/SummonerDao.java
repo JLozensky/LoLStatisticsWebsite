@@ -139,6 +139,7 @@ public class SummonerDao {
   public Summoner getSummonerFromSummonerName(String SummonerName) throws SQLException {
     String selectSummoner = "SELECT accountId, summonerName, currentPlatformId, matchHistoryUri, " +
             "profileIcon, teamId FROM Summoner WHERE summonerName=?;";
+    
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;

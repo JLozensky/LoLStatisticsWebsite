@@ -42,7 +42,7 @@ public class RuneDataDao {
 	 * @return the created item
 	 * @throws SQLException
 	 */
-	public RuneData create(RuneData runeData) throws SQLException {
+	public Rune create(Rune rune) throws SQLException {
 
 		String insertRuneData = "INSERT INTO RuneData(RuneId, Name, PathName, LongDesc) VALUES(?,?,?,?);";
 		Connection connection = null;
@@ -50,12 +50,12 @@ public class RuneDataDao {
 		try {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertRuneData);
-			insertStmt.setInt(1, runeData.getRuneId());
-			insertStmt.setString(2, runeData.getName());
-			insertStmt.setString(3, runeData.getPathName());
-			insertStmt.setString(4, runeData.getLongDesc());
+			insertStmt.setInt(1, rune.getRuneId());
+			insertStmt.setString(2, rune.getName());
+			insertStmt.setString(3, rune.getPathName());
+			insertStmt.setString(4, rune.getLongDesc());
 			insertStmt.executeUpdate();
-			return runeData;
+			return rune;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -75,14 +75,14 @@ public class RuneDataDao {
 	 * @return null
 	 * @throws SQLException 
 	 */
-	public RuneData delete(RuneData runeData) throws SQLException {
+	public Rune delete(Rune rune) throws SQLException {
 		String deleteRuneData = "DELETE FROM RuneData WHERE RuneId=?;";
 		Connection connection = null;
 		PreparedStatement deleteStmt = null;
 		try {
 			connection = connectionManager.getConnection();
 			deleteStmt = connection.prepareStatement(deleteRuneData);
-			deleteStmt.setInt(1, runeData.getRuneId());
+			deleteStmt.setInt(1, rune.getRuneId());
 			deleteStmt.executeUpdate();
 
 			return null;
@@ -106,7 +106,7 @@ public class RuneDataDao {
 	 * @return Item table row
 	 * @throws SQLException
 	 */
-	public RuneData getRuneDataFromID(int id) throws SQLException {
+	public Rune getRuneDataFromID(int id) throws SQLException {
 		String selectRuneData =
 				"SELECT RuneData.RuneId as RuneId, ItemId, StatName, Value "
 				+ "FROM RuneData "
@@ -124,8 +124,8 @@ public class RuneDataDao {
 					String name = results.getString("Name");
 					String pathName = results.getString("PathName");
 					String longDesc = results.getString("LongDesc");
-					RuneData runeData = new RuneData(runeId, name, pathName, longDesc);
-					return runeData;
+					Rune rune = new Rune(runeId, name, pathName, longDesc);
+					return rune;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

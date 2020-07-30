@@ -1,46 +1,54 @@
 CREATE SCHEMA IF NOT EXISTS LOL;
 USE LOL;
 
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS SummonerStats;
-DROP TABLE IF EXISTS ParticipantIdentity;
+DROP TABLE IF EXISTS Summoner;
 DROP TABLE IF EXISTS ChampionAdvice;
 DROP TABLE IF EXISTS Champions;
-DROP TABLE IF EXISTS Game;
 DROP TABLE IF EXISTS TeamStats;
 DROP TABLE IF EXISTS RuneData;
 DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS SummonerSpells;
 DROP TABLE IF EXISTS ItemStats;
+DROP TABLE IF EXISTS Game;
 
 CREATE TABLE ItemStats (
  itemStatsId INT AUTO_INCREMENT,
  itemId INT,
- statName VARCHAR(225),
+ statName VARCHAR(255),
  value DECIMAL(8,4),
  CONSTRAINT pk_ItemStats_itemStatsId PRIMARY KEY (itemStatsId)
 );
 
 CREATE TABLE SummonerSpells (
  summonerSpellId INT AUTO_INCREMENT,
- name VARCHAR(225),
+ name VARCHAR(255),
  description LONGTEXT,
  spellRange INT,
  cooldown INT,
  summonerLevel INT,
- modesAvailable VARCHAR(225),
+ modesAvailable VARCHAR(255),
+ imageFile VARCHAR(255),
+ spriteFile VARCHAR(255),
+ spriteGroup VARCHAR(255),
+ spriteX INT,
+ spriteY INT,
+ spriteW INT,
+ spriteH INT,
  CONSTRAINT pk_SummonerSpells_summonerSpellId PRIMARY KEY (summonerSpellId)
 );
 
 CREATE TABLE Item (
  itemId INT,
- name VARCHAR(225),
+ name VARCHAR(255),
  description LONGTEXT,
  plaintextDesc LONGTEXT,
  baseCost INT,
  purchasable BOOLEAN,
  totalCost INT,
  sellPrice INT,
- tags VARCHAR(225),
+ tags VARCHAR(255),
  map11 BOOLEAN,
  map12 BOOLEAN,
  map22 BOOLEAN,
@@ -48,23 +56,43 @@ CREATE TABLE Item (
  maxStack INT,
  consumed BOOLEAN,
  inStore BOOLEAN,
- requiredChampion VARCHAR(225),
- requiredAlly VARCHAR(225),
+ requiredChampion VARCHAR(255),
+ requiredAlly VARCHAR(255),
+ imageFile VARCHAR(255),
+ spriteFile VARCHAR(255),
+ spriteGroup VARCHAR(255),
+ spriteX INT,
+ spriteY INT,
+ spriteW INT,
+ spriteH INT,
  CONSTRAINT pk_Item_itemId_tags PRIMARY KEY (itemId, tags)
 );
  
 CREATE TABLE RuneData (
  runeId INT,
- name VARCHAR(225),
- pathName VARCHAR(225),
+ name VARCHAR(255),
+ pathName VARCHAR(255),
  longDesc LONGTEXT,
+ imagePath VARCHAR(255),
  CONSTRAINT pk_RuneData_runeId PRIMARY KEY (runeId)
 );
 
+CREATE TABLE Game (
+ gameId VARCHAR(225),
+ date VARCHAR(225),
+ gameDuration INT,
+ queueId INT,
+ mapId INT,
+ seasonId INT,
+ gameVersion VARCHAR(225),
+ gameMode VARCHAR(225),
+ gameType VARCHAR(225),
+ CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId)
+);
 
 CREATE TABLE TeamStats (
- teamStatsId INT,
- win BOOLEAN,
+ teamStatsId VARCHAR(225),
+ win VARCHAR(255),
  firstBlood BOOLEAN,
  firstTower BOOLEAN,
  firstInhibitor BOOLEAN,
@@ -77,40 +105,22 @@ CREATE TABLE TeamStats (
  dragonKills INT,
  vilemawKills INT,
  riftHeraldKills INT,
- dominionVictoryScore  INT,
+ dominionVictoryScore INT,
  banOne INT,
  banTwo INT,
  banThree INT,
  banFour INT,
  banFive INT,
- summonerStatsId INT,
- CONSTRAINT pk_TeamStatsId PRIMARY KEY (teamStatsId)
-);
-
-CREATE TABLE Game (
- gameId INT,
- date VARCHAR(225),
- gameDuration INT,
- queueId INT,
- mapId INT,
- seasonId INT,
- gameVersion INT,
- gameMode INT,
- team1 INT,
- team2 INT,
- CONSTRAINT pk_Game_gameId PRIMARY KEY (gameId),
- CONSTRAINT fk_Game_team1 FOREIGN KEY (team1)
-  REFERENCES TeamStats(teamStatsId)
-  ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT fk_Game_team2 FOREIGN KEY (team2)
-  REFERENCES TeamStats(teamStatsId)
-  ON UPDATE CASCADE ON DELETE CASCADE
+ gameId VARCHAR(255),
+ CONSTRAINT pk_TeamStats PRIMARY KEY (teamStatsId),
+ CONSTRAINT pk_TeamStats FOREIGN KEY (gameId)
+ REFERENCES Game(gameId)
 );
 
 CREATE TABLE Champions (
  championId INT,
- name VARCHAR(225),
- title VARCHAR(225),
+ name VARCHAR(255),
+ title VARCHAR(255),
  lore LONGTEXT,
  championRole1 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
  championRole2 ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT', '') DEFAULT NULL,
@@ -136,8 +146,15 @@ CREATE TABLE Champions (
  attackDamagePerLevel DECIMAL(8,4),
  attackSpeedPerLevel DECIMAL(8,4),
  attackSpeed DECIMAL(8,4),
- passiveName VARCHAR(225),
+ passiveName VARCHAR(255),
  passiveDescription LONGTEXT,
+ imageFile VARCHAR(255),
+ spriteFile VARCHAR(255),
+ spriteGroup VARCHAR(255),
+ spriteX INT,
+ spriteY INT,
+ spriteW INT,
+ spriteH INT,
  CONSTRAINT pk_Champions_championId PRIMARY KEY (championId)
 );
 
@@ -151,22 +168,22 @@ CREATE TABLE ChampionAdvice (
   REFERENCES Champions (championId)
   ON UPDATE CASCADE ON DELETE SET NULL
 );
-CREATE TABLE ParticipantIdentity (
- accountId INT,
- lastName VARCHAR(255),
- firstName VARCHAR(255),
- player VARCHAR(225),
- summonerName VARCHAR(225),
- summonerId VARCHAR(225),
- currentPlatformId VARCHAR(225),
- currentAccountId VARCHAR(225),
- matchHistoryUri VARCHAR(225),
+
+CREATE TABLE Summoner (
+ accountId VARCHAR(255),
+ summonerName VARCHAR(255),
+ currentPlatformId VARCHAR(255),
+ summonerId VARCHAR(255),
+ matchHistoryUri VARCHAR(255),
  profileIcon BIGINT,
- CONSTRAINT pk_ParticipantIdentity_accountId PRIMARY KEY (accountId)
+ teamStatsId VARCHAR(255),
+ CONSTRAINT pk_Summoner_accountId PRIMARY KEY (summonerName),
+ CONSTRAINT fk_Summoner_teamStatsId FOREIGN KEY (teamStatsId)
+ REFERENCES TeamStats(teamStatsId)
 );
 
 CREATE TABLE SummonerStats (
- summonerStatsId INT,
+ summonerStatsId VARCHAR(255),
  championId INT,
  spell1Id INT,
  spell2Id INT,
@@ -180,34 +197,34 @@ CREATE TABLE SummonerStats (
  kills INT,
  deaths INT,
  assists INT,
- totalDamageDealt INT,
- magicDamageDealt INT,
- physicalDamageDealt INT,
- trueDamageDealt INT,
- largestCriticalStrike INT,
- totalDamageDealtToChampions INT,
- magicDamageDealtToChampions INT,
- physicalDamageDealtToChampions INT,
- trueDamageDealtToChampions INT,
- totalHeal INT,
- totalUnitsHealed INT,
- damageSelfMitigated INT,
- damageDealtToObjectives INT,
- damageDealtToTurrets INT,
- visionScore  INT,
- timeCCingOthers INT,
- totalDamageTaken INT,
- magicalDamageTaken INT,
- physicalDamageTaken INT,
- trueDamageTaken INT,
- goldEarned INT,
- goldSpent INT,
- turretKills INT,
- totalMinionsKilled INT,
- neutralMinionsKilled INT,
- neutralMinionsKilledTeamJungle INT,
- neutralMinionsKilledEnemyJungle INT,
- totalTimeCrowdControlDealt INT,
+ totalDamageDealt BIGINT,
+ magicDamageDealt BIGINT,
+ physicalDamageDealt BIGINT,
+ trueDamageDealt BIGINT,
+ largestCriticalStrike BIGINT,
+ totalDamageDealtToChampions BIGINT,
+ magicDamageDealtToChampions BIGINT,
+ physicalDamageDealtToChampions BIGINT,
+ trueDamageDealtToChampions BIGINT,
+ totalHeal BIGINT,
+ totalUnitsHealed BIGINT,
+ damageSelfMitigated BIGINT,
+ damageDealtToObjectives BIGINT,
+ damageDealtToTurrets BIGINT,
+ visionScore BIGINT,
+ timeCCingOthers BIGINT,
+ totalDamageTaken BIGINT,
+ magicalDamageTaken BIGINT,
+ physicalDamageTaken BIGINT,
+ trueDamageTaken BIGINT,
+ goldEarned BIGINT,
+ goldSpent BIGINT,
+ turretKills BIGINT,
+ totalMinionsKilled BIGINT,
+ neutralMinionsKilled BIGINT,
+ neutralMinionsKilledTeamJungle BIGINT,
+ neutralMinionsKilledEnemyJungle BIGINT,
+ totalTimeCrowdControlDealt BIGINT,
  champLevel INT,
  visionWardsBoughtInGame INT,
  sightWardsBoughtInGame INT,
@@ -223,108 +240,45 @@ CREATE TABLE SummonerStats (
  objectivePlayerScore INT,
  totalPlayerScore INT,
  totalScoreRank INT,
- role ENUM ('FIGHTER', 'MAGE', 'ASSASSIN', 'TANK', 'MARKSMAN', 'SUPPORT'),
- lane ENUM ('TOP', 'MIDDLE', 'BOTTOM', 'SUPPORT'),
- perk0 INT,
- perk0Var1 INT,
- perk0Var2 INT,
- perk0Var3 INT,
- perk1 INT,
- perk1Var1 INT,
- perk1Var2 INT,
- perk1Var3 INT,
- perk2 INT,
- perk2Var1 INT,
- perk2Var2 INT,
- perk2Var3 INT,
- perk3 INT,
- perk3Var1 INT,
- perk3Var2 INT,
- perk3Var3 INT,
- perk4 INT,
- perk4Var1 INT,
- perk4Var2 INT,
- perk4Var3 INT,
- perk5 INT,
- perk5Var1 INT,
- perk5Var2 INT,
- perk5Var3 INT,
- perkPrimaryStyle INT,
- perkSubStyle INT,
- accountId INT,
- teamStatsId INT,
- CONSTRAINT pk_SummonerStats PRIMARY KEY (summonerStatsId),
- CONSTRAINT fk_SummonerStats_championId FOREIGN KEY (championId)
-  REFERENCES Champions (championId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_spell1Id FOREIGN KEY (spell1Id)
-  REFERENCES SummonerSpells (summonerSpellId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_spell2Id FOREIGN KEY (spell2Id)
-  REFERENCES SummonerSpells (summonerSpellId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
-CONSTRAINT fk_SummonerStats_itemId0 FOREIGN KEY (itemId0)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId1 FOREIGN KEY (itemId1)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId2 FOREIGN KEY (itemId2)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId3 FOREIGN KEY (itemId3)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId4 FOREIGN KEY (itemId4)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId5 FOREIGN KEY (itemId5)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_itemId6 FOREIGN KEY (itemId6)
-  REFERENCES Item (itemId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk0 FOREIGN KEY (perk0)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk1 FOREIGN KEY (perk1)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk2 FOREIGN KEY (perk2)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk3 FOREIGN KEY (perk3)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk4 FOREIGN KEY (perk4)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_perk5 FOREIGN KEY (perk5)
-  REFERENCES RuneData(runeId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_accountId FOREIGN KEY (accountId)
-  REFERENCES ParticipantIdentity(accountId)
-  ON UPDATE CASCADE ON DELETE SET NULL,
- CONSTRAINT fk_SummonerStats_teamStatsId FOREIGN KEY (teamStatsId)
-  REFERENCES TeamStats(teamStatsId)
-  ON UPDATE CASCADE ON DELETE CASCADE
+ role VARCHAR(255),
+ lane VARCHAR(255),
+ runeId0 INT,
+ runeId1 INT,
+ runeId2 INT,
+ runeId3 INT,
+ runeId4 INT,
+ runeId5 INT,
+ highestAchievedSeasonTier VARCHAR(255),
+ summonerName VARCHAR(255),
+ CONSTRAINT pk_summonerStats_summonerStatsId PRIMARY KEY (summonerStatsId),
+ CONSTRAINT fk_summonerStats_summonerName FOREIGN KEY (summonerName)
+ REFERENCES Summoner(summonerName)
 );
 
- USE LOL; 
+CREATE TABLE Users {
+ summonerName VARCHAR(225),
+ firstName VARCHAR(225),
+ lastName VARCHAR(225),
+ CONSTRAINT pk_Users_summonerName PRIMARY KEY (summonerName)
+}
 
+
+  LOAD DATA INFILE 'SummonerSpellTable.csv' INTO TABLE SummonerSpells
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES
+  (SummonerSpells.SummonerSpellId, SummonerSpells.name, SummonerSpells.description, SummonerSpells.spellRange,
+  SummonerSpells.cooldown, SummonerSpells.summonerLevel, SummonerSpells.ModesAvailable, SummonerSpells.imageFile,
+  SummonerSpells.spriteFile, SummonerSpells.spriteGroup, SummonerSpells.spriteX, SummonerSpells.spriteY,
+  SummonerSpells.spriteW, SummonerSpells.spriteH)
+  SET summonerSpellId = NULL;
+  
   LOAD DATA INFILE 'ItemStatTable.csv' INTO TABLE ItemStats
   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n'
   IGNORE 1 LINES
   (ItemStats.itemId, ItemStats.statName, ItemStats.value)
   SET itemStatsId = NULL;
-  
-  LOAD DATA INFILE 'SummonerSpellTable.csv' INTO TABLE SummonerSpells
-  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-  LINES TERMINATED BY '\r\n'
-  IGNORE 1 LINES
-  (SummonerSpells.SummonerSpellId, SummonerSpells.name, SummonerSpells.description, SummonerSpells.spellRange, SummonerSpells.cooldown, SummonerSpells.summonerLevel, SummonerSpells.ModesAvailable)
-  SET summonerSpellId = NULL;
   
   LOAD DATA INFILE 'ItemTable.csv' INTO TABLE Item
   FIELDS TERMINATED BY ',' ENCLOSED BY '"'

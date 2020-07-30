@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import lol.model.Game;
 
 public class GameDao {
@@ -63,8 +64,6 @@ public class GameDao {
     }
   }
   
-  
-  
   public Game create(Game game, Connection connection)
           throws SQLException {
     String insertGame = "INSERT IGNORE INTO Game(gameId, date, gameDuration, queueId, mapId, seasonId, " +
@@ -99,10 +98,6 @@ public class GameDao {
       }
     }
   }
-  
-  
-  
-  
   
   public Game delete(Game game) throws SQLException {
     String deleteGame = "DELETE FROM Game WHERE gameId=?;";
@@ -171,6 +166,5 @@ public class GameDao {
     }
     return null;
   }
-  
 }
 

@@ -8,17 +8,7 @@ public class Summoner {
 	private int profileIcon;
 	private String summonerId;
 	
-	public Summoner(String accountId, String summonerName, String currentPlatformId, String matchHistoryUri, 
-									int profileIcon) {
-		this.accountId = accountId;
-		this.summonerName = summonerName;
-		this.currentPlatformId = currentPlatformId;
-		this.matchHistoryUri = matchHistoryUri;
-		this.profileIcon = profileIcon;
-	}
-	
-	public Summoner(String accountId, String summonerName, String currentPlatformId, String summonerId, String matchHistoryUri, 
-			int profileIcon) {
+	public Summoner(String accountId, String summonerName, String currentPlatformId, String summonerId, String matchHistoryUri, int profileIcon) {
 			this.accountId = accountId;
 			this.summonerName = summonerName;
 			this.summonerId = summonerId;
@@ -26,7 +16,6 @@ public class Summoner {
 			this.matchHistoryUri = matchHistoryUri;
 			this.profileIcon = profileIcon;
 }
-	
 	public String getAccountId() {
 		return accountId;
 	}
@@ -74,5 +63,4 @@ public class Summoner {
 	public void setProfileIcon(int profileIcon) {
 		this.profileIcon = profileIcon;
 	}
-	
 }
