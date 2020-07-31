@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import lol.model.*;
 
@@ -121,16 +123,7 @@ public class SummonerSpellsDao {
 				selectStmt.setInt(1, id);
 				results = selectStmt.executeQuery();
 				if(results.next()) {
-					int summonerSpellId = results.getInt("SummonerSpellId");
-					String name = results.getString("Name");
-					String description = results.getString("Description");
-					int range = results.getInt("Range");
-					int coolDown = results.getInt("CoolDown");
-					int summonerLevel = results.getInt("SummonerLevel");
-					String modeAvailable = results.getString("ModeAvailable");
-					SummonerSpells summonerSpells = new SummonerSpells(summonerSpellId, name, 
-							description, range, coolDown, summonerLevel, modeAvailable);
-					return summonerSpells;
+					return parseSummonerSpellsFromResult(results);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -147,5 +140,97 @@ public class SummonerSpellsDao {
 				}
 			}
 			return null;
+	}
+	
+	private SummonerSpells parseSummonerSpellsFromResult(ResultSet results) throws SQLException {
+		int summonerSpellId = results.getInt("SummonerSpellId");
+		String name = results.getString("Name");
+		String description = results.getString("Description");
+		int range = results.getInt("spellRange");
+		int coolDown = results.getInt("CoolDown");
+		int summonerLevel = results.getInt("SummonerLevel");
+		String modeAvailable = results.getString("ModesAvailable");
+		String imageFile = results.getString("imageFile");
+		SummonerSpells summonerSpells = new SummonerSpells(summonerSpellId, name, 
+				description, range, coolDown, summonerLevel, modeAvailable);
+		summonerSpells.setImageFile(imageFile);
+		return summonerSpells;
+	}
+	
+	public List<SummonerSpells> getBestSummonerSpells(Champions champion) throws SQLException {
+		List<SummonerSpells> summonerSpellsList = new ArrayList<SummonerSpells>();
+		// TODO replace with query
+		String selectSummonerSpells ="SET @TARGET_CHAMPID = 222;" + 
+				"SELECT summonerSpells.*" + 
+				"FROM summonerSpells INNER JOIN(" + 
+				"	SELECT SummonerStats.championId, spell1Id, spell2Id, COUNT(*) AS CNT" + 
+				"	FROM SummonerStats INNER JOIN Team" + 
+				"	ON SummonerStats.teamId = Team.teamId" + 
+				"	WHERE Team.win = \"Win\" AND championId = @TARGET_CHAMPID" + 
+				"	GROUP BY spell1Id, spell2Id" + 
+				"	ORDER BY CNT desc" + 
+				"	LIMIT 1) AS S" + 
+				"ON summonerSpells.summonerSpellId = S.spell1ID OR summonerSpells.summonerSpellId = S.spell2ID;";
+
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectSummonerSpells);
+				// TODO replace with filter
+				//selectStmt.setInt(1, id);
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					summonerSpellsList.add(parseSummonerSpellsFromResult(results));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return summonerSpellsList;
+	}
+	
+	public List<SummonerSpells> getBestSummonerSpells(Users user) throws SQLException {
+		List<SummonerSpells> summonerSpellsList = new ArrayList<SummonerSpells>();
+		// TODO replace with query
+		String selectSummonerSpells ="SELECT * FROM SummonerSpells LIMIT 10;";
+
+			Connection connection = null;
+			PreparedStatement selectStmt = null;
+			ResultSet results = null;
+			try {
+				connection = connectionManager.getConnection();
+				selectStmt = connection.prepareStatement(selectSummonerSpells);
+				//selectStmt.setInt(1, id);
+				results = selectStmt.executeQuery();
+				while (results.next()) {
+					summonerSpellsList.add(parseSummonerSpellsFromResult(results));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if(connection != null) {
+					connection.close();
+				}
+				if(selectStmt != null) {
+					selectStmt.close();
+				}
+				if(results != null) {
+					results.close();
+				}
+			}
+			return summonerSpellsList;
 	}
 }

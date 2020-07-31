@@ -9,6 +9,7 @@ public class SummonerSpells {
 	private int coolDown;
 	private int summonerLevel;
 	private String modeAvailable;
+	private String imageFile;
 	
 	public SummonerSpells(int summonerSpellId, String name, String description, int range, int coolDown,
 			int summonerLevel, String modeAvailable) {
@@ -76,9 +77,12 @@ public class SummonerSpells {
 	public void setModeAvailable(String modeAvailable) {
 		this.modeAvailable = modeAvailable;
 	}
-	
-	
-	
-	
 
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
 }

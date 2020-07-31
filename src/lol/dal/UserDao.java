@@ -25,16 +25,19 @@ public class UserDao {
 	
 	public Users create(Users users) throws SQLException {
 		
-		String insertUser = "INSERT INTO Users(summonerName,firstName,lastName) VALUES(?,?,?);";
+		String insertUser = "INSERT INTO Users(userName,userPassword,email,accountId,firstName,lastName) VALUES(?,?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		
 		try {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertUser);
-			insertStmt.setString(1, users.getSummonerName());
-			insertStmt.setString(2, users.getFirstName());
-			insertStmt.setString(3, users.getLastName());
+			insertStmt.setString(1, users.getUsername());
+			insertStmt.setString(2, users.getPassword());
+			insertStmt.setString(3, users.getEmail());
+			insertStmt.setString(4, users.getSummoner().getAccountId());
+			insertStmt.setString(5, users.getFirstName());
+			insertStmt.setString(6, users.getLastName());
 			insertStmt.executeUpdate();
 			return users;
 			
@@ -52,19 +55,19 @@ public class UserDao {
 		
 	}
 	
-	public Users updateSummonerName(Users user, String newSummonerName) throws SQLException {
-		String updateUser = "UPDATE Users SET summonerName=? WHERE summonerName=?;";
+	public Users updateSummoner(Users user, Summoner summoner) throws SQLException {
+		String updateUser = "UPDATE Users SET accountId=? WHERE userName=?;";
 		Connection connection = null;
 		PreparedStatement updateStmt = null;
 		
 		try {
 			connection = connectionManager.getConnection();
 			updateStmt = connection.prepareStatement(updateUser);
-			updateStmt.setString(1,  newSummonerName);
-			updateStmt.setString(2,  user.getSummonerName());
+			updateStmt.setString(1,  summoner.getAccountId());
+			updateStmt.setString(2,  user.getUsername());
 			updateStmt.executeUpdate();
 			
-			user.setSummonerName(newSummonerName);
+			user.setSummoner(summoner);
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +84,7 @@ public class UserDao {
 	}
 	
 	public Users updateFirstName(Users user, String newFirstName) throws SQLException {
-		String updateUser = "UPDATE Users SET firstName=? WHERE summonerName=?;";
+		String updateUser = "UPDATE Users SET firstName=? WHERE userName=?;";
 		Connection connection = null;
 		PreparedStatement updateStmt = null;
 		
@@ -89,10 +92,10 @@ public class UserDao {
 			connection = connectionManager.getConnection();
 			updateStmt = connection.prepareStatement(updateUser);
 			updateStmt.setString(1,  newFirstName);
-			updateStmt.setString(2,  user.getSummonerName());
+			updateStmt.setString(2,  user.getUsername());
 			updateStmt.executeUpdate();
 			
-			user.setSummonerName(newFirstName);
+			user.setFirstName(newFirstName);
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,7 +112,7 @@ public class UserDao {
 	}
 	
 	public Users updateLastName(Users user, String newLastName) throws SQLException {
-		String updateUser = "UPDATE Users SET lastName=? WHERE UserName=?;";
+		String updateUser = "UPDATE Users SET lastName=? WHERE userName=?;";
 		Connection connection = null;
 		PreparedStatement updateStmt = null;
 		
@@ -117,10 +120,66 @@ public class UserDao {
 			connection = connectionManager.getConnection();
 			updateStmt = connection.prepareStatement(updateUser);
 			updateStmt.setString(1,  newLastName);
-			updateStmt.setString(2,  user.getSummonerName());
+			updateStmt.setString(2,  user.getUsername());
 			updateStmt.executeUpdate();
 			
-			user.setSummonerName(newLastName);
+			user.setLastName(newLastName);
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+			
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+			if (updateStmt != null) {
+				updateStmt.close();
+			}
+		}
+	}
+	
+	public Users updateEmail(Users user, String newEmail) throws SQLException {
+		String updateUser = "UPDATE Users SET email=? WHERE userName=?;";
+		Connection connection = null;
+		PreparedStatement updateStmt = null;
+		
+		try {
+			connection = connectionManager.getConnection();
+			updateStmt = connection.prepareStatement(updateUser);
+			updateStmt.setString(1,  newEmail);
+			updateStmt.setString(2,  user.getUsername());
+			updateStmt.executeUpdate();
+			
+			user.setEmail(newEmail);
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+			
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+			if (updateStmt != null) {
+				updateStmt.close();
+			}
+		}
+	}
+	
+	public Users updatePassword(Users user, String newPassword) throws SQLException {
+		String updateUser = "UPDATE Users SET userPassword=? WHERE userName=?;";
+		Connection connection = null;
+		PreparedStatement updateStmt = null;
+		
+		try {
+			connection = connectionManager.getConnection();
+			updateStmt = connection.prepareStatement(updateUser);
+			updateStmt.setString(1,  newPassword);
+			updateStmt.setString(2,  user.getUsername());
+			updateStmt.executeUpdate();
+			
+			user.setPassword(newPassword);
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -138,14 +197,14 @@ public class UserDao {
 	
 	public Users delete(Users user) throws SQLException {
 		
-		String deleteUser = "DELETE FROM Users WHERE summonerName=?;";
+		String deleteUser = "DELETE FROM Users WHERE userName=?;";
 		Connection connection = null;
 		PreparedStatement deleteStmt = null;
 		
 		try {
 			connection = connectionManager.getConnection();
 			deleteStmt = connection.prepareStatement(deleteUser);
-			deleteStmt.setString(1,  user.getSummonerName());
+			deleteStmt.setString(1,  user.getUsername());
 			deleteStmt.executeUpdate();
 			
 			return null;
@@ -162,22 +221,64 @@ public class UserDao {
 		}
 	}
 	
-	public Users getUserFromSummonerName(String summonerName) throws SQLException {
+	public Users getUserFromSummoner(Summoner summoner) throws SQLException {
 		
-		String selectUser = "SELECT summonerName,firstName,lastName FROM Users WHERE summonerName=?;";
+		String selectUser = "SELECT * FROM Users WHERE accountId=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectUser);
-			selectStmt.setString(1, summonerName);
+			selectStmt.setString(1, summoner.getAccountId());
 			results = selectStmt.executeQuery();
 			if(results.next()) {
-				String resultSummonerName = results.getString("summonerName");
+				String username = results.getString("userName");
+				String password = results.getString("userPassword");
+				String email = results.getString("email");
 				String firstName = results.getString("firstName");
 				String lastName = results.getString("lastName");
-				Users user = new Users(resultSummonerName, firstName, lastName);
+				Users user = new Users(summoner, username, password, firstName, lastName, email);
+				return user;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+	
+	public Users getUserFromUserName(String userName) throws SQLException {
+		
+		String selectUser = "SELECT * FROM Users WHERE userName=?;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		SummonerDao summonerDao = new SummonerDao();
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectUser);
+			selectStmt.setString(1, userName);
+			results = selectStmt.executeQuery();
+			if(results.next()) {
+				String accountId = results.getString("accountId");
+				String username = results.getString("userName");
+				String password = results.getString("userPassword");
+				String email = results.getString("email");
+				String firstName = results.getString("firstName");
+				String lastName = results.getString("lastName");
+				Summoner summoner = summonerDao.getSummonerFromAccountId(accountId);
+				Users user = new Users(summoner, username, password, firstName, lastName, email);
 				return user;
 			}
 		} catch (SQLException e) {
@@ -216,7 +317,6 @@ public class UserDao {
 				String matchHistoryUri = results.getString("matchHistoryUri");
 				int profileIcon = results.getInt("profileIcon");
 
-
 				return new Summoner(id, resultSummonerName, currentPlatformId, 
 						matchHistoryUri, profileIcon);
 			}
@@ -235,9 +335,6 @@ public class UserDao {
 			}
 		}
 		return null;
-		
-		
-		
 	}
 
 }

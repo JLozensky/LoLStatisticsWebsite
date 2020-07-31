@@ -20,7 +20,6 @@ CREATE TABLE ItemStats (
  value DECIMAL(8,4),
  CONSTRAINT pk_ItemStats_itemStatsId PRIMARY KEY (itemStatsId)
 );
-
 CREATE TABLE SummonerSpells (
  summonerSpellId INT AUTO_INCREMENT,
  name VARCHAR(255),
@@ -38,7 +37,6 @@ CREATE TABLE SummonerSpells (
  spriteH INT,
  CONSTRAINT pk_SummonerSpells_summonerSpellId PRIMARY KEY (summonerSpellId)
 );
-
 CREATE TABLE Item (
  itemId INT,
  name VARCHAR(255),
@@ -67,7 +65,6 @@ CREATE TABLE Item (
  spriteH INT,
  CONSTRAINT pk_Item_itemId_tags PRIMARY KEY (itemId, tags)
 );
- 
 CREATE TABLE RuneData (
  runeId INT,
  name VARCHAR(255),
@@ -127,7 +124,7 @@ CREATE TABLE Champions (
  attack INT,
  defense INT,
  magic INT,
- difficult INT,
+ difficulty INT,
  hp DECIMAL(8,4),
  hpPerLevel DECIMAL(8,4),
  mp INT,
@@ -157,7 +154,6 @@ CREATE TABLE Champions (
  spriteH INT,
  CONSTRAINT pk_Champions_championId PRIMARY KEY (championId)
 );
-
 CREATE TABLE ChampionAdvice (
  adviceId INT AUTO_INCREMENT,
  championId INT,
