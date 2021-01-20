@@ -144,6 +144,7 @@ public class ChampionsDao {
 	 * @throws SQLException
 	 */
 	public Champions getChampionFromID(int id) throws SQLException {
+
 		String selectChampion =	
 				"SELECT championId,name,title,lore,championRole1,championRole2,attack,t.minAttack, t.maxAttack,defense,t.minDefense,t.maxDefense,"
 				+ "magic,t.minMagic, t.maxMagic,difficult,t.minDifficulty, t.maxDifficulty,hp,t.minHp, t.maxHp,"
@@ -181,6 +182,7 @@ public class ChampionsDao {
 				+ "MIN(attackSpeedPerLevel) as minAttackSpeedPerLevel, MAX(attackSpeedPerLevel) as maxAttackSpeedPerLevel "
 				+ "FROM Champions) AS t "
 				+ "CROSS JOIN Champions WHERE championId=?;";
+
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
