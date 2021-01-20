@@ -84,14 +84,14 @@ public class SummonerDao {
   
   
   public Summoner updateSummonerName(Summoner summoner, String newSummonerName) throws SQLException {
-    String updateSummoner = "UPDATE Summoner SET summonerName=? WHERE summonerName=?;";
+    String updateSummoner = "UPDATE Summoner SET summonerName=? WHERE accountId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(updateSummoner);
       selectStmt.setString(1, newSummonerName);
-      selectStmt.setString(2, summoner.getSummonerName());
+      selectStmt.setString(2, summoner.getAccountId());
       selectStmt.executeQuery();
 
       summoner.setSummonerName(newSummonerName);
@@ -112,13 +112,13 @@ public class SummonerDao {
   
   
   public Summoner delete(Summoner summoner) throws SQLException {
-    String deleteSummoner = "DELETE FROM Summoner WHERE SummonerName=?;";
+    String deleteSummoner = "DELETE FROM Summoner WHERE accountId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
       connection = connectionManager.getConnection();
       deleteStmt = connection.prepareStatement(deleteSummoner);
-      deleteStmt.setString(1, summoner.getSummonerName());
+      deleteStmt.setString(1, summoner.getAccountId());
       deleteStmt.executeUpdate();
 
       return null;
@@ -138,8 +138,7 @@ public class SummonerDao {
   
   public Summoner getSummonerFromSummonerName(String SummonerName) throws SQLException {
     String selectSummoner = "SELECT accountId, summonerName, currentPlatformId, matchHistoryUri, " +
-            "profileIcon, teamId FROM Summoner WHERE summonerName=?;";
-    
+            "profileIcon FROM Summoner WHERE summonerName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -149,6 +148,7 @@ public class SummonerDao {
       selectStmt = connection.prepareStatement(selectSummoner);
       selectStmt.setString(1, SummonerName);
       results = selectStmt.executeQuery();
+
       TeamDao teamDao = TeamDao.getInstance();
       
       if (results.next()) {
@@ -157,7 +157,7 @@ public class SummonerDao {
         String currentPlatformId = results.getString("currentPlatformId");
         String matchHistoryUri = results.getString("matchHistoryUri");
         int profileIcon = results.getInt("profileIcon");
-        
+
         return new Summoner(accountId, ResultSummonerName, currentPlatformId, matchHistoryUri, 
                 profileIcon);
       }
@@ -177,6 +177,46 @@ public class SummonerDao {
     }
     return null;
   }
+  
+  public Summoner getSummonerFromAccountId(String accountId) throws SQLException {
+	    String selectSummoner = "SELECT accountId, summonerName, currentPlatformId, matchHistoryUri, " +
+	            "profileIcon FROM Summoner WHERE accountId=?;";
+	    Connection connection = null;
+	    PreparedStatement selectStmt = null;
+	    ResultSet results = null;
+	    
+	    try {
+	      connection = connectionManager.getConnection();
+	      selectStmt = connection.prepareStatement(selectSummoner);
+	      selectStmt.setString(1, accountId);
+	      results = selectStmt.executeQuery();
+	      
+	      if (results.next()) {
+	        String resultAccountId = results.getString("accountId");
+	        String ResultSummonerName = results.getString("summonerName");
+	        String currentPlatformId = results.getString("currentPlatformId");
+	        String matchHistoryUri = results.getString("matchHistoryUri");
+	        int profileIcon = results.getInt("profileIcon");
+	        
+	        return new Summoner(resultAccountId, ResultSummonerName, currentPlatformId, matchHistoryUri, 
+	                profileIcon);
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      throw e;
+	    } finally {
+	      if(connection != null) {
+	        connection.close();
+	      }
+	      if(selectStmt != null) {
+	        selectStmt.close();
+	      }
+	      if(results != null) {
+	        results.close();
+	      }
+	    }
+	    return null;
+	  }
 }
   
   

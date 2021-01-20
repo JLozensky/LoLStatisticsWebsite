@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/userdelete")
 public class UserDelete extends HttpServlet {
@@ -31,7 +32,22 @@ public class UserDelete extends HttpServlet {
 		// Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-        //Just render the JSP.   
+        
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
+        if (username == null || username.trim().isEmpty()) {
+        	messages.put("loggedIn", "false");
+        } else {
+            messages.put("loggedIn", "true");
+            try {
+	        	Users user = userDao.getUserFromUserName(username);
+	        	req.setAttribute("user", user);
+	        } catch (SQLException e) {
+				e.printStackTrace();
+				throw new IOException(e);
+	        }
+        }
+        
         req.getRequestDispatcher("/UserDelete.jsp").forward(req, resp);
 	}
 	
@@ -41,29 +57,34 @@ public class UserDelete extends HttpServlet {
         // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
+    	messages.put("loggedIn", "false");
+        messages.put("submitted", "true");
 
-        // Retrieve and validate name.
-        String sn = req.getParameter("summonername");
-        if (sn == null || sn.trim().isEmpty()) {
-            messages.put("title", "Invalid summoner name");
-            messages.put("disableSubmit", "true");
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
+        if (username == null || username.trim().isEmpty()) {
+        	messages.put("error", "You're not logged in!");
+        	messages.put("showError", "true");
         } else {
-        	Users user = new Users(sn);
 	        try {
+	        	messages.put("showResult", "true");
+	        	Users user = userDao.getUserFromUserName(username);
 	        	user = userDao.delete(user);
 	        	// Update the message.
 		        if (user == null) {
-		            messages.put("title", "Successfully deleted " + sn);
-		            messages.put("disableSubmit", "true");
+		            messages.put("result", "Successfully deleted " + username);
+		            messages.put("resultType", "alert-success");
+		            session.invalidate();
 		        } else {
-		        	messages.put("title", "Failed to delete " + sn);
-		        	messages.put("disableSubmit", "false");
+		        	messages.put("result", "An error occurred while trying to delete " + username);
+		        	messages.put("resultType", "alert-danger");
 		        }
 	        } catch (SQLException e) {
 				e.printStackTrace();
 				throw new IOException(e);
 	        }
         }
+
         
         req.getRequestDispatcher("/UserDelete.jsp").forward(req, resp);
     }

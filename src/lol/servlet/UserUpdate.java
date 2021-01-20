@@ -13,16 +13,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/userupdate")
 public class UserUpdate extends HttpServlet {
 	
 	protected UserDao userDao;
+	protected SummonerDao summonerDao;
 	
 	@Override
 	public void init() throws ServletException {
 		userDao = UserDao.getInstance();
+		summonerDao = SummonerDao.getInstance();
 	}
 	
 	@Override
@@ -32,21 +35,21 @@ public class UserUpdate extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        // Retrieve user and validate.
-        String sn = req.getParameter("summonername");
-        if (sn == null || sn.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid summoner name.");
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
+        if (username == null || username.trim().isEmpty()) {
+        	messages.put("result", "You're not logged in!");
+        	messages.put("showError", "true");
         } else {
+        	// Retrieve , and store as a message.
         	try {
-        		Users user = userDao.getUserFromSummonerName(sn);
-        		if(user == null) {
-        			messages.put("success", "User does not exist.");
-        		}
-        		req.setAttribute("User", user);
-        	} catch (SQLException e) {
-				e.printStackTrace();
-				throw new IOException(e);
-	        }
+        		
+            	Users user = userDao.getUserFromUserName(username);
+            	req.setAttribute("user", user);
+            } catch (SQLException e) {
+    			e.printStackTrace();
+    			throw new IOException(e);
+            }
         }
         
         req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
@@ -59,44 +62,51 @@ public class UserUpdate extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        // Retrieve user and validate.
-        String sn = req.getParameter("summonername");
-        if (sn == null || sn.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid summoner name.");
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
+        if (username == null || username.trim().isEmpty()) {
+        	messages.put("result", "You're not logged in!");
+        	messages.put("showError", "true");
         } else {
+        	// Retrieve , and store as a message.
+        	
         	try {
-        		Users user = userDao.getUserFromSummonerName(sn);
-        		if(user == null) {
-        			messages.put("success", "User does not exist. No update to perform.");
-        		} else {
-        			String newLastName = req.getParameter("lastname");
-        			String newSummonerName = req.getParameter("summonername");
-        			String newFirstName = req.getParameter("firstname");
-        			
-        			if (newLastName == null || newLastName.trim().isEmpty()) {
-        	            messages.put("success", "Please enter a valid last name.");
-        	        } else if (newSummonerName == null || newSummonerName.trim().isEmpty()) {
-        	        	messages.put("success", "Please enter a valid summoner name.");
-        	        } else if (newFirstName == null || newFirstName.trim().isEmpty()) {
-        	        	messages.put("success", "Please enter a valid first name.");
-        	        	
-        	        } else {
-        	        	
-        	        	user = userDao.updateLastName(user, newLastName);
-        	        	user = userDao.updateSummonerName(user, newSummonerName);
-        	        	user = userDao.updateFirstName(user, newFirstName);
-        	        	messages.put("success", "Successfully updated " + sn);
-        	        	
-        	        }
+    			Users user = userDao.getUserFromUserName(username);
+
+        		messages.put("showResult", "true");
         		
+            	String newLastName = req.getParameter("lastname");
+    			String newSummonerName = req.getParameter("summonername");
+    			String newFirstName = req.getParameter("firstname");
+    			String newPassword = req.getParameter("password");
+    			String newEmail = req.getParameter("email");
+    			
+        		// check that the new summoner name is valid
+        		Summoner summoner = summonerDao.getSummonerFromSummonerName(newSummonerName);
+        		if (summoner == null) {
+        			messages.put("resultType", "alert-danger");
+        			messages.put("result", "The specified summoner does not exist!");
+        		} else {
+        			
+        			user = userDao.updateLastName(user, newLastName);
+    	        	user = userDao.updateSummoner(user, summoner);
+    	        	user = userDao.updateFirstName(user, newFirstName);
+    	        	user = userDao.updateEmail(user, newEmail);
+    	        	user = userDao.updatePassword(user, newPassword);
+        			messages.put("resultType", "alert-success");
+        			messages.put("result", "Successfully updated");
 
         		}
-        		req.setAttribute("user", user);
-        	} catch (SQLException e) {
-				e.printStackTrace();
-				throw new IOException(e);
-	        }
+            	req.setAttribute("user", user);
+
+            	
+            } catch (SQLException e) {
+    			e.printStackTrace();
+    			throw new IOException(e);
+            }
         }
+        
+       
         
         req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
     }

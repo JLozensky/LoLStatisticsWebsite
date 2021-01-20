@@ -64,3 +64,4 @@ public class Summoner {
 		this.profileIcon = profileIcon;
 	}
 }
+

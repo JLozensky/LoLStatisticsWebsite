@@ -1,5 +1,7 @@
 package lol.model;
 
+import java.util.List;
+
 public class Item {
 	
 	private int itemId;
@@ -20,6 +22,8 @@ public class Item {
 	private boolean inStore;
 	private String requiredChampion;
 	private String requiredAlly;
+	private String imageFile;
+	private List<String> tagList;
 	
 	public Item(int itemId, String name, String description, String plainTextDesc, String baseCost, boolean purchasable,
 			int totalCost, int sellPrice, String tags, boolean map11, boolean map12, boolean map22, int depth,
@@ -186,6 +190,22 @@ public class Item {
 
 	public void setRequiredAlly(String requiredAlly) {
 		this.requiredAlly = requiredAlly;
+	}
+
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
+
+	public List<String> getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(List<String> tagList) {
+		this.tagList = tagList;
 	}
 	
 	

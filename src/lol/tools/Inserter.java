@@ -144,8 +144,10 @@ public class Inserter {
           String matchHistoryUri = player.get("matchHistoryUri") == null ? null : String.valueOf(player.get("matchHistoryUri"));
           int profileIcon = player.get("profileIcon") == null ? 0 : ((Long) player.get("profileIcon")).intValue();
 
+
           summoner = new Summoner(accountId, summonerName, currentPlatformId, summonerId, matchHistoryUri, 
                   profileIcon);
+
           summoner = summonerDao.create(summoner, connection3);
           summonerList.add(summoner);
           index++;

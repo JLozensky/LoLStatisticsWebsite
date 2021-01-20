@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-import lol.model.Game;
-import lol.model.Team;
+import lol.model.*;
 
 public class TeamDao {
   protected ConnectionManager connectionManager;
