@@ -37,7 +37,7 @@ public class Inserter {
     Connection connection4 = null;    
     
 
-    String path = "C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json";
+    String path = ""; // path to files here
     PathReader fr = new PathReader();
     // Obtain a list of file path
     List<File> fileList = fr.pathReader(path);
@@ -49,7 +49,7 @@ public class Inserter {
       connection3 = connectionMgr3.getConnection();
       connection4 = connectionMgr4.getConnection();
       for (File f : fileList) {
-        if(f.getPath().equals("C:\\Users\\exant\\Desktop\\NE_Docs\\5200_DBMS\\TeamProject\\match_json\\match_json\\.DS_Store")) {
+        if(f.getPath().equals("")) { // same path here
           continue;
         }
         // Initialization
